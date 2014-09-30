@@ -1,0 +1,229 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    height: 100%;
+}
+.margin-0{
+    margin: auto !important;
+}
+.padding-0{
+    padding-left: 0 ;
+    padding-right: 0 ;
+}
+.container-header{
+    width: 100%;
+    background: #333E48;
+    display: table;
+    height: 46px;
+    border-top: 4px solid #00AE8D;
+    border-bottom: 2px solid #00AE8D;
+}
+.row-header{
+    width: 78%;
+    display: table-cell;
+    vertical-align: middle;
+}
+.col-email{
+}
+.email-icono, .phone-icono{
+    height: 40px;
+    width: 34px;
+    background: #00AE8D;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.logo{
+    display: block;
+    margin-top: 8px;
+}
+.mail-label, .phone-label{
+    position: absolute;
+    top: 12px;
+    left: 70px;
+    color: #ffffff;
+}
+.container-nav{
+    width: 100%;
+    background: rgba(218,219,220, 0.7);
+    display: table;
+    height: 44px;
+    position: absolute;
+    z-index: 1;
+}
+.row-nav{
+    width: 78%;
+    display: table-cell;
+    vertical-align: middle;
+}
+.ul-nav{
+    float: inherit !important;
+    text-align: center;
+}
+
+.ul-nav>li{
+    float: inherit !important;
+    display: inline-block;
+}
+.menu-nav{
+    background: none;
+    border: none;
+    margin-bottom: 0;
+}
+
+.ul-nav>li a{
+    color: #333E48 !important;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    -ms-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+    -webkit-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+.ul-nav>li a:hover{
+    color: #00AE8D !important;
+    -ms-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    -webkit-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+.ul-nav>li.open ul.dropdown-menu{
+    background:  rgba(57,64,73, 0.7);
+    border-top: 3px solid #00AE8D;
+    margin-top: 3px;
+}
+
+.ul-nav>li.open ul.dropdown-menu li a{
+    color: #ffffff !important;
+    text-transform: inherit;
+    font-weight: normal;
+    border-bottom: 1px solid #00AE8D;
+    margin: 0px 5px;
+    padding: 8px 20px;
+}
+
+.ul-nav>li.open ul.dropdown-menu li:last-child a{
+    border-bottom: none;
+}
+
+.ul-nav>li.open ul.dropdown-menu li a:hover{
+    color: #00AE8D !important;
+    background: none;
+}
+
+.container-footer{
+    width: 100%;
+    background: #00AE8D;
+    display: table;
+    height: 56px;
+    border-top: 5px solid #333E48;
+}
+.row-footer{
+    width: 78%;
+    display: table-cell;
+    vertical-align: middle;
+}
+.derechos-left{
+    color: #ffffff;
+    text-align: left;
+    font-size: 11px;
+    line-height: 4;
+}
+
+.derechos-right{
+    color: #ffffff;
+    text-align: right;
+    font-size: 11px;
+    line-height: 4;
+}
+
+.container-banner{
+    width: 100%;
+    height: 50%;
+    display: table;
+    border-bottom: 5px solid #00AE8D;
+    background: url("../img/foto_banner.jpg") no-repeat;
+    background-size: cover;
+    background-position: center 60%;
+}
+
+.row-banner{
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.banner-imagen{
+    width: 100%;
+}
+
+.container-intro{
+     width: 100%;
+    display: table;
+    background: #ffffff;
+}
+
+
+
+.row-intro{
+    width: 60%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 30px 0px;
+    padding-bottom: 10px;
+}
+
+
+
+.col-intro h2{
+   color: #00AE8D;
+    font-size: 28px;
+}
+
+.col-intro p{
+    font-size: 14px;
+}
+
+.row-intro2{
+    padding-bottom: 0px !important;
+    margin-bottom: 20px;
+    padding-top: 0px;
+}
+
+.col-intro2 h2{
+    margin-bottom: 20px;
+}
+
+.col-mod{
+    padding-right: 30px;
+}
+
+
+.banner-inicio{
+    background: red;
+    width: 100%;
+    height: 50%;
+}
+
+.paginadores{
+    cursor: pointer;
+    text-align: center;
+}
+.paginadores i{
+    color: #333e48;
+}
+
+.navbar-nav>li>a {
+    padding-top: 11px !important;
+    padding-bottom: 11px !important;
+}
+.navbar{
+    min-height: 42px;
+}

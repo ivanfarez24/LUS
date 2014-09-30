@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title></title>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="ckeditor.js"></script>
+	<script src="adapters/jquery.js"></script>
+	<link href="samples/sample.css" rel="stylesheet">
+	<script type="text/javascript">
+		$( document ).ready( function() {
+			$( 'textarea#editor' ).ckeditor();
+		} );
+	</script>
+</head>
+<body>
+	<textarea id="editor">
+	</textarea>
+</body>
+</html>
+from pinguino.settings import *
+class CommonMedia:
+  js = (
+    STATIC_URL+'js/consulta_editor.js',
+  )
+
+  class ModuloConsulta(admin.ModelAdmin):
+
+
+  admin.site.register(Consulta, ModuloConsulta, Media=CommonMedia)

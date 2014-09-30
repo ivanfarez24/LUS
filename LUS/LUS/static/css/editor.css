@@ -1,0 +1,18 @@
+.cke_inner{
+    padding-left: 110px !important;
+}
+
+.cke_inner .cke_wysiwyg_frame {
+    border-left: 2px solid silver;
+}
+
+#cke_id_concepto{
+    width: 100%;
+}
+
+.cke_chrome{
+    border: 0px !important;
+    -webkit-box-shadow:none !important;
+    box-shadow:none !important;
+}
+
