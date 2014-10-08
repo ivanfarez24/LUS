@@ -10,13 +10,18 @@ __author__ = 'Ivan'
 def nombre_unicode(self):
     return u'%s' % self.nombre
 
+
+def descripcion_unicode(self):
+    return u'%s' % self.descripcion
+
 ModuloTexto.__unicode__ = nombre_unicode
 Menu.__unicode__ = nombre_unicode
-#SubMenu.__unicode__ = nombre_unicode
 Sexo.__unicode__ = nombre_unicode
 Estado_civil.__unicode__ = nombre_unicode
 Permiso.__unicode__ = nombre_unicode
 Grupo.__unicode__ = nombre_unicode
+Leccion.__unicode__ = nombre_unicode
+Preguntas.__unicode__ = descripcion_unicode
 
 
 class CommonMedia:
@@ -50,21 +55,6 @@ class AdminMenu(admin.ModelAdmin):
     fields = ["nombre", 'imagen', 'url', 'orden', 'estado']
     list_display = ["nombre", 'imagen', 'url', 'orden', 'estado']
     search_fields = ["nombre", 'imagen', 'url', 'orden', 'estado']
-
-    def save_model(self, request, obj, form, change):
-        if not obj.usuario_creacion:
-            obj.usuario_creacion = request.user.username
-        obj.usuario_actualizacion = request.user.username
-        if not obj.fecha_creacion:
-            obj.fecha_creacion = datetime.datetime.now()
-        obj.fecha_actualizacion = datetime.datetime.now()
-        obj.save()
-
-
-class AdminSubMenu(admin.ModelAdmin):
-    fields = ['nombre', 'menu', 'imagen', 'url', 'name_url', 'estado']
-    list_display = ['nombre', 'menu', 'imagen', 'url', 'name_url', 'estado']
-    search_fields = ['nombre', 'menu', 'imagen', 'url', 'name_url', 'estado']
 
     def save_model(self, request, obj, form, change):
         if not obj.usuario_creacion:
@@ -157,11 +147,49 @@ class AdminPersona(admin.ModelAdmin):
         obj.fecha_actualizacion = datetime.datetime.now()
         obj.save()
 
+
+class AdminLeccion(admin.ModelAdmin):
+    exclude = ('usuario_creacion', 'usuario_actualizacion',
+                'fecha_creacion', 'fecha_actualizacion')
+
+    list_display = ['id', 'nombre']
+    search_fields = ['id', 'nombre']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.usuario_creacion:
+            obj.usuario_creacion = request.user.username
+        obj.usuario_actualizacion = request.user.username
+        if not obj.fecha_creacion:
+            obj.fecha_creacion = datetime.datetime.now()
+        obj.fecha_actualizacion = datetime.datetime.now()
+        obj.save()
+
+
+class AdminPreguntas(admin.ModelAdmin):
+    exclude = ('usuario_creacion', 'usuario_actualizacion',
+                'fecha_creacion', 'fecha_actualizacion')
+
+    #filter_horizontal = ('respuestas',)
+
+    list_display = ['id', 'leccion', 'descripcion']
+    search_fields = ['id', 'leccion', 'descripcion']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.usuario_creacion:
+            obj.usuario_creacion = request.user.username
+        obj.usuario_actualizacion = request.user.username
+        if not obj.fecha_creacion:
+            obj.fecha_creacion = datetime.datetime.now()
+        obj.fecha_actualizacion = datetime.datetime.now()
+        obj.save()
+
+
 admin.site.register(ModuloTexto, AdminModuloTexto, Media=CommonMedia)
 admin.site.register(Menu, AdminMenu)
-#admin.site.register(SubMenu, AdminSubMenu)
 admin.site.register(Sexo, AdminSexo)
 admin.site.register(Estado_civil, AdminEstadoCivil)
 admin.site.register(Permiso, AdminPermiso)
 admin.site.register(Grupo, AdminGrupo)
 admin.site.register(Persona, AdminPersona)
+admin.site.register(Leccion, AdminLeccion)
+#admin.site.register(Preguntas, AdminPreguntas)

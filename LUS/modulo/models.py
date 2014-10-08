@@ -14,9 +14,9 @@ class ModuloTexto(models.Model):
     texto = models.TextField()
 
     estado = models.BooleanField(default=True)
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_actualizacion = models.CharField(max_length=60)
 
     class Meta():
@@ -36,9 +36,9 @@ class Menu(models.Model):
 
 
     estado = models.BooleanField(default=True)
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date(), null=True, blank=True)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
@@ -59,9 +59,9 @@ class Sexo(models.Model):
     nombre = models.CharField(max_length=220)
 
     estado = models.BooleanField(default=True)
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date(), null=True, blank=True)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
@@ -75,9 +75,9 @@ class Estado_civil(models.Model):
     nombre = models.CharField(max_length=220)
 
     estado = models.BooleanField(default=True)
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date(), null=True, blank=True)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
@@ -90,12 +90,12 @@ class Permiso(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=220)
     descripcion = models.CharField(max_length=500, null=True, blank=True)
-    app = models.ForeignKey(SubMenu)
+    app = models.ForeignKey(Menu)
 
     estado = models.BooleanField(default=True)
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date(), null=True, blank=True)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
@@ -110,9 +110,9 @@ class Grupo(models.Model):
     permisos = models.ManyToManyField(Permiso)
 
     estado = models.BooleanField(default=True)
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date(), null=True, blank=True)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
@@ -134,9 +134,9 @@ class Persona(User):
     telefono = models.CharField(max_length=20, null=True, blank=True)
     celular = models.CharField(max_length=20, null=True, blank=True)
 
-    fecha_creacion = models.DateField(default=datetime.datetime.now().date())
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
-    fecha_actualizacion = models.DateField(default=datetime.datetime.now().date(), null=True, blank=True)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
@@ -145,10 +145,55 @@ class Persona(User):
         verbose_name_plural = "Personas"
 
 
-
 class Leccion(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=220)
 
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "leccion"
+        verbose_name = "Lección"
+        verbose_name_plural = "Lecciones"
+
+
 class Preguntas(models.Model):
-    pass
+    id = models.AutoField(primary_key=True)
+    leccion = models.ForeignKey(Leccion)
+    descipcion = models.TextField()
+
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "preguntas"
+        verbose_name = "Pregunta"
+        verbose_name_plural = "Preguntas"
+
+
+class Respuestas(models.Model):
+    """
+     La clase respuesta tiene la puntuación de cada pregunta, si la puntuación es cero
+     es una respuesta incoreecta
+    """
+    id = models.AutoField(primary_key=True)
+    preguntas = models.ForeignKey(Preguntas)
+    nombre = models.CharField(max_length=220)
+    puntuacion = models.FloatField(default=0)
+
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "respuestas"
+        verbose_name = "Respuesta"
+        verbose_name_plural = "Respuestas"
+
+
