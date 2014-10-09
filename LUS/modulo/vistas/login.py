@@ -15,9 +15,44 @@ import operator
 from django.db.models import F
 from django.forms.formsets import formset_factory
 from modulo.formularios.login.loginform import *
+from django.contrib.auth import login, authenticate, logout
 
 
-def login(request):
-    loginform = Loginform()
-    return render_to_response("login/login.html",
-        {'form': loginform }, context_instance=RequestContext(request))
+def login_view(request):
+    if request.user.is_authenticated() == False:
+        siguiente = request.GET.get("next", "")
+        if request.method == "POST":
+            form = Loginform(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password"]
+                siguiente = form.cleaned_data["next"]
+                user = authenticate(username=username, password=password, is_active=True)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+
+                        if siguiente != "":
+                            return HttpResponseRedirect(siguiente)
+                        else:
+                            return HttpResponseRedirect(reverse("administracion"))
+                    else:
+                        messages.info(request, u"El usuario está inactivo comunicarse con el administrador del sistema")
+                        return HttpResponseRedirect(reverse("login"))
+                else:
+                    messages.error(request, u"Ha ingresado un usuario o contraseña incorrecta")
+                    return HttpResponseRedirect(reverse("login"))
+            else:
+                form = Loginform(initial={"next": siguiente})
+                messages.error(request, u"Por favor para iniciar sesión debe ingresar su usuario y su clave.")
+                return render_to_response("login/login.html", {"form": form},context_instance=RequestContext(request))
+        else:
+            form = Loginform(initial={"next": siguiente})
+            return render_to_response("login/login.html", {"form": form},context_instance=RequestContext(request))
+    else:
+        return HttpResponseRedirect(reverse("administracion"))
+
+def salir(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("login"))
+

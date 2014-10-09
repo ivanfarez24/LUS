@@ -3,6 +3,7 @@
 from django.contrib import admin
 from LUS.settings import *
 from modulo.models import *
+from django.forms.models import BaseInlineFormSet
 
 __author__ = 'Ivan'
 
@@ -34,6 +35,20 @@ class CommonMedia:
   css = {
     'all': (STATIC_URL + 'css/editor.css',)
   }
+
+
+class ModuloInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super(ModuloInlineFormSet, self).clean()
+
+        for form in self.forms:
+            if not form.is_valid():
+                return #other errors exist, so don't bother
+            if form.cleaned_data.get('DELETE'):
+                pass
+                # Hacer el borrado de la tabla grupo_permisos y
+                # de la tabla persona permisos
+                # Cojiendo los datos de la base del cliente
 
 
 class AdminModuloTexto(admin.ModelAdmin):
@@ -148,9 +163,18 @@ class AdminPersona(admin.ModelAdmin):
         obj.save()
 
 
+class PreguntasInline(admin.TabularInline):
+    model = Preguntas
+    extra = 2
+    formset = ModuloInlineFormSet
+    exclude = ["fecha_actualizacion", "usuario_actualizacion", "fecha_creacion", "usuario_creacion"]
+
+
 class AdminLeccion(admin.ModelAdmin):
     exclude = ('usuario_creacion', 'usuario_actualizacion',
                 'fecha_creacion', 'fecha_actualizacion')
+
+    inlines = (PreguntasInline,)
 
     list_display = ['id', 'nombre']
     search_fields = ['id', 'nombre']
@@ -165,14 +189,21 @@ class AdminLeccion(admin.ModelAdmin):
         obj.save()
 
 
+class RespuestasInline(admin.TabularInline):
+    model = Respuestas
+    extra = 2
+    formset = ModuloInlineFormSet
+    exclude = ["fecha_actualizacion", "usuario_actualizacion", "fecha_creacion", "usuario_creacion"]
+
+
 class AdminPreguntas(admin.ModelAdmin):
     exclude = ('usuario_creacion', 'usuario_actualizacion',
                 'fecha_creacion', 'fecha_actualizacion')
 
-    #filter_horizontal = ('respuestas',)
+    inlines = (RespuestasInline,)
 
-    list_display = ['id', 'leccion', 'descripcion']
-    search_fields = ['id', 'leccion', 'descripcion']
+    list_display = ['id', 'descripcion', 'leccion']
+    search_fields = ['id', 'descripcion', 'leccion']
 
     def save_model(self, request, obj, form, change):
         if not obj.usuario_creacion:
@@ -192,4 +223,4 @@ admin.site.register(Permiso, AdminPermiso)
 admin.site.register(Grupo, AdminGrupo)
 admin.site.register(Persona, AdminPersona)
 admin.site.register(Leccion, AdminLeccion)
-#admin.site.register(Preguntas, AdminPreguntas)
+admin.site.register(Preguntas, AdminPreguntas)

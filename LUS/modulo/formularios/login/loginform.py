@@ -21,7 +21,7 @@ from django import forms
 
 class Loginform(forms.Form):
     usuario = forms.CharField(max_length=30)
-    contrasenia = forms.CharField(max_length=50)
+    contrasenia = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Clave")
 
 
     def get_user(self):

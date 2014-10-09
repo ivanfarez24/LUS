@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load snnipet_generales %}
+{% block title %}LUS | Lecciones{% endblock %}
+
+{% block stylesheet %}
+    <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-leccion">
+        <form>
+            <h3>{{ leccion.nombre }}</h3>
+            <section>
+                {% for obj in leccion.get_preguntas %}
+                    <div>
+                        <label>{{ obj.descripcion }}</label>
+                    </div>
+                    <ul>
+                        {% for obj_resp in obj.get_respuestas %}
+                            <li><input type="checkbox" name="{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </section>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block bootstrap %}
+
+{% endblock %}

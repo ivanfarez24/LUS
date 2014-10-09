@@ -149,6 +149,10 @@ class Leccion(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=220)
 
+    numero = models.IntegerField(default=0)
+    col_rep = models.CharField(max_length=250, null=True, blank=True)
+    col_rep2 = models.CharField(max_length=250, null=True, blank=True)
+
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
     fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
@@ -159,11 +163,22 @@ class Leccion(models.Model):
         verbose_name = "Lección"
         verbose_name_plural = "Lecciones"
 
+    def get_preguntas(self):
+        """
+        Obtiene las preguntas de cada lección
+        :return:
+        """
+        return Preguntas.objects.filter(leccion=self).order_by('numero')
+
 
 class Preguntas(models.Model):
     id = models.AutoField(primary_key=True)
     leccion = models.ForeignKey(Leccion)
-    descipcion = models.TextField()
+    descripcion = models.TextField()
+
+    numero = models.IntegerField(default=0)
+    col_rep = models.CharField(max_length=250, null=True, blank=True)
+    col_rep2 = models.CharField(max_length=250, null=True, blank=True)
 
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
@@ -175,6 +190,13 @@ class Preguntas(models.Model):
         verbose_name = "Pregunta"
         verbose_name_plural = "Preguntas"
 
+    def get_respuestas(self):
+        """
+        Obtiene las respuestas de cada pregunta
+        :return:
+        """
+        return Respuestas.objects.filter(preguntas=self).order_by('numero')
+
 
 class Respuestas(models.Model):
     """
@@ -185,6 +207,9 @@ class Respuestas(models.Model):
     preguntas = models.ForeignKey(Preguntas)
     nombre = models.CharField(max_length=220)
     puntuacion = models.FloatField(default=0)
+    numero = models.IntegerField(default=0)
+    col_rep = models.CharField(max_length=250, null=True, blank=True)
+    col_rep2 = models.CharField(max_length=250, null=True, blank=True)
 
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)
