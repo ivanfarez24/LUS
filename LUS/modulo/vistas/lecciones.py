@@ -17,10 +17,35 @@ import operator
 from django.db.models import F
 from django.forms.formsets import formset_factory
 
-
+@csrf_exempt
 def leccion(request, id):
+    cont = 0  # Cuenta la puntuación total de la lección
+    lista_ids_resp_correc = []  # Listas de los ids de las resp correctas
+    lista_ids_resp_inco = []  # Listas de los ids de las resp correctas
     try:
         leccion = Leccion.objects.get(id=id)
-    except:
+        if request.method == "POST":
+            for obj in leccion.get_preguntas():
+                for obj_res in obj.get_respuestas():
+                    resp = request.POST.get(str(obj.id)+"-"+str(obj_res.id))
+                    if resp is not None:
+                        if obj_res.puntuacion > 0:
+                            cont += 1
+                            lista_ids_resp_correc.append(obj_res.id)
+                        else:
+                            lista_ids_resp_inco.append(obj_res.id)
+
+        return render_to_response("lecciones/leccion.html",
+                                  {"leccion": leccion,
+                                   "lista_correcta": lista_ids_resp_correc,
+                                   "lista_incorrecta": lista_ids_resp_inco,
+                                   "puntuacion": cont},
+                                  context_instance=RequestContext(request))
+    except Leccion.DoesNotExist:
         leccion = None
-    return render_to_response("lecciones/leccion.html",{"leccion": leccion},context_instance=RequestContext(request))
+    return render_to_response("lecciones/leccion.html",
+                              {"leccion": leccion,
+                               "lista_correcta": lista_ids_resp_correc,
+                               "lista_incorrecta": lista_ids_resp_inco,
+                               "puntuacion": cont},
+                              context_instance=RequestContext(request))

@@ -44,6 +44,7 @@ def registrarse(request):
     #else:
     #    return HttpResponseRedirect(reverse("administracion"))
 
+
 def salir(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))

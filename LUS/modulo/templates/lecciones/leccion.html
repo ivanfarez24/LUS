@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 {% load snnipet_generales %}
+{% load snnipet_leccion %}
 {% block title %}LUS | Lecciones{% endblock %}
 
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
+    <style>
+        .contenido{
+            margin-top: 44px;
+        }
+    </style>
 {% endblock %}
 
 {% block scripts %}
@@ -15,22 +21,38 @@
 
 {% block contenido %}
     <div class="div-leccion">
-        <form>
-            <h3>{{ leccion.nombre }}</h3>
-            <section>
-                {% for obj in leccion.get_preguntas %}
-                    <div>
-                        <label>{{ obj.descripcion }}</label>
+        <form action="" method="POST">
+            <section class="contenido">
+                <h3>{{ leccion.nombre }}</h3>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">Resultados</div>
+                    <div class="panel-body">
+                        Puntuación: {{ puntuacion }}
                     </div>
-                    <ul>
-                        {% for obj_resp in obj.get_respuestas %}
-                            <li><input type="checkbox" name="{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
-                        {% endfor %}
-                    </ul>
+                </div>
+
+                {% for obj in leccion.get_preguntas %}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div>
+                                <label>{{ obj.descripcion }}</label>
+                            </div>
+                            <ul>
+                                {% for obj_resp in obj.get_respuestas %}
+                                    <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}{% validar_respuesta lista_correcta lista_incorrecta obj_resp.id %}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 {% endfor %}
+            </section>
+            <section>
+                <input type="submit" value="Enviar">
             </section>
         </form>
     </div>
+
 {% endblock %}
 
 

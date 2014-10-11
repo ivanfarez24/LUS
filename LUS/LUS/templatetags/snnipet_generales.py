@@ -27,4 +27,5 @@ def ordenar_menu():
         menu = Menu.objects.filter(estado=True).order_by("orden")
         return {'menus': menu}
 
+
 register.inclusion_tag('tags/llenar_menu.html')(ordenar_menu)
