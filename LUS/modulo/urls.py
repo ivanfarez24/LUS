@@ -8,13 +8,8 @@ admin.autodiscover()
 
 #Reportes Compras
 urlpatterns = patterns('modulo.vistas.inicio',
-url('^inicio2/$', 'inicio_view', name="inicio_view2"),
-)
-
-urlpatterns += patterns('modulo.vistas.inicio2',
 url('^inicio/$', 'inicio_view', name="inicio_view"),
 )
-
 urlpatterns += patterns('modulo.vistas.capitulo1',
 url('^capitulo1/$', 'capitulo1_view', name="capitulo1_view"),
 )

@@ -1,0 +1,50 @@
+
+@media (max-width: 320px){
+
+}
+
+@media (max-width: 480px) {
+
+}
+
+@media (max-width: 640px) {
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 1024px) {
+    .container-login{
+        width: 80% !important;
+    }
+
+    .row-login{
+        width: 96%;
+    }
+}
+@media (max-width: 1280px) {
+
+}
+
+@media (max-width: 1366px) {
+
+}
+@media (max-width: 1440px) {
+
+}
+
+@media (max-width: 1600px) {
+
+}
+
+@media (max-width: 1920px) {
+
+
+}
