@@ -9,15 +9,11 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('modulo.vistas.login',
-url(r'^$', 'login_view', name="login"),
+url(r'^login/$', 'login_view', name="login"),
 )
 
 urlpatterns += patterns('modulo.vistas.inicio',
-url('^inicio2/$', 'inicio_view', name="inicio_view2"),
-)
-
-urlpatterns += patterns('modulo.vistas.inicio2',
-url('^inicio/$', 'inicio_view', name="inicio_view"),
+url(r'^$', 'inicio_view', name="inicio_view"),
 )
 
 urlpatterns += patterns('modulo.vistas.capitulo1',

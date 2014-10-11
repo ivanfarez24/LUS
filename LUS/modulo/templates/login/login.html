@@ -1,19 +1,19 @@
+{% extends 'base.html' %}
 {% load widget_tweaks %}
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>LUS - Ingreso al Sistema</title>
+{% load snnipet_generales %}
+{% block title %}Safephone | Bienvenidos{% endblock %}
 
-	<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="{{ STATIC_URL }}font-awesome-4.2.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-</head>
-<body>
+{% block stylesheet %}
+{% endblock %}
 
+{% block scripts %}
+{% endblock %}
 
-	<div class="wrapper login-page">
+ {% block contenido %}
+     <!--
+    <div class="container container-banner padding-0">
+        <div class="container container-intro padding-0" style="margin-bottom: 120px;">
+        <div class="wrapper login-page">
 
 		<div class="row mtop-100">
 			<div class="col-md-4 col-md-offset-4 clearfix bg--dark">
@@ -64,10 +64,43 @@
                 </div>
 			</div>
 		</div>
-	</div> <!-- /wrapper -->
+	</div>
+    </div>
+    </div>
+    -->
+ {% endblock %}
 
 
-	<!-- Scripts -->
+{% block bootstrap %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+<!--
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LUS - Ingreso al Sistema</title>
+
+	<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+</head>
+<body>
+
+
+
+
+
+
 	<script type="text/javascript" src="{{ STATIC_URL }}js/js_jquery/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/js_jquery/jquery-ui.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
@@ -75,3 +108,4 @@
 </body>
 </html>
 
+-->
