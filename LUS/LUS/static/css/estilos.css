@@ -180,3 +180,84 @@
     font-size: 12px;
     text-align: right;
 }
+
+.container-login{
+    width: 1024px;
+}
+
+.row-login{
+    width: 100%;
+    height: 500px;
+}
+
+.col-login{
+    margin: auto;
+}
+
+.formulario-login{
+    margin: auto;
+    margin-top: 150px;
+    width: 100%;
+}
+
+.formulario-login h2{
+    text-align: center;
+    font-size: 28px;
+    color: #00AD8D;
+    font-weight: normal;
+}
+
+.input-group{
+    margin-bottom: 6px;
+}
+.input-group-addon i{
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+}
+.input-text{
+    padding: 5px;
+
+}
+
+.form-control{
+    height: 44px;
+    text-decoration: none;
+}
+
+.form-control:focus,.form-control:hover{
+    text-decoration: none;
+    box-shadow: none;
+
+}
+
+.btn{
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 14px;
+    height: 50px;
+}
+.btn-ok{
+    width: 100%;
+
+}
+
+.mensajes-login{
+    margin-top: 10px;
+}
+
+.mensajes-login p{
+    font-size: 12px;
+}
+
+.alert-danger{
+    background: #FFF;
+    border: 1px solid #E02727;
+    color: #000;
+    text-align: center;
+}
+
+.close{
+    opacity: 1;
+}
