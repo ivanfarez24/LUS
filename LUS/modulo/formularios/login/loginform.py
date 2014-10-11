@@ -29,8 +29,8 @@ class Loginform(forms.Form):
 
     def get_pass(self):
         return self.cleaned_data["contrasenia"]
-    """
+
     def __init__(self, *args, **kwargs):
         super(Loginform, self).__init__(*args, **kwargs)
-        self.fields['contrasenia'].widget.attrs[''] = "yyyy-mm-dd"
-    """
+        self.fields['usuario'].widget.attrs['placeholder'] = "Usuario"
+        self.fields['contrasenia'].widget.attrs['placeholder'] = "Contraseña"

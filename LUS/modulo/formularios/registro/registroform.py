@@ -26,7 +26,7 @@ def validate_username(value):
     if Persona.objects.filter(username=username).exists():
         raise ValidationError(u'El ususario que ingresó ya se encuentra registrado en el sistema')
 
-sexo = ((1, 'Masculino'), (2, 'Femenino'))
+sexo = (('', ''),(1, 'Masculino'), (2, 'Femenino'))
 
 class Registroform(forms.Form):
     nombre = forms.CharField(max_length=30, label=u"Primer nombre")
@@ -95,8 +95,16 @@ class Registroform(forms.Form):
     def get_r_email(self):
         return self.cleaned_data["r_email"]
 
-    """
+
     def __init__(self, *args, **kwargs):
-        super(Loginform, self).__init__(*args, **kwargs)
-        self.fields['contrasenia'].widget.attrs[''] = "yyyy-mm-dd"
-    """
+        super(Registroform, self).__init__(*args, **kwargs)
+        self.fields['nombre'].widget.attrs['placeholder'] = "Nombre"
+        self.fields['apellido'].widget.attrs['placeholder'] = "Apellido"
+        self.fields['usuario'].widget.attrs['placeholder'] = "Usuario"
+        self.fields['contrasenia'].widget.attrs['placeholder'] = "Contraseña"
+        self.fields['r_contrasenia'].widget.attrs['placeholder'] = "Confirmar Contraseña"
+        self.fields['email'].widget.attrs['placeholder'] = "Email"
+        self.fields['r_email'].widget.attrs['placeholder'] = "Confirmar Email"
+        self.fields['sexo'].widget.attrs['class'] = "cmb-select selectpicker show-tick"
+        self.fields['sexo'].widget.attrs['title'] = "Seleccione su Sexo"
+        self.fields['sexo'].widget.attrs['data-live-search'] = True
