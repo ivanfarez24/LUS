@@ -32,3 +32,8 @@ url('^capitulo2/$', 'capitulo2_view', name="capitulo2_view"),
 urlpatterns += patterns('modulo.vistas.lecciones',
 url('^lecciones/(?P<id>\d+)$', 'leccion', name="leccion"),
 )
+
+# Registro
+urlpatterns += patterns('modulo.vistas.registarse',
+url('^registro/$', 'registrarse', name="registrarse"),
+)

@@ -1,0 +1,131 @@
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LUS - Registro</title>
+
+	<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+</head>
+<body>
+
+	<div class="wrapper login-page">
+
+		<div class="row mtop-100">
+			<div class="col-md-4 col-md-offset-4 clearfix bg--dark">
+
+				<div class="main-logo">
+                    <p><img src="{{ STATIC_URL }}cm_html/images/logo.png"></p>
+					<p>Información General</p>
+				</div>
+                <form class="formulario"  action="{% url "login" %}" method="POST" autocomplete="off">{% csrf_token %}
+                    <div class="input-group">
+                        <label class="">
+                            {% if form.nombre.is_required %}*{% endif %}
+                            {{ form.nombre.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-user pe-fw"></i></span>
+                        {{ form.nombre|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.apellido.is_required %}*{% endif %}
+                            {{ form.apellido.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.apellido|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.sexo.is_required %}*{% endif %}
+                            {{ form.sexo.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.sexo|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.usuario.is_required %}*{% endif %}
+                            {{ form.usuario.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.usuario|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.email.is_required %}*{% endif %}
+                            {{ form.email.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.email|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.r_email.is_required %}*{% endif %}
+                            {{ form.r_email.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.r_email|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.contrasenia.is_required %}*{% endif %}
+                            {{ form.contrasenia.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.contrasenia|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="input-group mtop-25">
+                        <label class="">
+                            {% if form.r_contrasenia.is_required %}*{% endif %}
+                            {{ form.r_contrasenia.label }}
+                        </label>
+                        <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        {{ form.r_contrasenia|add_class:"input-text form-control" }}
+                    </div>
+                    <div class="clearfix"></div>
+                    <input type="submit" class="btn btn-skyorange pull-right" value="Registrarse">
+                </form>
+                <div class="mensajes-login">
+                    {% if messages %}
+                         {% for message in messages %}
+
+                            <div class="alert alert-{% if message.tags %}{% if message.tags == "error" %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}  alert-dismissable">
+							    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <div class="media">
+                                    <figure class="pull-left alert--icon">
+                                        {% if message.tags %}
+                                            {% if message.tags == "error" %}
+                                            <i class="pe-7s-close-circle"></i>
+                                            {% else %}
+                                            <i class="pe-7s-info"></i>
+
+                                            {% endif %}
+                                        {% endif %}
+
+                                    </figure>
+                                    <div class="media-body">
+
+                                        <p class="alert--text">{{ message }}.</p>
+                                    </div>
+                                </div>
+						    </div>
+                         {% endfor %}
+                    {% endif %}
+                </div>
+			</div>
+		</div>
+	</div> <!-- /wrapper -->
+
+
+	<!-- Scripts -->
+	<script type="text/javascript" src="{{ STATIC_URL }}js/js_jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/js_jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

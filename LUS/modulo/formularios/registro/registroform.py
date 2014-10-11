@@ -51,9 +51,14 @@ class Registroform(forms.Form):
         contrasenia = self.cleaned_data['contrasenia']
         r_contrasenia = self.cleaned_data['r_contrasenia']
 
-        # validate piece
+        # validar usuername
         if Persona.objects.filter(username=usuario).exists():
             self._errors["usuario"] = u"El nombre del ususario " \
+                                    u"ya se encuetra registrado"
+
+        # validar email
+        if Persona.objects.filter(username=usuario).exists():
+            self._errors["email"] = u"El email ingresado " \
                                     u"ya se encuetra registrado"
 
         if contrasenia != r_contrasenia:
@@ -61,8 +66,8 @@ class Registroform(forms.Form):
             self._errors["r_contrasenia"] = u"Datos no concuerdan"
 
         if contrasenia != r_contrasenia:
-            self._errors["contrasenia"] = u"Datos no concuerdan"
-            self._errors["r_contrasenia"] = u"Datos no concuerdan"
+            self._errors["email"] = u"Datos no concuerdan"
+            self._errors["r_email"] = u"Datos no concuerdan"
 
         return self.cleaned_data
 

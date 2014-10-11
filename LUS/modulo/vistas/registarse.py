@@ -18,29 +18,31 @@ from modulo.formularios.registro.registroform import *
 from django.contrib.auth import login, authenticate, logout
 from modulo.models import *
 
-def registrarse(request):
-    if request.user.is_authenticated() == False:
-        if request.method == "POST":
-            form = Registroform(request.POST)
-            if form.is_valid():
-                persona = Persona()
-                persona.first_name = form.get_nombre()
-                persona.last_name = form.get_apellido()
-                persona.username = form.get_usuario()
-                persona.password = form.get_contrasenia()
-                persona.sexo = form.get_sexo()
-                persona.usuario_creacion = 'sistem'
-                persona.fecha_creacion = datetime.datetime.now()
-                persona.email = form.get_email()
-                r_password = form.get_r_contrasenia()
-                email = form.get_email()
-                r_email = form.get_r_email()
 
-            else:
-                messages.error(request, u"Por favor verificar los datos requeridos")
-                return render_to_response("login/login.html", {"form": form},context_instance=RequestContext(request))
-    else:
-        return HttpResponseRedirect(reverse("administracion"))
+def registrarse(request):
+    form = Registroform()
+    #if request.user.is_authenticated() == False:
+    if request.method == "POST":
+        form = Registroform(request.POST)
+        if form.is_valid():
+            persona = Persona()
+            persona.first_name = form.get_nombre()
+            persona.last_name = form.get_apellido()
+            persona.username = form.get_usuario()
+            persona.password = form.get_contrasenia()
+            persona.sexo = form.get_sexo()
+            persona.usuario_creacion = 'sistema'
+            persona.fecha_creacion = datetime.datetime.now()
+            persona.email = form.get_email()
+            persona.save()
+        else:
+            messages.error(request, u"Por favor verificar los datos requeridos")
+
+    return render_to_response("registro/registro.html", {"form": form},
+                              context_instance=RequestContext(request))
+
+    #else:
+    #    return HttpResponseRedirect(reverse("administracion"))
 
 def salir(request):
     logout(request)

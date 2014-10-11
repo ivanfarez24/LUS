@@ -222,3 +222,53 @@ class Respuestas(models.Model):
         verbose_name_plural = "Respuestas"
 
 
+class Foro(models.Model):
+    def url(self, filename):
+        ruta = str("foro/%s" % filename)
+        return ruta
+
+    id = models.AutoField(primary_key=True)
+    tema = models.TextField()
+    pregunta = models.TextField()
+    numero_visitas = models.IntegerField()
+    imagen = models.ImageField(upload_to=url, null=True, blank=True)
+    persona = models.ForeignKey(Persona)
+    col1 = models.CharField(max_length=550, null=True, blank=True)
+    col2 = models.CharField(max_length=550, null=True, blank=True)
+    
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "foro"
+        verbose_name = "Foro"
+        verbose_name_plural = "Foros"
+
+
+class ForoComentarios(models.Model):
+    def url(self, filename):
+        ruta = str("foro/%s" % filename)
+        return ruta
+
+    id = models.AutoField(primary_key=True)
+    foro = models.ForeignKey(Foro)
+
+    comentario = models.TextField()
+    numero_votos = models.IntegerField()
+    imagen = models.ImageField(upload_to=url, null=True, blank=True)
+    persona = models.ForeignKey(Persona)
+
+    col1 = models.CharField(max_length=550, null=True, blank=True)
+    col2 = models.CharField(max_length=550, null=True, blank=True)
+
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "foro"
+        verbose_name = "Foro"
+        verbose_name_plural = "Foros"
