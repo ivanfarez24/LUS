@@ -17,11 +17,7 @@
                 <ul class="nav navbar-nav ul-nav">
                     {% for obj in menus %}
                         <li class="dropdown">
-                            <a href="{% if obj.name_url %}
-                                     {% url obj.name_url %}
-                                     {% else %}
-                                        #
-                                     {% endif %}" class="dropdown-toggle" data-toggle="dropdown">{{ obj.nombre }}
+                            <a href="{% if obj.url %}{% url obj.url %}{% else %}#{% endif %}" class="dropdown-toggle" data-toggle="dropdown">{{ obj.nombre }}
                                 {% if obj.get_submenus %}
                                     <span class="caret"></span>
                                 {% endif %}
