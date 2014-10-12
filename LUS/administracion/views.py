@@ -214,13 +214,6 @@ class AdminPreguntas(admin.ModelAdmin):
         obj.fecha_actualizacion = datetime.datetime.now()
         obj.save()
 
-    tema = models.TextField()
-    pregunta = models.TextField()
-    numero_visitas = models.IntegerField(default=0)
-    imagen = models.ImageField(upload_to=url, null=True, blank=True)
-    persona = models.ForeignKey(Persona)
-    estado = models.BooleanField(default=True)
-
 
 class AdminForo(admin.ModelAdmin):
     exclude = ('usuario_creacion', 'usuario_actualizacion',
