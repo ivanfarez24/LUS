@@ -25,6 +25,21 @@ def foro(request):
     :return:
     """
     foros = Foro.objects.filter(estado=True)
-    return render_to_response("lecciones/leccion.html",
+    return render_to_response("foro/foros.html",
                               {"foros": foros},
                               context_instance=RequestContext(request))
+
+
+def responder_foro(request, id):
+    """
+    Vista que presenta el foro y sus respuestas
+    :param request:
+    :return:
+    """
+    try:
+        foro = Foro.objects.get(id=id)
+        return render_to_response("foro/resp_foro.html",
+                              {"foros": foros},
+                              context_instance=RequestContext(request))
+    except Foro.DoesNotExist:
+        pass

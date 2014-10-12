@@ -246,6 +246,13 @@ class Foro(models.Model):
         verbose_name = "Foro"
         verbose_name_plural = "Foros"
 
+    def get_respuestas(self):
+        """
+            retorna la lista de todas las respuestas
+            del foro que están activas
+        """
+        return ForoComentarios.objects.filter(foro=self)
+
 
 class ForoComentarios(models.Model):
     def url(self, filename):
