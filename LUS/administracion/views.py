@@ -67,9 +67,9 @@ class AdminModuloTexto(admin.ModelAdmin):
 
 
 class AdminMenu(admin.ModelAdmin):
-    fields = ["nombre", 'imagen', 'url', 'orden', 'estado']
-    list_display = ["nombre", 'imagen', 'url', 'orden', 'estado']
-    search_fields = ["nombre", 'imagen', 'url', 'orden', 'estado']
+    fields = ["nombre", 'grupo_menu', 'imagen', 'url', 'orden', 'estado']
+    list_display = ["nombre", 'grupo_menu', 'imagen', 'url', 'orden', 'estado']
+    search_fields = ["nombre", 'grupo_menu', 'imagen', 'url', 'orden', 'estado']
 
     def save_model(self, request, obj, form, change):
         if not obj.usuario_creacion:

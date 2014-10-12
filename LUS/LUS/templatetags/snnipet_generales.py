@@ -24,7 +24,7 @@ register.inclusion_tag('tags/pintar_imagen.html')(pintar_imagen)
 
 @register.simple_tag(name='ordenar_menu')
 def ordenar_menu():
-        menu = Menu.objects.filter(estado=True).order_by("orden")
+        menu = Menu.objects.filter(estado=True, grupo_menu=None).order_by("orden")
         return {'menus': menu}
 
 

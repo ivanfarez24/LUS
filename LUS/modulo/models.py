@@ -51,7 +51,7 @@ class Menu(models.Model):
         Retorna todos los submenus activos
         :return:
         """
-        #return SubMenu.objects.filter(menu=self, estado=True)
+        return Menu.objects.filter(grupo_menu=self, estado=True)
 
 
 class Sexo(models.Model):

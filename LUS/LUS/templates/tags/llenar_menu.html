@@ -26,11 +26,11 @@
                                 <ul class="dropdown-menu" role="menu">
                                     {% for obj_smenu in obj.get_submenus %}
                                         <li><a href="{% if obj_smenu.name_url %}
-                                                        {% url obj_smenu.name_url %}
+                                                     {% url obj_smenu.name_url %}
                                                      {% else %}
                                                         #
-                                                    {% endif %}
-                                                    ">{{ obj_smenu.nombre }}
+                                                     {% endif %}
+                                                     ">{{ obj_smenu.nombre }}
                                         </a></li>
                                     {% endfor %}
                                 </ul>
