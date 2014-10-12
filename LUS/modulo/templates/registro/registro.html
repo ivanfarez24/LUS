@@ -22,71 +22,42 @@
 
                         <h2>Información de Regisrtro</h2>
                     </div>
-                    <form class="formulario"  action="{% url "login" %}" method="POST" autocomplete="off">{% csrf_token %}
+                    <form class="formulario"  action="{% url "registrarse" %}" method="POST" autocomplete="off">{% csrf_token %}
                         <div class="input-group">
-                            <label class="">
-                                {% if form.nombre.is_required %}*{% endif %}
-                                {{ form.nombre.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-user pe-fw"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             {{ form.nombre|add_class:"input-text form-control" }}
                         </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.apellido.is_required %}*{% endif %}
-                                {{ form.apellido.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             {{ form.apellido|add_class:"input-text form-control" }}
                         </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.sexo.is_required %}*{% endif %}
-                                {{ form.sexo.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        <div class="input-group group-sexo">
+
+                            <span class="input-group-addon"><i class="fa fa-female fa-uno"></i><i class="fa fa-male fa-dos"></i></span>
                             {{ form.sexo|add_class:"input-text form-control" }}
                         </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.usuario.is_required %}*{% endif %}
-                                {{ form.usuario.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             {{ form.usuario|add_class:"input-text form-control" }}
                         </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.email.is_required %}*{% endif %}
-                                {{ form.email.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
-                            {{ form.email|add_class:"input-text form-control" }}
-                        </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.r_email.is_required %}*{% endif %}
-                                {{ form.r_email.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
-                            {{ form.r_email|add_class:"input-text form-control" }}
-                        </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.contrasenia.is_required %}*{% endif %}
-                                {{ form.contrasenia.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             {{ form.contrasenia|add_class:"input-text form-control" }}
                         </div>
-                        <div class="input-group mtop-25">
-                            <label class="">
-                                {% if form.r_contrasenia.is_required %}*{% endif %}
-                                {{ form.r_contrasenia.label }}
-                            </label>
-                            <span class="input-group-addon"><i class="pe-7f-lock pe-fw"></i></span>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             {{ form.r_contrasenia|add_class:"input-text form-control" }}
                         </div>
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            {{ form.email|add_class:"input-text form-control" }}
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            {{ form.r_email|add_class:"input-text form-control" }}
+                        </div>
+
                         <div class="clearfix"></div>
                         <input type="submit" class="btn btn-ok" value="Registrarse">
                     </form>
@@ -126,5 +97,9 @@
 
 
 {% block bootstrap %}
-
+    <script>
+        jQuery(document).ready(function($) {
+            $('.cmb-select').selectpicker();
+        });
+    </script>
 {% endblock %}
