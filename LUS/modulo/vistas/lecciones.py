@@ -17,6 +17,12 @@ import operator
 from django.db.models import F
 from django.forms.formsets import formset_factory
 
+
+@csrf_exempt
+def lecciones_lista(request):
+    lecciones = Leccion.objects.filter(estado=True)
+    return render_to_response("lecciones/lecciones.html",{'lecciones':lecciones},context_instance=RequestContext(request))
+
 @csrf_exempt
 def leccion(request, id):
     cont = 0  # Cuenta la puntuación total de la lección
@@ -35,12 +41,12 @@ def leccion(request, id):
                         else:
                             lista_ids_resp_inco.append(obj_res.id)
 
-        return render_to_response("lecciones/leccion.html",
-                                  {"leccion": leccion,
-                                   "lista_correcta": lista_ids_resp_correc,
-                                   "lista_incorrecta": lista_ids_resp_inco,
-                                   "puntuacion": cont},
-                                  context_instance=RequestContext(request))
+            return render_to_response("lecciones/leccion_resultado.html",
+                                      {"leccion": leccion,
+                                       "lista_correcta": lista_ids_resp_correc,
+                                       "lista_incorrecta": lista_ids_resp_inco,
+                                       "puntuacion": cont},
+                                      context_instance=RequestContext(request))
     except Leccion.DoesNotExist:
         leccion = None
     return render_to_response("lecciones/leccion.html",
@@ -49,3 +55,4 @@ def leccion(request, id):
                                "lista_incorrecta": lista_ids_resp_inco,
                                "puntuacion": cont},
                               context_instance=RequestContext(request))
+

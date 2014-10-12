@@ -26,6 +26,7 @@ url('^capitulo2/$', 'capitulo2_view', name="capitulo2_view"),
 
 # Lecciones
 urlpatterns += patterns('modulo.vistas.lecciones',
+url('^lecciones/$', 'lecciones_lista', name="lecciones_lista"),
 url('^lecciones/(?P<id>\d+)$', 'leccion', name="leccion"),
 )
 

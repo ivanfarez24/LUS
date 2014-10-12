@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load snnipet_generales %}
 {% load snnipet_leccion %}
-{% block title %}LUS | Lecciones{% endblock %}
+{% block title %}LUS | {{ leccion.nombre }} - Resultado{% endblock %}
 
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
@@ -22,12 +22,34 @@
         <div class="div-leccion">
         <form action="" method="POST">
             <section class="contenido">
-                <h3>{{ leccion.nombre }}</h3>
+                <h3>{{ leccion.nombre }} - Resultado</h3>
+                <div class="row margin-0">
+                    <div class="col-xs-12 col-lg-4 col-md-4  col-sm-4 padding-0 col-resultado">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Resultado</div>
+                            <div class="panel-body">
+                                <p>Puntos: <span>{{ puntuacion }}</span></p>
 
-                <div class="panel panel-intro">
-                    <div class="panel-heading">Introducción</div>
-                    <div class="panel-body">
-                        Puntuación: {{ puntuacion }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-lg-4 col-md-4  col-sm-4 padding-0 col-aciertos">
+                        <div class="panel panel-intro">
+                            <div class="panel-heading">Aciertos</div>
+                            <div class="panel-body">
+                                <p>Puntos: <span>{{ puntuacion }}</span></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-lg-4 col-md-4  col-sm-4 padding-0 col-erradas">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">Erradas</div>
+                            <div class="panel-body">
+                                <p>Puntos: <span>{{ puntuacion }}</span></p>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -35,9 +57,9 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div>
-                                <label>{{ obj.descripcion }}</label>
+                                <label>{{ obj.numero }}.-  {{ obj.descripcion }}</label>
                             </div>
-                            <ul>
+                            <ul class="leccion-respuestas">
                                 {% for obj_resp in obj.get_respuestas %}
                                     <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}{% validar_respuesta lista_correcta lista_incorrecta obj_resp.id %}</li>
                                 {% endfor %}
@@ -46,8 +68,8 @@
                     </div>
                 {% endfor %}
             </section>
-            <section>
-                <input type="submit" value="Enviar">
+            <section class="botones-finalizar">
+                <a href="{% url "inicio_view" %}" class="btn btn-finalizar">Terminar Lección</a>
             </section>
         </form>
     </div>
