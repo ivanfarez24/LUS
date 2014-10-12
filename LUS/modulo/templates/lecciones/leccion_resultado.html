@@ -27,15 +27,7 @@
                 <div class="panel panel-intro">
                     <div class="panel-heading">Introducción</div>
                     <div class="panel-body">
-                        <!--
                         Puntuación: {{ puntuacion }}
-                        Ahora detalle de la lección
-                        -->
-                        <p>
-                            Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
-                            Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
-
-                        </p>
                     </div>
                 </div>
 
@@ -47,7 +39,7 @@
                             </div>
                             <ul>
                                 {% for obj_resp in obj.get_respuestas %}
-                                    <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
+                                    <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}{% validar_respuesta lista_correcta lista_incorrecta obj_resp.id %}</li>
                                 {% endfor %}
                             </ul>
                         </div>

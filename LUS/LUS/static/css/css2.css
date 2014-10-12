@@ -18,7 +18,7 @@ html,body{
     display: table;
     height: 46px;
     border-top: 4px solid #00AE8D;
-    border-bottom: 2px solid #00AE8D;
+    border-bottom: 4px solid #00AE8D;
 }
 .row-header{
     width: 78%;
@@ -97,7 +97,7 @@ html,body{
 .ul-nav>li.open ul.dropdown-menu{
     background:  rgba(57,64,73, 0.7);
     border-top: 3px solid #00AE8D;
-    margin-top: 3px;
+    margin-top: -3px;
 }
 
 .ul-nav>li.open ul.dropdown-menu li a{
