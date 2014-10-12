@@ -150,7 +150,7 @@ class Leccion(models.Model):
     nombre = models.CharField(max_length=220)
 
     numero = models.IntegerField(default=0)
-    col_rep = models.CharField(max_length=250, null=True, blank=True)
+    estado = models.BooleanField(default=True)
     col_rep2 = models.CharField(max_length=250, null=True, blank=True)
 
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
@@ -177,7 +177,7 @@ class Preguntas(models.Model):
     descripcion = models.TextField()
 
     numero = models.IntegerField(default=0)
-    col_rep = models.CharField(max_length=250, null=True, blank=True)
+    estado = models.BooleanField(default=True)
     col_rep2 = models.CharField(max_length=250, null=True, blank=True)
 
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
@@ -208,7 +208,7 @@ class Respuestas(models.Model):
     nombre = models.CharField(max_length=220)
     puntuacion = models.FloatField(default=0)
     numero = models.IntegerField(default=0)
-    col_rep = models.CharField(max_length=250, null=True, blank=True)
+    estado = models.BooleanField(default=True)
     col_rep2 = models.CharField(max_length=250, null=True, blank=True)
 
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
@@ -230,10 +230,10 @@ class Foro(models.Model):
     id = models.AutoField(primary_key=True)
     tema = models.TextField()
     pregunta = models.TextField()
-    numero_visitas = models.IntegerField()
+    numero_visitas = models.IntegerField(default=0)
     imagen = models.ImageField(upload_to=url, null=True, blank=True)
     persona = models.ForeignKey(Persona)
-    col1 = models.CharField(max_length=550, null=True, blank=True)
+    estado = models.BooleanField(default=True)
     col2 = models.CharField(max_length=550, null=True, blank=True)
     
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
@@ -254,13 +254,13 @@ class ForoComentarios(models.Model):
 
     id = models.AutoField(primary_key=True)
     foro = models.ForeignKey(Foro)
-
-    comentario = models.TextField()
-    numero_votos = models.IntegerField()
-    imagen = models.ImageField(upload_to=url, null=True, blank=True)
     persona = models.ForeignKey(Persona)
 
-    col1 = models.CharField(max_length=550, null=True, blank=True)
+    comentario = models.TextField()
+    numero_votos = models.IntegerField(default=0)
+    imagen = models.ImageField(upload_to=url, null=True, blank=True)
+
+    estado = models.BooleanField(default=True)
     col2 = models.CharField(max_length=550, null=True, blank=True)
 
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
@@ -269,6 +269,6 @@ class ForoComentarios(models.Model):
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
-        db_table = "foro"
-        verbose_name = "Foro"
-        verbose_name_plural = "Foros"
+        db_table = "foro_comentario"
+        verbose_name = "Foro Comentario"
+        verbose_name_plural = "Comentarios de Foros"

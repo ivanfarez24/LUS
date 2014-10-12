@@ -214,6 +214,30 @@ class AdminPreguntas(admin.ModelAdmin):
         obj.fecha_actualizacion = datetime.datetime.now()
         obj.save()
 
+    tema = models.TextField()
+    pregunta = models.TextField()
+    numero_visitas = models.IntegerField(default=0)
+    imagen = models.ImageField(upload_to=url, null=True, blank=True)
+    persona = models.ForeignKey(Persona)
+    estado = models.BooleanField(default=True)
+
+
+class AdminForo(admin.ModelAdmin):
+    exclude = ('usuario_creacion', 'usuario_actualizacion',
+                'fecha_creacion', 'fecha_actualizacion')
+
+    list_display = ['id', 'tema', 'pregunta', 'numero_visitas']
+    search_fields = ['id', 'tema', 'pregunta', 'numero_visitas']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.usuario_creacion:
+            obj.usuario_creacion = request.user.username
+        obj.usuario_actualizacion = request.user.username
+        if not obj.fecha_creacion:
+            obj.fecha_creacion = datetime.datetime.now()
+        obj.fecha_actualizacion = datetime.datetime.now()
+        obj.save()
+
 
 admin.site.register(ModuloTexto, AdminModuloTexto, Media=CommonMedia)
 admin.site.register(Menu, AdminMenu)
@@ -224,3 +248,4 @@ admin.site.register(Grupo, AdminGrupo)
 admin.site.register(Persona, AdminPersona)
 admin.site.register(Leccion, AdminLeccion)
 admin.site.register(Preguntas, AdminPreguntas)
+admin.site.register(Foro, AdminForo)

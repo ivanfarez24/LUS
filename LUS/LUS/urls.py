@@ -33,3 +33,8 @@ url('^lecciones/(?P<id>\d+)$', 'leccion', name="leccion"),
 urlpatterns += patterns('modulo.vistas.registarse',
 url('^registro/$', 'registrarse', name="registrarse"),
 )
+
+# Foro
+urlpatterns += patterns('modulo.vistas.registarse',
+url('^foro/$', 'registrarse', name="registrarse"),
+)

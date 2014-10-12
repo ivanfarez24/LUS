@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load snnipet_generales %}
+{% load snnipet_leccion %}
+{% block title %}LUS | foros{% endblock %}
+
+{% block stylesheet %}
+    <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
+    <style>
+        .contenido{
+            margin-top: 44px;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-leccion">
+        {% for obj in foros %}
+            <section class="contenido">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Tema: {{ obj.tema }}</div>
+                    <div class="panel-body">
+                        {{ obj.pregunta }}
+                    </div>
+                </div>
+            </section>
+            <section>
+                <input type="submit" value="Enviar">
+            </section>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block bootstrap %}
+
+{% endblock %}
