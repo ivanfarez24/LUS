@@ -23,17 +23,20 @@
     <div class="div-leccion">
         <section>
             <header>
-                <label></label>
+                <label>{{ foro.tema }}</label>
+                <article>
+                    {{ foro.pregunta }}
+                </article>
             </header>
         </section>
-        {% for obj in foros %}
+        {% for obj in foro.get_respuestas %}
             <section class="contenido">
                 <div class="panel panel-info">
-                    <div class="panel-heading">Tema: {{ obj.tema }}</div>
+                    <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
                     <div class="panel-body">
-                        {{ obj.pregunta }}
+                        {{ obj.comentario }}
                         <div>
-                            Publicado por: {{ obj.persona.first_name }}
+                            # Votos: {{ obj.numero_votos }}
                         </div>
                     </div>
                 </div>

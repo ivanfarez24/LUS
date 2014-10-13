@@ -253,6 +253,13 @@ class Foro(models.Model):
         """
         return ForoComentarios.objects.filter(foro=self)
 
+    def get_num_resp(self):
+        """
+            retorna el número de todas las respuestas
+            del foro que están activas
+        """
+        return len(ForoComentarios.objects.filter(foro=self))
+
 
 class ForoComentarios(models.Model):
     def url(self, filename):

@@ -15,6 +15,10 @@ def nombre_unicode(self):
 def descripcion_unicode(self):
     return u'%s' % self.descripcion
 
+
+def tema_unicode(self):
+    return u"%s" % self.tema
+
 ModuloTexto.__unicode__ = nombre_unicode
 Menu.__unicode__ = nombre_unicode
 Sexo.__unicode__ = nombre_unicode
@@ -23,6 +27,7 @@ Permiso.__unicode__ = nombre_unicode
 Grupo.__unicode__ = nombre_unicode
 Leccion.__unicode__ = nombre_unicode
 Preguntas.__unicode__ = descripcion_unicode
+Foro.__unicode__ = tema_unicode
 
 
 class CommonMedia:
@@ -232,6 +237,22 @@ class AdminForo(admin.ModelAdmin):
         obj.save()
 
 
+class AdminForoRespuesta(admin.ModelAdmin):
+    exclude = ('usuario_creacion', 'usuario_actualizacion',
+                'fecha_creacion', 'fecha_actualizacion')
+
+    list_display = ['id', 'persona', 'comentario', 'numero_votos']
+    search_fields = ['id', 'persona', 'comentario', 'numero_votos']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.usuario_creacion:
+            obj.usuario_creacion = request.user.username
+        obj.usuario_actualizacion = request.user.username
+        if not obj.fecha_creacion:
+            obj.fecha_creacion = datetime.datetime.now()
+        obj.fecha_actualizacion = datetime.datetime.now()
+        obj.save()
+
 admin.site.register(ModuloTexto, AdminModuloTexto, Media=CommonMedia)
 admin.site.register(Menu, AdminMenu)
 admin.site.register(Sexo, AdminSexo)
@@ -242,3 +263,4 @@ admin.site.register(Persona, AdminPersona)
 admin.site.register(Leccion, AdminLeccion)
 admin.site.register(Preguntas, AdminPreguntas)
 admin.site.register(Foro, AdminForo)
+admin.site.register(ForoComentarios, AdminForoRespuesta)

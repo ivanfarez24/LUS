@@ -30,6 +30,15 @@
                         <div>
                             Publicado por: {{ obj.persona.first_name }}
                         </div>
+                        <div>
+                            # Visitas: {{ obj.numero_visitas }}
+                        </div>
+                        <div>
+                            # Respuestas {{ obj.get_num_resp }}
+                        </div>
+                        <div>
+                            <a href="#">Ir a Foro</a>
+                        </div>
                     </div>
                 </div>
             </section>

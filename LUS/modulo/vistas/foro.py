@@ -39,7 +39,7 @@ def responder_foro(request, id):
     try:
         foro = Foro.objects.get(id=id)
         return render_to_response("foro/resp_foro.html",
-                              {"foros": foros},
+                              {"foro": foro},
                               context_instance=RequestContext(request))
     except Foro.DoesNotExist:
         pass
