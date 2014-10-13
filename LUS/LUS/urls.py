@@ -38,4 +38,5 @@ url('^registro/$', 'registrarse', name="registrarse"),
 # Foro
 urlpatterns += patterns('modulo.vistas.foro',
 url('^foro/$', 'foro', name="foro"),
+url('^foro/comentarios/(?P<id>\d+)$', 'responder_foro', name="responder_foro"),
 )

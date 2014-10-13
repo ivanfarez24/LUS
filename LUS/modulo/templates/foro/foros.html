@@ -26,7 +26,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">{{ obj.tema }}</div>
                     <div class="panel-body">
-                        <a href="#">{{ obj.pregunta }}</a>
+                        <a href="{% url "responder_foro" obj.id%}">{{ obj.pregunta }}</a>
                         <div>
                             Publicado por: {{ obj.persona.first_name }}
                         </div>
