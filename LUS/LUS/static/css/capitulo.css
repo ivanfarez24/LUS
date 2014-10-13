@@ -54,7 +54,7 @@
 
 .row-leccion{
     width: 78%;
-    padding: 60px 0px 100px 0px;
+    padding: 80px 0px 100px 0px;
 }
 
 .panel-intro .panel-heading{
@@ -78,7 +78,7 @@
     top: 2px;
 }
 
-.btn-finalizar,.btn-finalizar:hover{
+.btn-finalizar,.btn-finalizar:hover,.btn-finalizar:focus{
     background: #00AE8D;
     color: #ffffff;
     font-size: 16px;
@@ -148,7 +148,19 @@
     color: #31B0D5;
 }
 
-.leccion-tomar,.leccion-tomar:hover{
-    color: #00AD8D;
+.ir-articulo,.ir-articulo:hover{
+    color: #333e48;
     text-decoration: none;
+}
+
+.titulo{
+    color: #00AD8D;
+    margin-bottom: 20px;
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.sub-titulo{
+    font-size: 18px;
+    font-weight: normal;
 }

@@ -21,11 +21,13 @@
     <div class="row row-leccion margin-0">
         <div class="div-leccion">
             <section class="contenido">
-                <h3>LUS: Lecciones</h3>
+                <h1 class="titulo">LUS: Lecciones</h1>
                 {% if lecciones %}
                     {% for leccion in lecciones %}
                     <div class="panel panel-intro">
-                        <div class="panel-heading">{{ leccion.nombre }}</div>
+                        <div class="panel-heading">
+                           <h2 class="sub-titulo"><a href="{% url "leccion" leccion.id %}" class="ir-articulo">{{ leccion.nombre }}</a></h2>
+                        </div>
                         <div class="panel-body">
 
                             <p>
@@ -33,7 +35,7 @@
                                 Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
 
                             </p>
-                            <a href="{% url "leccion" leccion.id %}" class="leccion-tomar">Tomar Lección</a>
+
                         </div>
                     </div>
                     {% endfor %}
