@@ -20,45 +20,36 @@
 {% block contenido %}
     <div class="row row-leccion margin-0">
         <div class="div-leccion">
-        <form action="" method="POST">
             <section class="contenido">
-                <h3>{{ leccion.nombre }}</h3>
-
-                <div class="panel panel-intro">
-                    <div class="panel-heading">Introducción</div>
-                    <div class="panel-body">
-                        <!--
-                        Puntuación: {{ puntuacion }}
-                        Ahora detalle de la lección
-                        -->
-                        <p>
-                            Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
-                            Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
-
-                        </p>
-                    </div>
-                </div>
-
-                {% for obj in leccion.get_preguntas %}
-                    <div class="panel panel-default">
+                <h3>LUS: Lecciones</h3>
+                {% if lecciones %}
+                    {% for leccion in lecciones %}
+                    <div class="panel panel-intro">
+                        <div class="panel-heading">{{ leccion.nombre }}</div>
                         <div class="panel-body">
-                            <div>
-                                <label>{{ obj.numero }}.-  {{ obj.descripcion }}</label>
-                            </div>
-                            <ul class="leccion-respuestas">
-                                {% for obj_resp in obj.get_respuestas %}
-                                    <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
-                                {% endfor %}
-                            </ul>
+
+                            <p>
+                                Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
+                                Facebook Inc cerró este lunes su adquisición del servicio de mensajería móvil WhatsApp, con el precio final creciendo en 3.000 millones de dólares adicionales, hasta casi los 22.000 millones, debido al incremento del valor de las acciones de la red social en los últimos meses.
+
+                            </p>
+                            <a href="{% url "leccion" leccion.id %}" class="leccion-tomar">Tomar Lección</a>
                         </div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Lista de Lecciones</div>
+                        <div class="panel-body">
+
+                            <p>
+                                Actualmente no existe lecciones disponibles.
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
             </section>
-            <section class="botones-finalizar">
-                <input type="submit" class="btn btn-finalizar" value="Calificar Lección">
-            </section>
-        </form>
-    </div>
+        </div>
     </div>
 {% endblock %}
 

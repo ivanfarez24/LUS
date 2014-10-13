@@ -78,25 +78,16 @@
     top: 2px;
 }
 
-.btn-finalizar{
+.btn-finalizar,.btn-finalizar:hover{
     background: #00AE8D;
     color: #ffffff;
     font-size: 16px;
-    -ms-transition: all 0.5s ease-in;
-    -moz-transition: all 0.5s ease-in;
-    -o-transition: all 0.5s ease-in;
-    -webkit-transition: all 0.5s ease-in;
-    transition: all 0.5s ease-in;
+    text-decoration: none;
 }
 
-.btn-finalizar:hover{
-    color: #333E48;
-    text-decoration: none;
-    -ms-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    -o-transition: all 0.5s ease-out;
-    -webkit-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+.btn-salir,.btn-salir:hover{
+    background: #333e48;
+    color: #ffffff;
 }
 
 .botones-finalizar{
@@ -155,4 +146,9 @@
 
 .respuesta-vacia i{
     color: #31B0D5;
+}
+
+.leccion-tomar,.leccion-tomar:hover{
+    color: #00AD8D;
+    text-decoration: none;
 }
