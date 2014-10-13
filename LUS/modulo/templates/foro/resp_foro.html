@@ -6,9 +6,7 @@
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
     <style>
-        .contenido{
-            margin-top: 44px;
-        }
+
     </style>
 {% endblock %}
 
@@ -20,7 +18,8 @@
 {% endblock %}
 
 {% block contenido %}
-    <div class="div-leccion">
+    <div class="row row-leccion margin-0">
+        <div class="div-leccion">
         <section>
             <header>
                 <label>{{ foro.tema }}</label>
@@ -31,7 +30,7 @@
         </section>
         {% for obj in foro.get_respuestas %}
             <section class="contenido">
-                <div class="panel panel-info">
+                <div class="panel panel-intro">
                     <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
                     <div class="panel-body">
                         {{ obj.comentario }}
@@ -43,7 +42,7 @@
             </section>
         {% endfor %}
     </div>
-
+    </div>
 {% endblock %}
 
 
