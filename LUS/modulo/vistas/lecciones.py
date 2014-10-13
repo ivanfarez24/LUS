@@ -20,7 +20,8 @@ from django.forms.formsets import formset_factory
 
 @csrf_exempt
 def lecciones_lista(request):
-    lecciones = Leccion.objects.filter(estado=True)
+    lecciones = Leccion.objects.filter(estado=True).order_by("-numero")
+
     return render_to_response("lecciones/lecciones.html",{'lecciones':lecciones},context_instance=RequestContext(request))
 
 @csrf_exempt
