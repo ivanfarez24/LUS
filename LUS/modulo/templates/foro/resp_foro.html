@@ -6,14 +6,20 @@
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
     <style>
-
+        .icon-like{
+            color: #00AE8D;
+            cursor: pointer;
+        }
     </style>
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
+    <script src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
+    <script src="{{ STATIC_URL }}ckeditor/adapters/jquery.js"></script>
     <script>
-
+        jQuery(document).ready(function($) {
+            $( 'textarea#nuevo_comentario' ).ckeditor();
+        });
     </script>
 {% endblock %}
 
@@ -30,7 +36,7 @@
         </section>
         {% for obj in foro.get_respuestas %}
             <section class="contenido">
-                <div class="panel panel-intro">
+                <div class="panel panel-info">
                     <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
                     <div class="panel-body">
                         {{ obj.comentario }}
@@ -42,7 +48,7 @@
             </section>
         {% endfor %}
     </div>
-    </div>
+
 {% endblock %}
 
 
