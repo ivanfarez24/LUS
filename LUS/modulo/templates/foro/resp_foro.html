@@ -43,10 +43,20 @@
                         <div>
                             # Votos: {{ obj.numero_votos }}
                         </div>
+                        <div class="icon-like">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        </div>
+
                     </div>
                 </div>
             </section>
         {% endfor %}
+        <section class="contenido">
+            <form>
+                <label>Agregar Comentario</label>
+                <textarea name="respuesta" id="nuevo_comentario"></textarea>
+            </form>
+        </section>
     </div>
 
 {% endblock %}
