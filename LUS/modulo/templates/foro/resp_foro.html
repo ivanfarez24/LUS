@@ -6,9 +6,6 @@
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
     <style>
-        .contenido{
-            margin-top: 44px;
-        }
         .icon-like{
             color: #00AE8D;
             cursor: pointer;
@@ -28,32 +25,51 @@
 {% endblock %}
 
 {% block contenido %}
-    <div class="div-leccion">
+    <div class="row row-leccion margin-0">
+        <div class="div-leccion">
         <section>
             <header>
-                <label>{{ foro.tema }}</label>
+
                 <article>
-                    {{ foro.pregunta }}
+                    <div class="panel panel-intro">
+                        <div class="panel-heading"><h2 class="sub-titulo">{{ foro.tema }}</h2></div>
+                        <div class="panel-body">
+                           {{ foro.pregunta }}
+                        </div>
+                    </div>
+
                 </article>
             </header>
         </section>
-        {% for obj in foro.get_respuestas %}
-            <section class="contenido">
-                <div class="panel panel-info">
-                    <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
-                    <div class="panel-body">
-                        {{ obj.comentario }}
-                        <div>
-                            # Votos: {{ obj.numero_votos }}
-                        </div>
-                        <div class="icon-like">
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        </div>
+        {% if foro.get_respuestas %}
+            <h2 class="sub-titulo">Comentarios:</h2>
+            {% for obj in foro.get_respuestas %}
+                <section class="contenido">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
+                        <div class="panel-body">
+                            {{ obj.comentario }}
+                            <div>
+                                # Votos: {{ obj.numero_votos }}
+                            </div>
+                            <div class="icon-like">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-            </section>
-        {% endfor %}
+                </section>
+            {% endfor %}
+        {% else %}
+           <section>
+                <div class="panel panel-info">
+                        <div class="panel-heading"><h2 class="sub-titulo">Comentarios</h2></div>
+                        <div class="panel-body">
+                            <p>Actualmente no existen comentarios para este tema.</p>
+                        </div>
+                    </div>
+           </section>
+        {% endif %}
         <section class="contenido">
             <form id="formulario">
                 <label>Agregar Comentario</label>

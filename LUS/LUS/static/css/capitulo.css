@@ -164,3 +164,8 @@
     font-size: 18px;
     font-weight: normal;
 }
+
+.leer-mas,.leer-mas:hover,.leer-mas:focus{
+    color: #00AE8D;
+    text-decoration: none;
+}
