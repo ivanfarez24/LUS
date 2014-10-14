@@ -22,6 +22,7 @@
     <script>
         jQuery(document).ready(function($) {
             $( 'textarea#nuevo_comentario' ).ckeditor();
+            $()
         });
     </script>
 {% endblock %}
@@ -54,9 +55,10 @@
             </section>
         {% endfor %}
         <section class="contenido">
-            <form>
+            <form id="formulario">
                 <label>Agregar Comentario</label>
                 <textarea name="respuesta" id="nuevo_comentario"></textarea>
+                <button>Enviar</button>
             </form>
         </section>
     </div>
