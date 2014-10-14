@@ -24,9 +24,8 @@ def login_view(request):
         if request.method == "POST":
             form = Loginform(request.POST)
             if form.is_valid():
-                username = form.cleaned_data["username"]
-                password = form.cleaned_data["password"]
-                siguiente = form.cleaned_data["next"]
+                username = form.cleaned_data["usuario"]
+                password = form.cleaned_data["contrasenia"]
                 user = authenticate(username=username, password=password, is_active=True)
                 if user is not None:
                     if user.is_active:
@@ -35,7 +34,7 @@ def login_view(request):
                         if siguiente != "":
                             return HttpResponseRedirect(siguiente)
                         else:
-                            return HttpResponseRedirect(reverse("administracion"))
+                            return HttpResponseRedirect(reverse("inicio_view"))
                     else:
                         messages.info(request, u"El usuario está inactivo comunicarse con el administrador del sistema")
                         return HttpResponseRedirect(reverse("login"))
@@ -50,7 +49,7 @@ def login_view(request):
             form = Loginform(initial={"next": siguiente})
             return render_to_response("login/login.html", {"form": form},context_instance=RequestContext(request))
     else:
-        return HttpResponseRedirect(reverse("administracion"))
+        return HttpResponseRedirect(reverse("inicio_view"))
 
 def salir(request):
     logout(request)

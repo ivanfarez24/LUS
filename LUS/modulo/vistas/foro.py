@@ -5,6 +5,7 @@ __author__ = 'Ivancho'
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from modulo.models import *
+import json
 from django.http import *
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.decorators import login_required
@@ -29,7 +30,7 @@ def foro(request):
                               {"foros": foros},
                               context_instance=RequestContext(request))
 
-
+@csrf_exempt
 def responder_foro(request, id):
     """
     Vista que presenta el foro y sus respuestas
@@ -38,8 +39,27 @@ def responder_foro(request, id):
     """
     try:
         foro = Foro.objects.get(id=id)
+        now = datetime.datetime.now()
+        print "responder foro"
+        if request.is_ajax():
+            print "responder foro ajax"
+            respuesta = request.POST.get("respuesta", "")
+            usuario = request.user.username
+            print "Este es el id: ", request.user.id
+            persona = Persona.objects.get(id=request.user.id)
+            comentario = ForoComentarios()
+            comentario.comentario = respuesta
+            comentario.foro = foro
+            comentario.usuario_creacion = usuario
+            comentario.persona = persona
+            comentario.fecha_creacion = now
+            #comentario.save()
+            respuesta.append({"status": 1})
+            resultado = json.dumps(respuesta)
+            return HttpResponse(resultado, mimetype='application/json')
+
         return render_to_response("foro/resp_foro.html",
-                              {"foro": foro},
+                              {"foro": foro, "id": id},
                               context_instance=RequestContext(request))
     except Foro.DoesNotExist:
         pass

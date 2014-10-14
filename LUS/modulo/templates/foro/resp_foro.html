@@ -19,7 +19,43 @@
     <script>
         jQuery(document).ready(function($) {
             $( 'textarea#nuevo_comentario' ).ckeditor();
-            $()
+            var url = "{% url "responder_foro" id %}";
+            var datastring = $("#formulario").serialize();
+            $("#submit-comentario").click(function(e){
+                e.preventDefault();
+                $.ajax(
+                {
+                    url: url,
+                    type: 'POST',
+                    async: false,
+                    cache: false,
+                    timeout: 10000,
+                    data: datastring,
+                    beforeSend: function(msj){
+                        alert("before");
+                    },
+                    error: function(){
+                        alert("error")
+                    },
+                    success: function(data)
+                    {
+                        alert("suces");
+                        if(data.status == 2)
+                        {
+                            $("#error").fadeIn("slow");
+                            $("#error-cuenta").text(data.mensaje);
+                            $('#loading').fadeOut();
+                            $('body').css('opacity', '1');
+                            btn_acept.text(texto);
+                            btn_acept.attr("disabled", false);
+                        }
+                        else
+                        {
+                            alert("Hola");
+                        }
+                    }
+                });
+            });
         });
     </script>
 {% endblock %}
@@ -27,56 +63,57 @@
 {% block contenido %}
     <div class="row row-leccion margin-0">
         <div class="div-leccion">
-        <section>
-            <header>
+            <section>
+                <header>
 
-                <article>
-                    <div class="panel panel-intro">
-                        <div class="panel-heading"><h2 class="sub-titulo">{{ foro.tema }}</h2></div>
-                        <div class="panel-body">
-                           {{ foro.pregunta }}
+                    <article>
+                        <div class="panel panel-intro">
+                            <div class="panel-heading"><h2 class="sub-titulo">{{ foro.tema }}</h2></div>
+                            <div class="panel-body">
+                               {{ foro.pregunta }}
+                            </div>
                         </div>
-                    </div>
 
-                </article>
-            </header>
-        </section>
-        {% if foro.get_respuestas %}
-            <h2 class="sub-titulo">Comentarios:</h2>
-            {% for obj in foro.get_respuestas %}
-                <section class="contenido">
+                    </article>
+                </header>
+            </section>
+            {% if foro.get_respuestas %}
+                <h2 class="sub-titulo">Comentarios:</h2>
+                {% for obj in foro.get_respuestas %}
+                    <section class="contenido">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
+                            <div class="panel-body">
+                                {{ obj.comentario }}
+                                <div>
+                                    # Votos: {{ obj.numero_votos }}
+                                </div>
+                                <div class="icon-like">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                {% endfor %}
+            {% else %}
+               <section>
                     <div class="panel panel-info">
-                        <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
-                        <div class="panel-body">
-                            {{ obj.comentario }}
-                            <div>
-                                # Votos: {{ obj.numero_votos }}
+                            <div class="panel-heading"><h2 class="sub-titulo">Comentarios</h2></div>
+                            <div class="panel-body">
+                                <p>Actualmente no existen comentarios para este tema.</p>
                             </div>
-                            <div class="icon-like">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                            </div>
-
                         </div>
-                    </div>
-                </section>
-            {% endfor %}
-        {% else %}
-           <section>
-                <div class="panel panel-info">
-                        <div class="panel-heading"><h2 class="sub-titulo">Comentarios</h2></div>
-                        <div class="panel-body">
-                            <p>Actualmente no existen comentarios para este tema.</p>
-                        </div>
-                    </div>
-           </section>
-        {% endif %}
-        <section class="contenido">
-            <form id="formulario">
-                <label>Agregar Comentario</label>
-                <textarea name="respuesta" id="nuevo_comentario"></textarea>
-                <button>Enviar</button>
-            </form>
-        </section>
+               </section>
+            {% endif %}
+            <section class="contenido">
+                <form id="formulario">
+                    <label>Agregar Comentario</label>
+                    <textarea name="respuesta" id="nuevo_comentario"></textarea>
+                    <button  id="submit-comentario">Enviar</button>
+                </form>
+            </section>
+        </div>
     </div>
 
 {% endblock %}
