@@ -18,9 +18,9 @@
 {% block contenido %}
     <div class="row row-leccion margin-0">
         <div class="div-leccion">
+        <h1 class="titulo">LUS: Foro</h1>
         {% for obj in foros %}
             <section class="contenido">
-            <h1 class="titulo">LUS: Foro</h1>
                 <div class="panel panel-intro">
                     <div class="panel-heading">
                         <h2 class="sub-titulo"><a href="{% url "responder_foro" obj.id%}" class="ir-articulo">{{ obj.tema }}</a></h2>
