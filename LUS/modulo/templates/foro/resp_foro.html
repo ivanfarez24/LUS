@@ -17,12 +17,18 @@
     <script src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
     <script src="{{ STATIC_URL }}ckeditor/adapters/jquery.js"></script>
     <script>
+        function CKupdate(){
+            for ( instance in CKEDITOR.instances )
+                CKEDITOR.instances[instance].updateElement();
+        }
         jQuery(document).ready(function($) {
             $( 'textarea#nuevo_comentario' ).ckeditor();
             var url = "{% url "responder_foro" id %}";
-            var datastring = $("#formulario").serialize();
+
             $("#submit-comentario").click(function(e){
                 e.preventDefault();
+                var datastring = $("#formulario").serialize();
+                alert(datastring);
                 $.ajax(
                 {
                     url: url,
@@ -32,14 +38,11 @@
                     timeout: 10000,
                     data: datastring,
                     beforeSend: function(msj){
-                        alert("before");
                     },
                     error: function(){
-                        alert("error")
                     },
                     success: function(data)
                     {
-                        alert("suces");
                         if(data.status == 2)
                         {
                             $("#error").fadeIn("slow");
@@ -84,7 +87,7 @@
                         <div class="panel panel-info">
                             <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
                             <div class="panel-body">
-                                {{ obj.comentario }}
+                                {{ obj.comentario|safe }}
                                 <div>
                                     # Votos: {{ obj.numero_votos }}
                                 </div>
@@ -110,7 +113,7 @@
                 <form id="formulario">
                     <label>Agregar Comentario</label>
                     <textarea name="respuesta" id="nuevo_comentario"></textarea>
-                    <button  id="submit-comentario">Enviar</button>
+                    <button  id="submit-comentario" onclick="CKupdate()">Enviar</button>
                 </form>
             </section>
         </div>

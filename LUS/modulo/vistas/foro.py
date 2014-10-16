@@ -40,21 +40,20 @@ def responder_foro(request, id):
     try:
         foro = Foro.objects.get(id=id)
         now = datetime.datetime.now()
-        print "responder foro"
         if request.is_ajax():
-            print "responder foro ajax"
-            respuesta = request.POST.get("respuesta", "")
+            comentario_foro = request.POST.get("respuesta", "")
+            print comentario_foro
             usuario = request.user.username
-            print "Este es el id: ", request.user.id
             persona = Persona.objects.get(id=request.user.id)
             comentario = ForoComentarios()
-            comentario.comentario = respuesta
+            comentario.comentario = comentario_foro
             comentario.foro = foro
             comentario.usuario_creacion = usuario
             comentario.persona = persona
             comentario.fecha_creacion = now
-            #comentario.save()
-            respuesta.append({"status": 1})
+            if comentario_foro != "":
+                comentario.save()
+            respuesta = {"status": 1}
             resultado = json.dumps(respuesta)
             return HttpResponse(resultado, mimetype='application/json')
 
