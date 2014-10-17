@@ -286,3 +286,60 @@ class ForoComentarios(models.Model):
         db_table = "foro_comentario"
         verbose_name = "Foro Comentario"
         verbose_name_plural = "Comentarios de Foros"
+
+
+class Capitulos(models.Model):
+    def url(self, filename):
+        ruta = str("foro/%s" % filename)
+        return ruta
+
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=550, null=True, blank=True)
+    descripcion = models.TextField(null=True, blank=True)
+
+    imagen = models.ImageField(upload_to=url, null=True, blank=True)
+
+    # Columnas aprovisionadas
+    col1 = models.CharField(max_length=550, null=True, blank=True)
+    col2 = models.CharField(max_length=550, null=True, blank=True)
+
+    estado = models.BooleanField(default=True)
+
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "capitulo"
+        verbose_name = "Capitulo"
+        verbose_name_plural = "Capitulos"
+
+
+class SubCapitulos(models.Model):
+    def url(self, filename):
+        ruta = str("foro/%s" % filename)
+        return ruta
+
+    id = models.AutoField(primary_key=True)
+    capitulo = models.ForeignKey(Capitulos)
+    titulo = models.CharField(max_length=550, null=True, blank=True)
+    contenido = models.TextField(null=True, blank=True)
+
+    imagen = models.ImageField(upload_to=url, null=True, blank=True)
+
+    # Columnas aprovisionadas
+    col1 = models.CharField(max_length=550, null=True, blank=True)
+    col2 = models.CharField(max_length=550, null=True, blank=True)
+
+    estado = models.BooleanField(default=True)
+
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "subcapitulo"
+        verbose_name = "Subcapitulo"
+        verbose_name_plural = "Subcapitulos"
