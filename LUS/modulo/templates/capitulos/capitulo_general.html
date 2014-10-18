@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load snnipet_generales %}
+{% block title %}LUS | Capítulo 1{% endblock %}
+
+{% block stylesheet %}
+    <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
+    <script>
+         $(document).ready(function() {
+
+            $(".capitulo-intro").niceScroll({touchbehavior:false,cursorcolor:"#00F",cursoropacitymax:0.7,cursorwidth:11,cursorborder:"1px solid #2848BE",cursorborderradius:"8px",background:"#ccc",autohidemode:false}).cursor.css({"background":"gray"}); // MAC like scrollbar
+
+             //Animaciones
+             $('.cap-img-principal').delay(1000).animate({opacity:'1',top:0},2000);
+         });
+    </script>
+
+{% endblock %}
+
+{% block contenido %}
+    <div class="container container-capitulo padding-0" id="n_cap" data-next="{{ next }}" data-before="{{ before }}">
+        <div class="row row-capitulo margin-0">
+             <div class="col-xs-12 col-lg-4 col-md-4  col-sm-4 col-intro padding-0">
+                 <div class="capitulo-intro">
+                     <h3>{{ sub_cap.titulo }}</h3>
+                     {{ sub_cap.contenido|safe }}
+                 </div>
+             </div>
+            <div class="col-xs-12 col-lg-8 col-md-8  col-sm-8 col-intro padding-0">
+                {{ sub_cap.animacion|safe }}
+             </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bootstrap %}
+
+{% endblock %}

@@ -1,4 +1,4 @@
 jQuery(document).ready(function($) {
-    $( 'textarea#id_concepto' ).ckeditor();
-    $( 'textarea#id_texto' ).ckeditor();
+    $( 'textarea#id_contenido' ).ckeditor();
+    $( 'textarea#id_animacion' ).ckeditor();
 } );

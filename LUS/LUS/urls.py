@@ -40,3 +40,9 @@ urlpatterns += patterns('modulo.vistas.foro',
 url('^foro/$', 'foro', name="foro"),
 url('^foro/comentarios/(?P<id>\d+)$', 'responder_foro', name="responder_foro"),
 )
+
+# Capitulo
+urlpatterns += patterns('modulo.vistas.capitulos',
+url('^capitulos/$', 'capitulos', name="capitulos"),
+url('^capitulos/(?P<id>\d+)$', 'leer_capitulo', name="leer_capitulo"),
+)

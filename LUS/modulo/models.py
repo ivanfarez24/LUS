@@ -300,7 +300,7 @@ class Capitulos(models.Model):
     imagen = models.ImageField(upload_to=url, null=True, blank=True)
 
     # Columnas aprovisionadas
-    col1 = models.CharField(max_length=550, null=True, blank=True)
+    orden = models.IntegerField(default=0)
     col2 = models.CharField(max_length=550, null=True, blank=True)
 
     estado = models.BooleanField(default=True)
@@ -314,6 +314,9 @@ class Capitulos(models.Model):
         db_table = "capitulo"
         verbose_name = "Capitulo"
         verbose_name_plural = "Capitulos"
+
+    def get_subcapitulos(self):
+        return SubCapitulos.objects.filter(capitulo=self, estado=True).order_by("orden")
 
 
 class SubCapitulos(models.Model):
@@ -329,8 +332,8 @@ class SubCapitulos(models.Model):
     imagen = models.ImageField(upload_to=url, null=True, blank=True)
 
     # Columnas aprovisionadas
-    col1 = models.CharField(max_length=550, null=True, blank=True)
-    col2 = models.CharField(max_length=550, null=True, blank=True)
+    orden = models.IntegerField(default=0)
+    animacion = models.TextField(null=True, blank=True)
 
     estado = models.BooleanField(default=True)
 
