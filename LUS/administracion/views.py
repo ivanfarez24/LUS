@@ -35,15 +35,15 @@ Foro.__unicode__ = tema_unicode
 Capitulos.__unicode__ = nombre_unicode
 
 class CommonMedia:
-  js = (
-      ('http://code.jquery.com/jquery-1.11.0.min.js',
-       STATIC_URL+'ckeditor/ckeditor.js',
-       STATIC_URL+'ckeditor/adapters/jquery.js',
-       STATIC_URL+'js/consulta_editor.js')
-  )
-  css = {
-    'all': (STATIC_URL + 'css/editor.css',)
-  }
+    js = (
+        ('http://code.jquery.com/jquery-1.11.0.min.js',
+         STATIC_URL+'ckeditor/ckeditor.js',
+         STATIC_URL+'ckeditor/adapters/jquery.js',
+         STATIC_URL+'js/consulta_editor.js')
+    )
+    css = {
+           'all': (STATIC_URL + 'css/editor.css',)
+           }
 
 
 class ModuloInlineFormSet(BaseInlineFormSet):
