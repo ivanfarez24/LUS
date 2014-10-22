@@ -26,6 +26,13 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'smtpout.secureserver.net'
+EMAIL_HOST_USER = 'ifarez@nrmaster.com'
+EMAIL_HOST_PASSWORD = 'ifarez'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'ifarez@nrmaster.com'
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['*']
