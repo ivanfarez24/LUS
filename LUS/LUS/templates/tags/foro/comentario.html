@@ -1,0 +1,14 @@
+<section class="contenido">
+    <div class="panel panel-info">
+        <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
+        <div class="panel-body">
+            {{ obj.comentario|safe }}
+            <div>
+                # Votos: {{ obj.numero_votos }}
+            </div>
+            <div class="icon-like">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+            </div>
+        </div>
+    </div>
+</section>
