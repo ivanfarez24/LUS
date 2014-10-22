@@ -17,6 +17,7 @@ from django.db.models import Sum
 import operator
 from django.db.models import F
 from django.forms.formsets import formset_factory
+from django.template.loader import render_to_string
 
 
 def foro(request):
@@ -40,9 +41,9 @@ def responder_foro(request, id):
     try:
         foro = Foro.objects.get(id=id)
         now = datetime.datetime.now()
+
         if request.is_ajax():
             comentario_foro = request.POST.get("respuesta", "")
-            print comentario_foro
             usuario = request.user.username
             persona = Persona.objects.get(id=request.user.id)
             comentario = ForoComentarios()
@@ -53,9 +54,9 @@ def responder_foro(request, id):
             comentario.fecha_creacion = now
             if comentario_foro != "":
                 comentario.save()
-            respuesta = {"status": 1}
-            resultado = json.dumps(respuesta)
-            return HttpResponse(resultado, mimetype='application/json')
+
+            html = render_to_string('tags/foro/comentario.html', {'obj': comentario})
+            return HttpResponse(html)
 
         return render_to_response("foro/resp_foro.html",
                               {"foro": foro, "id": id},

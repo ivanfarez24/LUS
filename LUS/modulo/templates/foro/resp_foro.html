@@ -21,6 +21,11 @@
             for ( instance in CKEDITOR.instances )
                 CKEDITOR.instances[instance].updateElement();
         }
+        function CKupdateClear(){
+        for ( instance in CKEDITOR.instances )
+            CKEDITOR.instances[instance].updateElement();
+            CKEDITOR.instances[instance].setData('');
+        }
         jQuery(document).ready(function($) {
             $( 'textarea#nuevo_comentario' ).ckeditor();
             var url = "{% url "responder_foro" id %}";
@@ -28,7 +33,6 @@
             $("#submit-comentario").click(function(e){
                 e.preventDefault();
                 var datastring = $("#formulario").serialize();
-                alert(datastring);
                 $.ajax(
                 {
                     url: url,
@@ -40,9 +44,14 @@
                     beforeSend: function(msj){
                     },
                     error: function(){
+                        alert("error");
                     },
                     success: function(data)
                     {
+                        $("#comentarios").append(data);
+                        $("#formulario")[0].reset();
+                        CKupdateClear();
+                        /*
                         if(data.status == 2)
                         {
                             $("#error").fadeIn("slow");
@@ -55,7 +64,7 @@
                         else
                         {
                             alert("Hola");
-                        }
+                        }*/
                     }
                 });
             });
@@ -80,34 +89,36 @@
                     </article>
                 </header>
             </section>
-            {% if foro.get_respuestas %}
-                <h2 class="sub-titulo">Comentarios:</h2>
-                {% for obj in foro.get_respuestas %}
-                    <section class="contenido">
+            <section id="comentarios">
+                {% if foro.get_respuestas %}
+                    <h2 class="sub-titulo">Comentarios:</h2>
+                    {% for obj in foro.get_respuestas %}
+                        <section class="contenido">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
+                                <div class="panel-body">
+                                    {{ obj.comentario|safe }}
+                                    <div>
+                                        # Votos: {{ obj.numero_votos }}
+                                    </div>
+                                    <div class="icon-like">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    {% endfor %}
+                {% else %}
+                   <section>
                         <div class="panel panel-info">
-                            <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
-                            <div class="panel-body">
-                                {{ obj.comentario|safe }}
-                                <div>
-                                    # Votos: {{ obj.numero_votos }}
-                                </div>
-                                <div class="icon-like">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <div class="panel-heading"><h2 class="sub-titulo">Comentarios</h2></div>
+                                <div class="panel-body">
+                                    <p>Actualmente no existen comentarios para este tema.</p>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                {% endfor %}
-            {% else %}
-               <section>
-                    <div class="panel panel-info">
-                            <div class="panel-heading"><h2 class="sub-titulo">Comentarios</h2></div>
-                            <div class="panel-body">
-                                <p>Actualmente no existen comentarios para este tema.</p>
-                            </div>
-                        </div>
-               </section>
-            {% endif %}
+                   </section>
+                {% endif %}
+            </section>
             <section class="contenido">
                 <form id="formulario">
                     <label>Agregar Comentario</label>
