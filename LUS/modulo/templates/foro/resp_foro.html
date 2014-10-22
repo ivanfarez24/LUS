@@ -48,9 +48,10 @@
                     },
                     success: function(data)
                     {
-                        $("#comentarios").append(data);
+                        $("#comentarios").append(data).fadeIn("slow");
                         $("#formulario")[0].reset();
                         CKupdateClear();
+                        $("#sin-comentarios").remove();
                         /*
                         if(data.status == 2)
                         {
@@ -109,7 +110,7 @@
                         </section>
                     {% endfor %}
                 {% else %}
-                   <section>
+                   <section id="sin-comentarios">
                         <div class="panel panel-info">
                                 <div class="panel-heading"><h2 class="sub-titulo">Comentarios</h2></div>
                                 <div class="panel-body">

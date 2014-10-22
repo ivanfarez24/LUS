@@ -288,6 +288,22 @@ class ForoComentarios(models.Model):
         verbose_name_plural = "Comentarios de Foros"
 
 
+class PersonaVotoComentario(models.Model):
+    id = models.AutoField(primary_key=True)
+    persona = models.ForeignKey(Persona)
+    foro_comentario = models.ForeignKey(ForoComentarios)
+
+    estado = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
+    usuario_creacion = models.CharField(max_length=60)
+    fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
+    usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
+
+    class Meta:
+        db_table = "persona_voto_comentario"
+        verbose_name = "Persona voto comentario"
+        verbose_name_plural = "Persona voto comentarios"
+
 class Capitulos(models.Model):
     def url(self, filename):
         ruta = str("foro/%s" % filename)
