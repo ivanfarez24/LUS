@@ -1,7 +1,6 @@
 .container-capitulo{
     width: 100%;
-    background: #FFF;
-
+    /*#376FE5*/
 }
 .row-capitulo{
     width: 78%;
@@ -43,14 +42,47 @@
 }
 
 .capitulo-grafica img{
-    max-width: 90%;
-    max-height: 600px;
-    float: right;
+    width: 70%;
+    height: auto;
+    border: 1px solid lightgrey;
+    padding: 5px;
+
+}
+
+.imagenes-change{
+    width: 70%;
+    min-height: 20px;
+    margin: auto;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    margin-top: 10px;
+    position: relative;
+    top: 10px;
+    opacity: 0;
+
+}
+
+.imagenes-change ul{
+    text-align: center;
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+.imagenes-change ul li{
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+.imagenes-change ul li a,.imagenes-change ul li a:hover{
+    display: block;
+    color: #00AE8D;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .cap-img-principal{
     position: relative;
-    top: -50px;
+    top: -20px;
     opacity: 0;
 }
 
@@ -170,4 +202,8 @@
 .leer-mas,.leer-mas:hover,.leer-mas:focus{
     color: #00AE8D;
     text-decoration: none;
+}
+
+.body-capitulo{
+    background: url("../img/cap_bg_end.jpg") repeat;
 }
