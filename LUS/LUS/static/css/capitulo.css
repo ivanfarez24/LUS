@@ -17,7 +17,8 @@
 
 .capitulo-intro h1{
     color: #00AE8D;
-    font-size: 22px;
+    font-size: 28px;
+    text-align: left;
 }
 
 .nicescroll-rails{
@@ -42,8 +43,9 @@
 }
 
 .capitulo-grafica img{
-    max-width: 100%;
+    max-width: 90%;
     max-height: 600px;
+    float: right;
 }
 
 .cap-img-principal{

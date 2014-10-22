@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Ubuntu', sans-serif;
 }
 html,body{
     height: 100%;
@@ -132,19 +133,29 @@ h1, .h1, h2, .h2, h3, .h3 {
     width: 100%;
     background: #00AE8D;
     display: table;
-    height: 56px;
+    height: 76px;
+    padding: 10px 0px;
     border-top: 5px solid #333E48;
 }
 .row-footer{
     width: 78%;
-    display: table-cell;
-    vertical-align: middle;
+
 }
 .derechos-left{
     color: #ffffff;
     text-align: left;
     font-size: 11px;
     line-height: 4;
+    margin: 0px;
+    position: absolute;
+    left: 0px;
+}
+
+.derechos-centro{
+
+    position: absolute;
+    left: 48%;
+    margin: 0px;
 }
 
 .derechos-right{
@@ -152,6 +163,9 @@ h1, .h1, h2, .h2, h3, .h3 {
     text-align: right;
     font-size: 11px;
     line-height: 4;
+    margin: 0px;
+    position: absolute;
+    right: 0px;
 }
 
 .container-banner{
@@ -194,6 +208,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .col-intro h2{
    color: #00AE8D;
     font-size: 28px;
+    padding-bottom: 20px;
 }
 
 .col-intro p{
@@ -246,4 +261,31 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 .navbar{
     min-height: 42px;
+}
+
+.p-titulo{
+    font-size: 20px !important;
+}
+
+.p-titulo i{
+    color: #585858;
+    font-size: 24px;
+    padding-right: 10px;
+    position: relative;
+    top: 2px;
+}
+
+.titulo-acordion i{
+    padding-right: 10px;
+    position: relative;
+    top: -2px;
+}
+
+.panel-body a,.panel-body a:hover{
+    color: #333E48;
+    text-decoration: none;
+}
+
+.capitulo-intro h3{
+    padding-bottom: 20px;
 }
