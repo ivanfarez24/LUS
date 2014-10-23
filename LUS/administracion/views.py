@@ -61,7 +61,7 @@ class ModuloInlineFormSet(BaseInlineFormSet):
 
 
 class AdminModuloTexto(admin.ModelAdmin):
-    fields = ["nombre", 'texto', 'estado']
+    fields = ["nombre", 'titulo', 'imagen', 'texto', 'estado']
     list_display = ["id", "nombre", 'texto', 'estado']
     search_fields = ["nombre", 'texto', 'estado']
 

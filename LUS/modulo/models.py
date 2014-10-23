@@ -11,6 +11,8 @@ from django.contrib.auth.admin import User
 class ModuloTexto(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, unique=True)
+    titulo = models.CharField(max_length=200, null=True, blank=True)
+    imagen = models.CharField(max_length=200, null=True, blank=True)
     texto = models.TextField()
 
     estado = models.BooleanField(default=True)
