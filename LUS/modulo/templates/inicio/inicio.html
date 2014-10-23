@@ -64,20 +64,27 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-intro col-intro-first col-mod padding-0">
-                <p class="p-titulo"><i class="fa fa-book"></i>Lecciones online</p>
+                {% if modulo1 %}
+                <p class="p-titulo"><i class="{{ modulo1.imagen }}"></i>{{ modulo1.titulo }}</p>
 
-                <p>Para que las personas puedan reforzar en el aprendizaje, con puntuación, y verificación de las respuestas mostrándole las respuestas y corrigiendo si fuera el caso</p>
+                {{ modulo1.texto|safe }}
+                {% endif %}
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-intro col-intro-centro col-mod padding-0">
-                <p class="p-titulo"><i class="fa fa-users"></i>Foros</p>
+               {% if modulo2 %}
+                <p class="p-titulo"><i class="{{ modulo2.imagen }}"></i>{{ modulo2.titulo }}</p>
 
-                <p>Existe una sección de foro para que los estudiantes puedan subir alguna duda, artículo, o cualquier inquietud, y que las demás personas puedan ayudar a responder sus inquietudes o aprender con sus artículos compartidos.</p>
+                {{ modulo2.texto|safe }}
+                {% endif %}
             </div>
 
             <div class="ccol-xs-12 col-sm-12 col-md-4 col-lg-4 col-intro col-intro-last col-mod padding-0">
-                <p class="p-titulo"><i class="fa fa-laptop"></i>Contenido online</p>
-                <p>Contenido interactivo online,&nbsp;<span style="line-height: 20.7999992370605px;">que las demás personas puedan ayudar a responder sus inquietudes o aprender con sus artículos compartidos.</span></p>
+                {% if modulo3 %}
+                <p class="p-titulo"><i class="{{ modulo3.imagen }}"></i>{{ modulo3.titulo }}</p>
+
+                {{ modulo3.texto|safe }}
+                {% endif %}
             </div>
         </div>
     </div>
