@@ -35,19 +35,15 @@
   <body class="{% block body-class %}{% endblock %}">
     <div class="container container-header">
         <div class="row row-header margin-0">
-            <div class="ol-xs-12 col-sm-12 col-md-4 col-lg-4 col-logo">
                 <a href="#" class="logo"><img src="{{ STATIC_URL }}img/logo_blanco.png" /></a>
-            </div>
-
-            <div class="ol-xs-12 col-sm-12 col-md-8 col-lg-8 col-phone">
-               <ul class="acceso">
+                <ul class="acceso">
                    <li>
                        <a href="{% url "login" %}"><i class="fa fa-user"></i>Login</a>
                    </li>
                </ul>
                {% ordenar_menu %}
 
-            </div>
+
         </div>
     </div>
 
