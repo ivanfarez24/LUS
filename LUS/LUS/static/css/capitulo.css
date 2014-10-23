@@ -92,7 +92,7 @@
 }
 
 .panel-intro .panel-heading{
-    background: rgba(0, 174, 141,0.2);
+    background: #8dbf41;
     border: 1px solid #8dbf41;
 }
 
@@ -100,6 +100,8 @@
     border: 1px solid #DDD;
     border-top: 0px;
     border-radius: 0px 0px 5px 5px;
+    background: #31353D;
+    color: #FFF;
 }
 
 .leccion-respuestas{
@@ -134,7 +136,16 @@
 }
 
 .panel-heading{
-    color: #333E48 !important;
+    color: #FFF !important;
+    background: #8dbf41 !important;
+    border-bottom: 1px solid silver;
+    margin-bottom: 1px;
+}
+
+.panel-group .panel-heading+.panel-collapse>.panel-body {
+    border-top: 1px solid #ddd !important;
+    background: #31353D !important;
+    color: #FFF !important;
 }
 
 .col-aciertos{
@@ -183,7 +194,7 @@
 }
 
 .ir-articulo,.ir-articulo:hover{
-    color: #333e48;
+    color: #FFF;
     text-decoration: none;
 }
 
