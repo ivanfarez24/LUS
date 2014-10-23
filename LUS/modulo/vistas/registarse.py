@@ -22,8 +22,9 @@ from django.template.loader import render_to_string
 from random import choice
 from django.db import transaction
 
+
 def generar_clave(longitud=18):
-    valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@#%&+"
+    valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@+"
     p = ""
     p = p.join([choice(valores) for i in range(longitud)])
     return p
@@ -42,7 +43,7 @@ def registrarse(request):
                 persona.first_name = form.get_nombre()
                 persona.last_name = form.get_apellido()
                 persona.username = form.get_usuario()
-                persona.password = form.get_contrasenia()
+                persona.set_password(form.get_contrasenia())
                 persona.sexo = Sexo.objects.get(id=form.get_sexo())
                 persona.clave_temp = generar_clave(18)
 
@@ -86,6 +87,7 @@ def activar_cuenta(request, id, clave):
             messages.success(request, u"Su cuenta ha sido activada exitosamente")
         return HttpResponseRedirect(reverse('inicio_view'))
     else:
+        messages.success(request, u"Su cuenta ya esta activada")
         return HttpResponseRedirect(reverse('inicio_view'))
 
 

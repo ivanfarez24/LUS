@@ -8,8 +8,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
+# Login
 urlpatterns += patterns('modulo.vistas.login',
 url(r'^login/$', 'login_view', name="login"),
+url(r'^login/$', 'logout', name="logout"),
 )
 
 urlpatterns += patterns('modulo.vistas.inicio',
