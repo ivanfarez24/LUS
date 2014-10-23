@@ -48,6 +48,11 @@ h1, .h1, h2, .h2, h3, .h3 {
     vertical-align: middle;
     text-align: center;
 }
+
+.icon-like {
+    color: #8dbf41 !important;
+}
+
 .logo{
 
     margin-top: 8px;
@@ -296,8 +301,13 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 .panel-body a,.panel-body a:hover{
-    color: #333E48;
+    color: #FFF;
     text-decoration: none;
+}
+
+.panel-body {
+    background: #31353D;
+    color: #fff;
 }
 
 .capitulo-intro h3{
