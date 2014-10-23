@@ -26,7 +26,15 @@
     }
 
     .row-login{
-        width: 96%;
+        width: 98%;
+    }
+
+    .navbar-nav>li>a {
+        padding: 5px 5px !important;
+    }
+
+    .row-intro {
+        width: 90%;
     }
 }
 

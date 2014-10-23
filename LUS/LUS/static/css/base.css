@@ -274,6 +274,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .navbar{
     min-height: 42px;
     float: right;
+    top: 8px;
 }
 
 .p-titulo{
@@ -318,7 +319,7 @@ h1, .h1, h2, .h2, h3, .h3 {
     list-style: none;
     margin-bottom: 0px;
     position: relative;
-    top: 4px;
+    top: 8px;
 }
 
 .acceso li{
