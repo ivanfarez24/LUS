@@ -33,6 +33,8 @@ url('^lecciones/(?P<id>\d+)$', 'leccion', name="leccion"),
 # Registro
 urlpatterns += patterns('modulo.vistas.registarse',
 url('^registro/$', 'registrarse', name="registrarse"),
+url('^activacion_cuenta/(?P<id>\d+)/(?P<clave>.+)/$', 'activar_cuenta', name="activar_cuenta"),
+
 )
 
 # Foro

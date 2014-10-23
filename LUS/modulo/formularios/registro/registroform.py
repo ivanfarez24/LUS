@@ -53,7 +53,7 @@ class Registroform(forms.Form):
         r_contrasenia = self.cleaned_data.get('r_contrasenia', None)
 
         # validar usuername
-        if Persona.objects.filter(username=usuario).exists():
+        if User.objects.filter(username=usuario).exists():
             self._errors["usuario"] = u"El nombre del ususario " \
                                     u"ya se encuetra registrado"
 
