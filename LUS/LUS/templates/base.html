@@ -43,7 +43,7 @@
                <ul class="acceso">
                    <li>
                        {% if request.user.is_authenticated %}
-                           <a href="{% url "logout" %}"><i class="fa fa-power-off"></i>Logout</a>
+                           <a href="{% url "salir" %}"><i class="fa fa-power-off"></i>Logout</a>
                        {% else %}
                             <a href="{% url "login" %}"><i class="fa fa-user"></i>Login</a>
                        {% endif %}

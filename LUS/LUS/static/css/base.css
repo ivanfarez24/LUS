@@ -263,8 +263,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 .navbar-nav>li>a {
-    padding-top: 11px !important;
-    padding-bottom: 11px !important;
+    padding: 5px 11px !important;
 }
 .navbar{
     min-height: 42px;
@@ -312,7 +311,6 @@ h1, .h1, h2, .h2, h3, .h3 {
     float: right;
     list-style: none;
     margin-bottom: 0px;
-    margin-left: 10px;
     position: relative;
     top: 4px;
 }

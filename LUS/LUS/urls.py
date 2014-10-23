@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 # Login
 urlpatterns += patterns('modulo.vistas.login',
 url(r'^login/$', 'login_view', name="login"),
-url(r'^login/$', 'logout', name="logout"),
+url(r'^logout/$', 'salir', name="salir"),
 )
 
 urlpatterns += patterns('modulo.vistas.inicio',
