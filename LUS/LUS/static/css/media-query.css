@@ -29,6 +29,13 @@
         width: 96%;
     }
 }
+
+@media (max-width: 1080px) {
+    .row-header {
+        width: 96%;
+    }
+}
+
 @media (max-width: 1280px) {
 
 }
