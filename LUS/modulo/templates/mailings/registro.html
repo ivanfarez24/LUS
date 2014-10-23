@@ -24,29 +24,17 @@
         <td width="630" height="300" style="width:630px; height:300px; text-align:justify; color:#000000; font-size:13px; vertical-align: top; padding: 0px 20px;">
            Estimado(a): {{ persona.first_name }} {{ persona.last_name }}
            <br />
+           Usuario: {{ persona.username }}
            <br />
            Ha recibido un mensaje desde la web con la siguiente información:
            <br /><br />
             Por favor dele click en el siguiente link para confirmar su registro en
             LUS
-
+        </td>
+        <td>
+            <a href="{{ URL_ROOT }}{% url "activar_cuenta" persona.id persona.clave_temp%}">Activa tu cuenta</a>
         </td>
       </tr>
-    </table> 
-    <table align="center" border="0" style="background-color:#FFFFFF;width:630px; height:27px; margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="630" height="27" style="width:630px; height:27px;text-align:center; vertical-align: middle;">
-              <img src="{{ URL_MEDIA }}mail/mail_footer_bg.png" alt="bg70" width="630" height="27" border="0" style="display:block"/>
-        </td>
-      </tr>
-    </table> 
-    <table align="center" border="0" style="background-color:#EF4034;width:630px; height:50px; margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="630" height="50" style="width:630px; height:50px;text-align:center; vertical-align: middle; color: #FFFFFF; font-size: 10px; font-weight: bold;">
-              © 2014 UNILEVER ANDINA, DERECHOS RESERVADOS
-        </td>
-      </tr>
-    </table> 
-
+    </table>
 </body>
 </html>

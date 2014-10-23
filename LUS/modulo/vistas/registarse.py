@@ -20,7 +20,7 @@ from modulo.models import *
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from random import choice
-
+from django.db import transaction
 
 def generar_clave(longitud=18):
     valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@#%&+"
@@ -29,36 +29,41 @@ def generar_clave(longitud=18):
     return p
 
 
+@csrf_exempt
+@transaction.commit_on_success
 def registrarse(request):
     form = Registroform()
     #if request.user.is_authenticated() == False:
     if request.method == "POST":
         form = Registroform(request.POST)
-        print form.errors
         if form.is_valid():
-            persona = Persona()
-            persona.first_name = form.get_nombre()
-            persona.last_name = form.get_apellido()
-            persona.username = form.get_usuario()
-            persona.password = form.get_contrasenia()
-            persona.sexo = Sexo.objects.get(id=form.get_sexo())
-            persona.direccion = generar_clave(18)
+            try:
+                persona = Persona()
+                persona.first_name = form.get_nombre()
+                persona.last_name = form.get_apellido()
+                persona.username = form.get_usuario()
+                persona.password = form.get_contrasenia()
+                persona.sexo = Sexo.objects.get(id=form.get_sexo())
+                persona.clave_temp = generar_clave(18)
 
-            persona.usuario_creacion = 'sistema'
-            persona.fecha_creacion = datetime.datetime.now()
-            persona.email = form.get_email()
-            persona.save()
-            # Mailing
-            mensaje = render_to_string("mailings/registro.html",
-                                       {"persona": persona}, context_instance=RequestContext(request))
-            subject, \
-            from_email, \
-            to = u'Confirmación de Cuenta', u'LUS'+'<'+'info@lusonline.net'+'>', persona.email
-            msg = EmailMessage(subject, mensaje, from_email, [to])
-            msg.content_subtype = "html"  # Main content is now text/html
-            msg.send()
-            messages.success(request, u"Se ha enviado un mensaje a su correo electrónico, "
-                                      u"por favor confirme su registro.")
+                persona.usuario_creacion = 'sistema'
+                persona.fecha_creacion = datetime.datetime.now()
+                persona.email = form.get_email()
+                persona.is_active = False
+                persona.save()
+                # Mailing
+                mensaje = render_to_string("mailings/registro.html",
+                                           {"persona": persona}, context_instance=RequestContext(request))
+                subject, \
+                from_email, \
+                to = u'Confirmación de Cuenta', u'LUS'+'<'+'info@lusonline.net'+'>', persona.email
+                msg = EmailMessage(subject, mensaje, from_email, [to])
+                msg.content_subtype = "html"  # Main content is now text/html
+                msg.send()
+                messages.success(request, u"Se ha enviado un mensaje a su correo electrónico, "
+                                          u"por favor confirme su registro.")
+            except Persona.DoesNotExist:
+                transaction.rollback()
             return HttpResponseRedirect(reverse('inicio_view'))
         else:
             messages.error(request, u"Por favor verificar los datos requeridos")
@@ -70,13 +75,19 @@ def registrarse(request):
     #    return HttpResponseRedirect(reverse("administracion"))
 
 
-def activar_cuenta(request, clave):
-    if Persona.objects.filter(direccion=clave, is_active=False).exists():
-        persona = Persona.objects.get(direccion=clave, is_active=False)
-        persona.is_active = True
-        persona.fecha_actualizacion = datetime.datetime.now()
-        persona.usuario_actualizacion = 'sistema'
-        persona.save()
+def activar_cuenta(request, id, clave):
+    if Persona.objects.filter(id=id, is_active=False).exists():
+        persona = Persona.objects.get(id=id)
+        if persona.clave_temp == clave:
+            persona.is_active = True
+            persona.fecha_actualizacion = datetime.datetime.now()
+            persona.usuario_actualizacion = 'sistema'
+            persona.save()
+            messages.success(request, u"Su cuenta ha sido activada exitosamente")
+        return HttpResponseRedirect(reverse('inicio_view'))
+    else:
+        return HttpResponseRedirect(reverse('inicio_view'))
+
 
 def salir(request):
     logout(request)
