@@ -49,9 +49,14 @@ h1, .h1, h2, .h2, h3, .h3 {
     text-align: center;
 }
 .logo{
-    display: block;
+
     margin-top: 8px;
 }
+
+.logo img{
+    margin-top: 10px;
+}
+
 .mail-label, .phone-label{
     position: absolute;
     top: 12px;
@@ -71,6 +76,7 @@ h1, .h1, h2, .h2, h3, .h3 {
     display: table-cell;
     vertical-align: middle;
 }
+
 .ul-nav{
     float: inherit !important;
     text-align: center;
