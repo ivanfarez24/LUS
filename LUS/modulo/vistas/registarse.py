@@ -23,7 +23,7 @@ from random import choice
 from django.db import transaction
 
 def generar_clave(longitud=18):
-    valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@#%&+"
+    valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@+"
     p = ""
     p = p.join([choice(valores) for i in range(longitud)])
     return p
@@ -86,6 +86,7 @@ def activar_cuenta(request, id, clave):
             messages.success(request, u"Su cuenta ha sido activada exitosamente")
         return HttpResponseRedirect(reverse('inicio_view'))
     else:
+        messages.success(request, u"Su cuenta ya esta activada")
         return HttpResponseRedirect(reverse('inicio_view'))
 
 
