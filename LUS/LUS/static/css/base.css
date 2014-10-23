@@ -328,6 +328,21 @@ h1, .h1, h2, .h2, h3, .h3 {
     display: block;
     text-transform: uppercase;
     font-weight: 500;
+    -ms-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+    -webkit-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+.acceso li a:hover{
+    color: #8dbf41;
+    text-decoration: none;
+    -ms-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    -webkit-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
 }
 
 .acceso li a i{
@@ -356,6 +371,7 @@ h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 50px;
     width: 100%;
 }
+
 
 .formulario-login h2{
     text-align: center;
