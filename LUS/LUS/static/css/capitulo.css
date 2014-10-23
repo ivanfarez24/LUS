@@ -15,7 +15,7 @@
 }
 
 .capitulo-intro h1{
-    color: #00AE8D;
+    color: #8dbf41;
     font-size: 28px;
     text-align: left;
 }
@@ -31,7 +31,7 @@
 }
 
 .nicescroll-rails div{
-    background: #00AE8D !important;
+    background: #8dbf41 !important;
     width: 8px !important;
     border: none !important;
 }
@@ -75,7 +75,7 @@
 
 .imagenes-change ul li a,.imagenes-change ul li a:hover{
     display: block;
-    color: #00AE8D;
+    color: #8dbf41;
     text-decoration: none;
     cursor: pointer;
 }
@@ -93,7 +93,7 @@
 
 .panel-intro .panel-heading{
     background: rgba(0, 174, 141,0.2);
-    border: 1px solid #00AE8D;
+    border: 1px solid #8dbf41;
 }
 
 .panel-intro .panel-body{
@@ -113,7 +113,7 @@
 }
 
 .btn-finalizar,.btn-finalizar:hover,.btn-finalizar:focus{
-    background: #00AE8D;
+    background: #8dbf41;
     color: #ffffff;
     font-size: 16px;
     text-decoration: none;
@@ -175,7 +175,7 @@
 }
 
 .respuesta-acierto i{
-    color: #00AE8D;
+    color: #8dbf41;
 }
 
 .respuesta-vacia i{
@@ -188,7 +188,7 @@
 }
 
 .titulo{
-    color: #00AD8D;
+    color: #8dbf41;
     margin-bottom: 20px;
     font-weight: normal;
     font-size: 24px;
@@ -200,7 +200,7 @@
 }
 
 .leer-mas,.leer-mas:hover,.leer-mas:focus{
-    color: #00AE8D;
+    color: #8dbf41;
     text-decoration: none;
 }
 

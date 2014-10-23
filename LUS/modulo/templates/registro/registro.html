@@ -4,7 +4,7 @@
 {% block title %}LUS | Registro{% endblock %}
 
 {% block stylesheet %}
-    <link href="{{ STATIC_URL }}css/estilos.css" rel="stylesheet">
+
 {% endblock %}
 
 {% block scripts %}
@@ -109,6 +109,9 @@
                                 </div>
                              {% endfor %}
                         {% endif %}
+                    </div>
+                    <div class="enalces-cuenta">
+                        <a class="link-cuenta" href="{% url "inicio_view" %}">Regresar al Inicio</a>
                     </div>
                 </div>
             </div>

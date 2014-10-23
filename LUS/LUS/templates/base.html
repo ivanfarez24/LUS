@@ -35,27 +35,18 @@
   <body class="{% block body-class %}{% endblock %}">
     <div class="container container-header">
         <div class="row row-header margin-0">
-            <div class=" col-xs-12 col-lg-6 col-md-6  col-sm-6 col-logo">
+            <div class="ol-xs-12 col-sm-12 col-md-4 col-lg-4 col-logo">
                 <a href="#" class="logo"><img src="{{ STATIC_URL }}img/logo_blanco.png" /></a>
             </div>
-            <div class=" col-xs-12 col-lg-3 col-md-3  col-sm-3 col-email">
-                <div class="email-icono">
-                    <img src="{{ STATIC_URL }}img/icono_sobre.png" />
-                    <label class="mail-label">info@lus.com</label>
-                </div>
-            </div>
-            <div class=" col-xs-12 col-lg-3 col-md-3  col-sm-3 col-phone">
-                <div class="phone-icono">
-                    <img src="{{ STATIC_URL }}img/icono_telefono.png" />
-                    <label class="phone-label">(593) 99 454 3743</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container container-nav">
-        <div class="row row-nav">
-            <div class=" col-xs-12 col-lg-12 col-md-12  col-sm-12 col-nav">
-                {% ordenar_menu %}
+
+            <div class="ol-xs-12 col-sm-12 col-md-8 col-lg-8 col-phone">
+               <ul class="acceso">
+                   <li>
+                       <a href="{% url "login" %}"><i class="fa fa-user"></i>Login</a>
+                   </li>
+               </ul>
+               {% ordenar_menu %}
+
             </div>
         </div>
     </div>
