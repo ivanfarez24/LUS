@@ -290,3 +290,11 @@ h1, .h1, h2, .h2, h3, .h3 {
     padding-bottom: 20px;
     text-align: left;
 }
+.errorlist{
+    list-style: none;
+    margin-bottom: -10px;
+}
+
+.errorlist li{
+    padding-left: 60px;
+}

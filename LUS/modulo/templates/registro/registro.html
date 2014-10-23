@@ -23,39 +23,61 @@
                         <h2>Información de Registro</h2>
                     </div>
                     <form class="formulario"  action="{% url "registrarse" %}" method="POST" autocomplete="off">{% csrf_token %}
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            {{ form.nombre|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.nombre.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                {{ form.nombre|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.nombre.errors }}</label>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            {{ form.apellido|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.apellido.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                {{ form.apellido|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.apellido.errors }}</label>
                         </div>
-                        <div class="input-group group-sexo">
-
-                            <span class="input-group-addon"><i class="fa fa-female fa-uno"></i><i class="fa fa-male fa-dos"></i></span>
-                            {{ form.sexo|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group group-sexo {% if form.sexo.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-female fa-uno"></i><i class="fa fa-male fa-dos"></i></span>
+                                {{ form.sexo|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.sexo.errors }}</label>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            {{ form.usuario|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.usuario.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                {{ form.usuario|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.usuario.errors }}</label>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            {{ form.contrasenia|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.contrasenia.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                {{ form.contrasenia|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.contrasenia.errors }}</label>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            {{ form.r_contrasenia|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.r_contrasenia.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                {{ form.r_contrasenia|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.r_contrasenia.errors }}</label>
                         </div>
-                        <div class="input-group">
-
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            {{ form.email|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.email.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                {{ form.email|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.email.errors }}</label>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            {{ form.r_email|add_class:"input-text form-control" }}
+                        <div class="form-group">
+                            <div class="input-group {% if form.r_email.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                {{ form.r_email|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.r_email.errors }}</label>
                         </div>
 
                         <div class="clearfix"></div>
