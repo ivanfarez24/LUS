@@ -16,6 +16,7 @@
 {% block scripts %}
     <script src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
     <script src="{{ STATIC_URL }}ckeditor/adapters/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/foro.js"></script>
     <script>
         function CKupdate(){
             for ( instance in CKEDITOR.instances )
@@ -27,7 +28,18 @@
             CKEDITOR.instances[instance].setData('');
         }
         jQuery(document).ready(function($) {
+
             $( 'textarea#nuevo_comentario' ).ckeditor();
+                        config.toolbar = [
+                [ 'Source', '-', 'Bold', 'Italic' ]
+            ];
+
+            //config.removeButtons = 'Anchor,Underline,Strike,Subscript,Superscript';
+            //config.hideDialogFields="image:info:htmlPreview";
+            //config.removePlugins = 'elementspath,save,font';
+            //config.removeButtons = 'Anchor,Underline,Strike,Subscript,Superscript';
+
+
             var url = "{% url "responder_foro" id %}";
 
             $("#submit-comentario").click(function(e){
@@ -52,20 +64,6 @@
                         $("#formulario")[0].reset();
                         CKupdateClear();
                         $("#sin-comentarios").remove();
-                        /*
-                        if(data.status == 2)
-                        {
-                            $("#error").fadeIn("slow");
-                            $("#error-cuenta").text(data.mensaje);
-                            $('#loading').fadeOut();
-                            $('body').css('opacity', '1');
-                            btn_acept.text(texto);
-                            btn_acept.attr("disabled", false);
-                        }
-                        else
-                        {
-                            alert("Hola");
-                        }*/
                     }
                 });
             });
