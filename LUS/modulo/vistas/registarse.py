@@ -17,6 +17,16 @@ from django.forms.formsets import formset_factory
 from modulo.formularios.registro.registroform import *
 from django.contrib.auth import login, authenticate, logout
 from modulo.models import *
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from random import choice
+
+
+def generar_clave(longitud=18):
+    valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@#%&+"
+    p = ""
+    p = p.join([choice(valores) for i in range(longitud)])
+    return p
 
 
 def registrarse(request):
@@ -24,17 +34,32 @@ def registrarse(request):
     #if request.user.is_authenticated() == False:
     if request.method == "POST":
         form = Registroform(request.POST)
+        print form.errors
         if form.is_valid():
             persona = Persona()
             persona.first_name = form.get_nombre()
             persona.last_name = form.get_apellido()
             persona.username = form.get_usuario()
             persona.password = form.get_contrasenia()
-            persona.sexo = form.get_sexo()
+            persona.sexo = Sexo.objects.get(id=form.get_sexo())
+            persona.direccion = generar_clave(18)
+
             persona.usuario_creacion = 'sistema'
             persona.fecha_creacion = datetime.datetime.now()
             persona.email = form.get_email()
             persona.save()
+            # Mailing
+            mensaje = render_to_string("mailings/registro.html",
+                                       {"persona": persona}, context_instance=RequestContext(request))
+            subject, \
+            from_email, \
+            to = u'Confirmación de Cuenta', u'LUS'+'<'+'info@lusonline.net'+'>', persona.email
+            msg = EmailMessage(subject, mensaje, from_email, [to])
+            msg.content_subtype = "html"  # Main content is now text/html
+            msg.send()
+            messages.success(request, u"Se ha enviado un mensaje a su correo electrónico, "
+                                      u"por favor confirme su registro.")
+            return HttpResponseRedirect(reverse('inicio_view'))
         else:
             messages.error(request, u"Por favor verificar los datos requeridos")
 
@@ -44,6 +69,14 @@ def registrarse(request):
     #else:
     #    return HttpResponseRedirect(reverse("administracion"))
 
+
+def activar_cuenta(request, clave):
+    if Persona.objects.filter(direccion=clave, is_active=False).exists():
+        persona = Persona.objects.get(direccion=clave, is_active=False)
+        persona.is_active = True
+        persona.fecha_actualizacion = datetime.datetime.now()
+        persona.usuario_actualizacion = 'sistema'
+        persona.save()
 
 def salir(request):
     logout(request)

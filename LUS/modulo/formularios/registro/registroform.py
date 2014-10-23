@@ -47,9 +47,10 @@ class Registroform(forms.Form):
         """
             Función para vbalidar el formulario
         """
-        usuario = self.cleaned_data['usuario']
-        contrasenia = self.cleaned_data['contrasenia']
-        r_contrasenia = self.cleaned_data['r_contrasenia']
+
+        usuario = self.cleaned_data.get('usuario', None)
+        contrasenia = self.cleaned_data.get('contrasenia', None)
+        r_contrasenia = self.cleaned_data.get('r_contrasenia', None)
 
         # validar usuername
         if Persona.objects.filter(username=usuario).exists():
@@ -62,7 +63,7 @@ class Registroform(forms.Form):
                                     u"ya se encuetra registrado"
 
         if contrasenia != r_contrasenia:
-            self._errors["contrasenia"] = u"Datos no concuerdan"
+            self._errors["contrasenia"] = u"Datos no concuerdan", "ooo"
             self._errors["r_contrasenia"] = u"Datos no concuerdan"
 
         if contrasenia != r_contrasenia:

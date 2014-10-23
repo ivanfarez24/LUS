@@ -9,12 +9,39 @@
 {% endblock %}
 
  {% block contenido %}
+
     <div class="container container-banner padding-0">
         <img src="{{ STATIC_URL }}img/banner.jpg" class="banner-imagen">
     </div>
 
     <div class="container container-intro padding-0">
         <div class="row row-intro margin-0">
+            {% if messages %}
+         {% for message in messages %}
+            <div class="alert alert-{% if message.tags %}{% if message.tags == "error" %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}  alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <div class="media">
+                    <figure class="pull-left alert--icon">
+                        {% if message.tags %}
+                            {% if message.tags == "error" %}
+                            <i class="pe-7s-close-circle"></i>
+                            {% else %}
+                            <i class="pe-7s-info"></i>
+
+                            {% endif %}
+                        {% endif %}
+
+                    </figure>
+                    <div class="media-body">
+
+                        <p class="alert--text">{{ message }}.</p>
+                    </div>
+                </div>
+            </div>
+
+
+         {% endfor %}
+    {% endif %}
             <div class="col-xs-12 col-lg-12 col-md-12  col-sm-12 col-intro padding-0 text-center">
                 <h2>Curso de seguridad UMTS online gratuito</h2>
             </div>
