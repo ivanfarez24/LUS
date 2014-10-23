@@ -17,7 +17,19 @@
 
 
 @media (max-width: 992px) {
+    .col-intro-centro{
+        padding: 0px;
+        padding-top: 30px;
+    }
 
+    .col-intro-last{
+        padding: 0px;
+        padding-top: 30px;
+    }
+
+    .row-leccion {
+        width: 96% !important;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -26,7 +38,15 @@
     }
 
     .row-login{
-        width: 96%;
+        width: 98%;
+    }
+
+    .navbar-nav>li>a {
+        padding: 5px 5px !important;
+    }
+
+    .row-intro {
+        width: 90%;
     }
 }
 
@@ -34,6 +54,8 @@
     .row-header {
         width: 96%;
     }
+
+
 }
 
 @media (max-width: 1280px) {
