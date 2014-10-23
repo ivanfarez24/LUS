@@ -11,7 +11,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
-URL = "www.lusonline.net"
+URL = "http://lusonline.net"
 
 MANAGERS = ADMINS
 
