@@ -22,6 +22,7 @@ from django.template.loader import render_to_string
 from random import choice
 from django.db import transaction
 
+
 def generar_clave(longitud=18):
     valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<=>@+"
     p = ""
@@ -42,7 +43,7 @@ def registrarse(request):
                 persona.first_name = form.get_nombre()
                 persona.last_name = form.get_apellido()
                 persona.username = form.get_usuario()
-                persona.set_password = form.get_contrasenia()
+                persona.set_password(form.get_contrasenia())
                 persona.sexo = Sexo.objects.get(id=form.get_sexo())
                 persona.clave_temp = generar_clave(18)
 
