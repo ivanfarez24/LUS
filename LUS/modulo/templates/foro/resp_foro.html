@@ -30,16 +30,16 @@
         jQuery(document).ready(function($) {
 
             $( 'textarea#nuevo_comentario' ).ckeditor();
-            /*
+
                         CKEDITOR.config.toolbar = [
                 [ 'Source', '-', 'Bold', 'Italic' ]
-            ];*/
+            ];
             //CKEDITOR.config.removePlugins = 'elementspath';
 
             //config.removeButtons = 'Anchor,Underline,Strike,Subscript,Superscript';
-            CKEDITOR.config.hideDialogFields="image:info:htmlPreview";
-            CKEDITOR.config.removePlugins = ['elementspath','save','font'];
-            CKEDITOR.config.removeButtons = ['Anchor','Underline,Strike','Subscript','Superscript'];
+            //CKEDITOR.config.hideDialogFields="image:info:htmlPreview";
+            //CKEDITOR.config.removePlugins = ['elementspath','save','font'];
+            //CKEDITOR.config.removeButtons = ['Anchor','Underline,Strike','Subscript','Superscript'];
 
 
             var url = "{% url "responder_foro" id %}";
@@ -120,15 +120,21 @@
                    </section>
                 {% endif %}
             </section>
-            <section class="contenido">
-                <form id="formulario">
-                    <label>Agregar Comentario</label>
-                    <textarea name="respuesta" id="nuevo_comentario"></textarea>
-                    <div class="botones-finalizar">
-                        <button  id="submit-comentario" class="btn btn-finalizar" onclick="CKupdate()">Comentar</button>
-                    </div>
-                </form>
-            </section>
+            {% if request.user.is_authenticated %}
+                <section class="contenido">
+                    <form id="formulario">
+                        <label>Agregar Comentario</label>
+                        <textarea name="respuesta" id="nuevo_comentario"></textarea>
+                        <div class="botones-finalizar">
+                            <button  id="submit-comentario" class="btn btn-finalizar" onclick="CKupdate()">Comentar</button>
+                        </div>
+                    </form>
+                </section>
+            {% else %}
+                <section class="contenido">
+                    <p>Para Comentar en el Foro, necesitas estar registrado</p>
+                </section>
+            {% endif %}
         </div>
     </div>
 

@@ -43,20 +43,21 @@ def responder_foro(request, id):
         now = datetime.datetime.now()
 
         if request.is_ajax():
-            comentario_foro = request.POST.get("respuesta", "")
-            usuario = request.user.username
-            persona = Persona.objects.get(id=request.user.id)
-            comentario = ForoComentarios()
-            comentario.comentario = comentario_foro
-            comentario.foro = foro
-            comentario.usuario_creacion = usuario
-            comentario.persona = persona
-            comentario.fecha_creacion = now
-            if comentario_foro != "":
-                comentario.save()
+            if request.user.is_authenticated():
+                comentario_foro = request.POST.get("respuesta", "")
+                usuario = request.user.username
+                persona = Persona.objects.get(id=request.user.id)
+                comentario = ForoComentarios()
+                comentario.comentario = comentario_foro
+                comentario.foro = foro
+                comentario.usuario_creacion = usuario
+                comentario.persona = persona
+                comentario.fecha_creacion = now
+                if comentario_foro != "":
+                    comentario.save()
 
-            html = render_to_string('tags/foro/comentario.html', {'obj': comentario})
-            return HttpResponse(html)
+                html = render_to_string('tags/foro/comentario.html', {'obj': comentario})
+                return HttpResponse(html)
 
         return render_to_response("foro/resp_foro.html",
                               {"foro": foro, "id": id},
