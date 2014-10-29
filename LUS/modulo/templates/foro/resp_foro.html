@@ -18,6 +18,67 @@
     <script src="{{ STATIC_URL }}ckeditor/adapters/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/foro.js"></script>
     <script>
+        function get_num_votos(id){
+            var num_votos = 0;
+            $.ajax(
+            {
+                url: "{% url "get_num_votos" %}",
+                type: 'POST',
+                async: false,
+                cache: false,
+                timeout: 10000,
+                data: {"id": id},
+                beforeSend: function(msj){
+                },
+                error: function(){
+                    alert("error");
+                },
+                success: function(data)
+                {
+                    if(data.status == 1)
+                    {
+                        num_votos = parseInt(data.num_votos)
+                    }
+                    else
+                    {
+                        num_votos = 0
+                    }
+                }
+            });
+            return num_votos
+        }
+
+        function like_comentario(id, obj) {
+            $.ajax(
+            {
+                url: "{% url "like_comentario" %}",
+                type: 'POST',
+                async: false,
+                cache: false,
+                timeout: 10000,
+                data: {"id": id},
+                beforeSend: function(msj){
+                },
+                error: function(){
+                    alert("error");
+                },
+                success: function(data)
+                {
+                    if(data.status == 1)
+                    {
+                        $(this).attr("disabled",true);
+                        var num_votos = get_num_votos(id);
+                        var cont = $(obj).closest(".contenido");
+                        var votos = cont.find(".num_votos");
+                        votos.text(num_votos);
+                    }
+                    else
+                    {
+                        $(obj).attr("disabled",false);
+                    }
+                }
+            });
+        }
         function CKupdate(){
             for ( instance in CKEDITOR.instances )
                 CKEDITOR.instances[instance].updateElement();
@@ -27,16 +88,14 @@
             CKEDITOR.instances[instance].updateElement();
             CKEDITOR.instances[instance].setData('');
         }
-        jQuery(document).ready(function($) {
-
+        jQuery(document).ready(function($)
+        {
+            $(".like-hand").click(function(){
+                var id = $(this).attr("data-id");
+                like_comentario(id, this)
+            });
             $( 'textarea#nuevo_comentario' ).ckeditor();
             CKEDITOR.config.toolbar = [[ 'Source', '-', 'Bold', 'Italic' ]];
-
-            //config.removeButtons = 'Anchor,Underline,Strike,Subscript,Superscript';
-            //CKEDITOR.config.hideDialogFields = [["image:info:htmlPreview"]];
-            //CKEDITOR.config.removePlugins = ['elementspath','save','font'];
-            //CKEDITOR.config.removeButtons = ['Anchor','Underline,Strike','Subscript','Superscript'];
-
 
             var url = "{% url "responder_foro" id %}";
 
@@ -96,11 +155,13 @@
                                 <div class="panel-body">
                                     {{ obj.comentario|safe }}
                                     <div>
-                                        # Votos: {{ obj.numero_votos }}
+                                        # Votos: <span class="num_votos">{{ obj.get_numero_votos }}</span>
                                     </div>
-                                    <div class="icon-like">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    </div>
+                                    {% if request.user.is_authenticated %}
+                                        <div class="icon-like">
+                                            <span class="like-hand glyphicon glyphicon-thumbs-up" data-id="{{ obj.id }}"></span>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </section>

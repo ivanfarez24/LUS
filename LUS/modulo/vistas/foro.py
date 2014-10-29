@@ -64,3 +64,45 @@ def responder_foro(request, id):
                               context_instance=RequestContext(request))
     except Foro.DoesNotExist:
         pass
+
+
+@csrf_exempt
+def like_comentario(request):
+    if request.is_ajax():
+
+        if request.user.is_authenticated():
+
+            foro_comentario_id = request.POST.get("id", 0)
+            persona_voto_comentario = PersonaVotoComentario()
+            persona_voto_comentario.foro_comentario_id = foro_comentario_id
+            persona_voto_comentario.persona_id = request.user.id
+            persona_voto_comentario.estado = True
+            persona_voto_comentario.fecha_creacion = datetime.datetime.now()
+            persona_voto_comentario.usuario_creacion = request.user.username
+            persona_voto_comentario.save()
+
+            respuesta = ({"status": 1})
+        else:
+            respuesta = ({"status": 0})
+    else:
+        respuesta = ({"status": 0})
+
+    resultado = json.dumps(respuesta)
+    return HttpResponse(resultado, mimetype='application/json')
+
+
+@csrf_exempt
+def get_num_votos(request):
+    if request.is_ajax():
+
+        if request.user.is_authenticated():
+            foro_comentario_id = request.POST.get("id", 0)
+            num_votos = len(PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id))
+            respuesta = ({"status": 1, "num_votos": num_votos})
+        else:
+            respuesta = ({"status": 0})
+    else:
+        respuesta = ({"status": 0})
+
+    resultado = json.dumps(respuesta)
+    return HttpResponse(resultado, mimetype='application/json')

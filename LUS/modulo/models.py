@@ -289,6 +289,14 @@ class ForoComentarios(models.Model):
         verbose_name = "Foro Comentario"
         verbose_name_plural = "Comentarios de Foros"
 
+    def get_numero_votos(self):
+        """
+        Retorna el número de votos del comentario del
+        foro
+        :return:
+        """
+        return len(PersonaVotoComentario.objects.filter(foro_comentario=self))
+
 
 class PersonaVotoComentario(models.Model):
     id = models.AutoField(primary_key=True)
@@ -305,6 +313,7 @@ class PersonaVotoComentario(models.Model):
         db_table = "persona_voto_comentario"
         verbose_name = "Persona voto comentario"
         verbose_name_plural = "Persona voto comentarios"
+
 
 class Capitulos(models.Model):
     def url(self, filename):
@@ -364,3 +373,4 @@ class SubCapitulos(models.Model):
         db_table = "subcapitulo"
         verbose_name = "Subcapitulo"
         verbose_name_plural = "Subcapitulos"
+
