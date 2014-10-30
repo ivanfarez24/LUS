@@ -16,7 +16,80 @@
 {% block scripts %}
     <script src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
     <script src="{{ STATIC_URL }}ckeditor/adapters/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/foro.js"></script>
     <script>
+        function get_num_votos(id){
+            var num_votos = 0;
+            $.ajax(
+            {
+                url: "{% url "get_num_votos" %}",
+                type: 'POST',
+                async: false,
+                cache: false,
+                timeout: 10000,
+                data: {"id": id},
+                beforeSend: function(msj){
+                },
+                error: function(){
+                    alert("error");
+                },
+                success: function(data)
+                {
+                    if(data.status == 1)
+                    {
+                        num_votos = parseInt(data.num_votos)
+                    }
+                    else
+                    {
+                        num_votos = 0
+                    }
+                }
+            });
+            return num_votos
+        }
+
+        function like_comentario(id, obj, opt) {
+            $.ajax(
+            {
+                url: "{% url "like_comentario" %}",
+                type: 'POST',
+                async: false,
+                cache: false,
+                timeout: 10000,
+                data: {"id": id, "opt": opt},
+                beforeSend: function(msj){
+                },
+                error: function(){
+                    alert("error");
+                },
+                success: function(data)
+                {
+                    if(data.status == 1)
+                    {
+                        $(obj).attr("disabled",true);
+                        var num_votos = get_num_votos(id);
+                        var cont = $(obj).closest(".contenido");
+                        var votos = cont.find(".num_votos");
+                        if ($(obj).hasClass('glyphicon-thumbs-up'))
+                        {
+                            $(obj).removeClass('glyphicon-thumbs-up');
+                            $(obj).addClass('glyphicon-thumbs-down');
+                        }
+                        else
+                        {
+                            $(obj).removeClass('glyphicon-thumbs-down');
+                            $(obj).addClass('glyphicon-thumbs-up');
+                        }
+                        votos.text(num_votos);
+                    }
+                    else
+                    {
+                        $(obj).attr("disabled",false);
+                    }
+                }
+            });
+        }
+
         function CKupdate(){
             for ( instance in CKEDITOR.instances )
                 CKEDITOR.instances[instance].updateElement();
@@ -26,8 +99,19 @@
             CKEDITOR.instances[instance].updateElement();
             CKEDITOR.instances[instance].setData('');
         }
-        jQuery(document).ready(function($) {
+        jQuery(document).ready(function($)
+        {
+            $(".like-hand").click(function(){
+                var id = $(this).attr("data-id");
+                if ($(this).hasClass('glyphicon-thumbs-up'))
+                    like_comentario(id, this, 1);
+                else
+                    like_comentario(id, this, 2);
+            });
+
             $( 'textarea#nuevo_comentario' ).ckeditor();
+            CKEDITOR.config.toolbar = [[ 'Source', '-', 'Bold', 'Italic' ]];
+
             var url = "{% url "responder_foro" id %}";
 
             $("#submit-comentario").click(function(e){
@@ -52,20 +136,6 @@
                         $("#formulario")[0].reset();
                         CKupdateClear();
                         $("#sin-comentarios").remove();
-                        /*
-                        if(data.status == 2)
-                        {
-                            $("#error").fadeIn("slow");
-                            $("#error-cuenta").text(data.mensaje);
-                            $('#loading').fadeOut();
-                            $('body').css('opacity', '1');
-                            btn_acept.text(texto);
-                            btn_acept.attr("disabled", false);
-                        }
-                        else
-                        {
-                            alert("Hola");
-                        }*/
                     }
                 });
             });
@@ -100,11 +170,13 @@
                                 <div class="panel-body">
                                     {{ obj.comentario|safe }}
                                     <div>
-                                        # Votos: {{ obj.numero_votos }}
+                                        # Votos: <span class="num_votos">{{ obj.get_numero_votos }}</span>
                                     </div>
-                                    <div class="icon-like">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    </div>
+                                    {% if request.user.is_authenticated %}
+                                        <div class="icon-like">
+                                            <span class="like-hand glyphicon glyphicon-thumbs-up" data-id="{{ obj.id }}"></span>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </section>
@@ -120,15 +192,21 @@
                    </section>
                 {% endif %}
             </section>
-            <section class="contenido">
-                <form id="formulario">
-                    <label>Agregar Comentario</label>
-                    <textarea name="respuesta" id="nuevo_comentario"></textarea>
-                    <div class="botones-finalizar">
-                        <button  id="submit-comentario" class="btn btn-finalizar" onclick="CKupdate()">Comentar</button>
-                    </div>
-                </form>
-            </section>
+            {% if request.user.is_authenticated %}
+                <section class="contenido">
+                    <form id="formulario">
+                        <label>Agregar Comentario</label>
+                        <textarea name="respuesta" id="nuevo_comentario"></textarea>
+                        <div class="botones-finalizar">
+                            <button  id="submit-comentario" class="btn btn-finalizar" onclick="CKupdate()">Comentar</button>
+                        </div>
+                    </form>
+                </section>
+            {% else %}
+                <section class="contenido">
+                    <p>Para Comentar en el Foro, necesitas estar registrado</p>
+                </section>
+            {% endif %}
         </div>
     </div>
 

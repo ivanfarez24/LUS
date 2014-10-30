@@ -43,23 +43,80 @@ def responder_foro(request, id):
         now = datetime.datetime.now()
 
         if request.is_ajax():
-            comentario_foro = request.POST.get("respuesta", "")
-            usuario = request.user.username
-            persona = Persona.objects.get(id=request.user.id)
-            comentario = ForoComentarios()
-            comentario.comentario = comentario_foro
-            comentario.foro = foro
-            comentario.usuario_creacion = usuario
-            comentario.persona = persona
-            comentario.fecha_creacion = now
-            if comentario_foro != "":
-                comentario.save()
+            if request.user.is_authenticated():
+                comentario_foro = request.POST.get("respuesta", "")
+                usuario = request.user.username
+                persona = Persona.objects.get(id=request.user.id)
+                comentario = ForoComentarios()
+                comentario.comentario = comentario_foro
+                comentario.foro = foro
+                comentario.usuario_creacion = usuario
+                comentario.persona = persona
+                comentario.fecha_creacion = now
+                if comentario_foro != "":
+                    comentario.save()
 
-            html = render_to_string('tags/foro/comentario.html', {'obj': comentario})
-            return HttpResponse(html)
+                html = render_to_string('tags/foro/comentario.html', {'obj': comentario})
+                return HttpResponse(html)
 
         return render_to_response("foro/resp_foro.html",
                               {"foro": foro, "id": id},
                               context_instance=RequestContext(request))
     except Foro.DoesNotExist:
         pass
+
+
+@csrf_exempt
+def like_comentario(request):
+    if request.is_ajax():
+
+        if request.user.is_authenticated():
+
+            like = int(request.POST.get("opt", 1))
+            foro_comentario_id = request.POST.get("id", 0)
+            if like == 1:  # like
+                if not PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id,
+                                                            persona_id=request.user.id).exists():
+                    persona_voto_comentario = PersonaVotoComentario()
+                    persona_voto_comentario.foro_comentario_id = foro_comentario_id
+                    persona_voto_comentario.persona_id = request.user.id
+                    persona_voto_comentario.estado = True
+                    persona_voto_comentario.fecha_creacion = datetime.datetime.now()
+                    persona_voto_comentario.usuario_creacion = request.user.username
+                    persona_voto_comentario.save()
+                    respuesta = ({"status": 1})
+                else:
+                    respuesta = ({"status": 0})
+            else:  # unlike
+                if PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id,
+                                                        persona_id=request.user.id).exists():
+                    persona_voto_comentario = PersonaVotoComentario.objects.get(foro_comentario_id=foro_comentario_id,
+                                                                                persona_id=request.user.id)
+                    persona_voto_comentario.delete()
+                    respuesta = ({"status": 1})
+                else:
+                    respuesta = ({"status": 0})
+        else:
+            respuesta = ({"status": 0})
+    else:
+        respuesta = ({"status": 0})
+
+    resultado = json.dumps(respuesta)
+    return HttpResponse(resultado, mimetype='application/json')
+
+
+@csrf_exempt
+def get_num_votos(request):
+    if request.is_ajax():
+
+        if request.user.is_authenticated():
+            foro_comentario_id = request.POST.get("id", 0)
+            num_votos = len(PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id))
+            respuesta = ({"status": 1, "num_votos": num_votos})
+        else:
+            respuesta = ({"status": 0})
+    else:
+        respuesta = ({"status": 0})
+
+    resultado = json.dumps(respuesta)
+    return HttpResponse(resultado, mimetype='application/json')

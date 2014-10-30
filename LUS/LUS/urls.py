@@ -18,13 +18,6 @@ urlpatterns += patterns('modulo.vistas.inicio',
 url(r'^$', 'inicio_view', name="inicio_view"),
 )
 
-urlpatterns += patterns('modulo.vistas.capitulo1',
-url('^capitulo1/$', 'capitulo1_view', name="capitulo1_view"),
-)
-
-urlpatterns += patterns('modulo.vistas.capitulo2',
-url('^capitulo2/$', 'capitulo2_view', name="capitulo2_view"),
-)
 
 # Lecciones
 urlpatterns += patterns('modulo.vistas.lecciones',
@@ -43,6 +36,8 @@ url('^activacion_cuenta/(?P<id>\d+)/(?P<clave>.+)/$', 'activar_cuenta', name="ac
 urlpatterns += patterns('modulo.vistas.foro',
 url('^foro/$', 'foro', name="foro"),
 url('^foro/comentarios/(?P<id>\d+)$', 'responder_foro', name="responder_foro"),
+url('^foro/comentarios/like/$', 'like_comentario', name="like_comentario"),
+url('^foro/comentarios/numero_votos/$', 'get_num_votos', name="get_num_votos"),
 )
 
 # Capitulo

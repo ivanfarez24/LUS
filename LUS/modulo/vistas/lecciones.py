@@ -25,6 +25,7 @@ def lecciones_lista(request):
     return render_to_response("lecciones/lecciones.html",{'lecciones':lecciones},context_instance=RequestContext(request))
 
 @csrf_exempt
+@login_required(login_url="/")
 def leccion(request, id):
     cont = 0  # Cuenta la puntuación total de la lección
     lista_ids_resp_correc = []  # Listas de los ids de las resp correctas
