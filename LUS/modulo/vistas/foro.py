@@ -72,16 +72,30 @@ def like_comentario(request):
 
         if request.user.is_authenticated():
 
+            like = int(request.POST.get("opt", 1))
             foro_comentario_id = request.POST.get("id", 0)
-            persona_voto_comentario = PersonaVotoComentario()
-            persona_voto_comentario.foro_comentario_id = foro_comentario_id
-            persona_voto_comentario.persona_id = request.user.id
-            persona_voto_comentario.estado = True
-            persona_voto_comentario.fecha_creacion = datetime.datetime.now()
-            persona_voto_comentario.usuario_creacion = request.user.username
-            persona_voto_comentario.save()
-
-            respuesta = ({"status": 1})
+            if like == 1:  # like
+                if not PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id,
+                                                            persona_id=request.user.id).exists():
+                    persona_voto_comentario = PersonaVotoComentario()
+                    persona_voto_comentario.foro_comentario_id = foro_comentario_id
+                    persona_voto_comentario.persona_id = request.user.id
+                    persona_voto_comentario.estado = True
+                    persona_voto_comentario.fecha_creacion = datetime.datetime.now()
+                    persona_voto_comentario.usuario_creacion = request.user.username
+                    persona_voto_comentario.save()
+                    respuesta = ({"status": 1})
+                else:
+                    respuesta = ({"status": 0})
+            else:  # unlike
+                if PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id,
+                                                        persona_id=request.user.id).exists():
+                    persona_voto_comentario = PersonaVotoComentario.objects.get(foro_comentario_id=foro_comentario_id,
+                                                                                persona_id=request.user.id)
+                    persona_voto_comentario.delete()
+                    respuesta = ({"status": 1})
+                else:
+                    respuesta = ({"status": 0})
         else:
             respuesta = ({"status": 0})
     else:

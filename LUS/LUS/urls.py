@@ -18,13 +18,6 @@ urlpatterns += patterns('modulo.vistas.inicio',
 url(r'^$', 'inicio_view', name="inicio_view"),
 )
 
-urlpatterns += patterns('modulo.vistas.capitulo1',
-url('^capitulo1/$', 'capitulo1_view', name="capitulo1_view"),
-)
-
-urlpatterns += patterns('modulo.vistas.capitulo2',
-url('^capitulo2/$', 'capitulo2_view', name="capitulo2_view"),
-)
 
 # Lecciones
 urlpatterns += patterns('modulo.vistas.lecciones',

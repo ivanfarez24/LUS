@@ -48,7 +48,7 @@
             return num_votos
         }
 
-        function like_comentario(id, obj) {
+        function like_comentario(id, obj, opt) {
             $.ajax(
             {
                 url: "{% url "like_comentario" %}",
@@ -56,7 +56,7 @@
                 async: false,
                 cache: false,
                 timeout: 10000,
-                data: {"id": id},
+                data: {"id": id, "opt": opt},
                 beforeSend: function(msj){
                 },
                 error: function(){
@@ -66,10 +66,20 @@
                 {
                     if(data.status == 1)
                     {
-                        $(this).attr("disabled",true);
+                        $(obj).attr("disabled",true);
                         var num_votos = get_num_votos(id);
                         var cont = $(obj).closest(".contenido");
                         var votos = cont.find(".num_votos");
+                        if ($(obj).hasClass('glyphicon-thumbs-up'))
+                        {
+                            $(obj).removeClass('glyphicon-thumbs-up');
+                            $(obj).addClass('glyphicon-thumbs-down');
+                        }
+                        else
+                        {
+                            $(obj).removeClass('glyphicon-thumbs-down');
+                            $(obj).addClass('glyphicon-thumbs-up');
+                        }
                         votos.text(num_votos);
                     }
                     else
@@ -79,6 +89,7 @@
                 }
             });
         }
+
         function CKupdate(){
             for ( instance in CKEDITOR.instances )
                 CKEDITOR.instances[instance].updateElement();
@@ -92,8 +103,12 @@
         {
             $(".like-hand").click(function(){
                 var id = $(this).attr("data-id");
-                like_comentario(id, this)
+                if ($(this).hasClass('glyphicon-thumbs-up'))
+                    like_comentario(id, this, 1);
+                else
+                    like_comentario(id, this, 2);
             });
+
             $( 'textarea#nuevo_comentario' ).ckeditor();
             CKEDITOR.config.toolbar = [[ 'Source', '-', 'Bold', 'Italic' ]];
 
