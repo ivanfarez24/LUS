@@ -44,4 +44,5 @@ url('^foro/comentarios/numero_votos/$', 'get_num_votos', name="get_num_votos"),
 urlpatterns += patterns('modulo.vistas.capitulos',
 url('^capitulos/$', 'capitulos', name="capitulos"),
 url('^capitulos/(?P<id>\d+)$', 'leer_capitulo', name="leer_capitulo"),
+url('^capitulos/prueba/$', 'capitulos_prueba', name="capitulos_prueba"),
 )

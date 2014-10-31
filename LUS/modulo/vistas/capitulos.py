@@ -30,6 +30,15 @@ def capitulos(request):
                               {"capitulos": capitulos},
                               context_instance=RequestContext(request))
 
+def capitulos_prueba(request):
+    """
+    Vista que presenta la lista de foros
+    :param request:
+    :return:
+    """
+    return render_to_response("capitulos/prueba.html",
+                              {},
+                              context_instance=RequestContext(request))
 
 def leer_capitulo(request, id):
     """
