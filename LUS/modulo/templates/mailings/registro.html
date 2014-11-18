@@ -32,7 +32,9 @@
             LUS
         </td>
         <td>
-            <a href="{{ URL_ROOT }}{% url "activar_cuenta" persona.id persona.clave_temp%}">Activa tu cuenta</a>
+            <a href="{{ URL_ROOT }}{% url "activar_cuenta" persona.id persona.clave_temp%}" title="Activar cuenta">
+                <img src="{{ URL_MEDIA }}mailing/img-mail.jpg" alt="bg70" width="394" height="323" border="0" style="display:block"/>
+            </a>
         </td>
       </tr>
     </table>
