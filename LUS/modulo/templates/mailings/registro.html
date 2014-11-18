@@ -10,18 +10,19 @@
 </head>
 
 <body>
-    <table align="center" border="0" style="background-color:#FFFFFF;width:630px; height:400px; margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
+    <table align="center" border="0" style="background-color:#FFFFFF;width:630px; height:200px; margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
       <tr>
-        <td width="118" height="400" style="width:118px; height:400px;text-align:center;"></td>
-        <td width="394" height="400" style="width:394px; height:400px;text-align:center; vertical-align: middle;">
+        <td width="118" height="200" style="width:118px; height:200px;text-align:center;"></td>
+        <td width="394" height="200" style="width:394px; height:200px;text-align:center; vertical-align: middle;">
             <a href="{{ URL_ROOT }}{% url "activar_cuenta" persona.id persona.clave_temp%}" title="Activar cuenta">
               <img src="{{ URL_MEDIA }}mailing/logo-mail.jpg" alt="bg70" title="Activar Cuenta" width="394" height="200" border="0" style="display:block"/>
             </a>
         </td>
-        <td width="118" height="400" style="width:118px; height:400px;text-align:center;"></td>
+        <td width="118" height="200" style="width:118px; height:200px;text-align:center;"></td>
       </tr>
-    </table> 
-    <table align="center" border="0" style="background-color:#FFFFFF;width:630px; height:150px;  margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
+    </table>
+
+    <table align="center" border="0" style="padding-top:20px; background-color:#FFFFFF;width:630px; height:150px;  margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
       <tr>
         <td width="630" height="300" style="width:630px; height:150px; text-align:justify; color:#000000; font-size:13px; vertical-align: top; padding: 0px 20px;">
            Estimado(a): {{ persona.first_name }} {{ persona.last_name }}
@@ -36,15 +37,12 @@
         </td>
       </tr>
     </table>
-    <table align="center" border="0" style="background-color:#FFFFFF;width:630px; height:400px; margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
+    <table align="center" border="0" style="background-color:#FFFFFF;width:630px; height:70px; margin-left:auto; margin-right:auto;" cellpadding="0" cellspacing="0">
       <tr>
-        <td width="118" height="100" style="width:118px; height:100px;text-align:center;"></td>
-        <td width="50" height="100" style="width:394px; height:100px;text-align:center; vertical-align: middle;">
+        <td width="70" height="70" style="width:394px; height:100px;text-align:center; vertical-align: middle;">
             <a href="http://espol.edu.ec" title="ESPOL">
-              <img src="{{ URL_MEDIA }}mailing/espol_logo.png" alt="espol" width="50" height="100" border="0" style="display:block"/>
+              <img src="{{ URL_MEDIA }}mailing/espol_logo.png" alt="espol" width="70" height="70" border="0" style="display:block"/>
             </a>
-        </td>
-        <td width="462" height="100" style="width:118px; height:100px;text-align:center;">
         </td>
       </tr>
     </table>
