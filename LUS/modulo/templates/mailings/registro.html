@@ -14,7 +14,9 @@
       <tr>
         <td width="118" height="400" style="width:118px; height:400px;text-align:center;"></td>
         <td width="394" height="400" style="width:394px; height:400px;text-align:center; vertical-align: middle;">
+            <a href="{{ URL_ROOT }}{% url "activar_cuenta" persona.id persona.clave_temp%}" title="Activar cuenta">
               <img src="{{ URL_MEDIA }}mailing/logo-mail.jpg" alt="bg70" title="Activar Cuenta" width="394" height="200" border="0" style="display:block"/>
+            </a>
         </td>
         <td width="118" height="400" style="width:118px; height:400px;text-align:center;"></td>
       </tr>
