@@ -12,4 +12,4 @@ def global_vars(request):
     :return:
     """
     return {'URL_ROOT': settings.URL,
-            'URL_MEDIA': settings.MEDIA_URL}
+            'URL_MEDIA': settings.URL + settings.MEDIA_URL}
