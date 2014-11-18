@@ -14,7 +14,7 @@
       <tr>
         <td width="118" height="400" style="width:118px; height:400px;text-align:center;"></td>
         <td width="394" height="400" style="width:394px; height:400px;text-align:center; vertical-align: middle;">
-              <img src="{{ URL_MEDIA }}mailing/logo-mail.jpg" alt="bg70" width="394" height="323" border="0" style="display:block"/>
+              <img src="{{ URL_MEDIA }}mailing/logo-mail.jpg" alt="bg70" width="394" height="200" border="0" style="display:block"/>
         </td>
         <td width="118" height="400" style="width:118px; height:400px;text-align:center;"></td>
       </tr>
@@ -31,9 +31,11 @@
             Por favor dele click en el siguiente link para confirmar su registro en
             LUS
         </td>
-        <td>
+      </tr>
+      <tr>
+          <td width="630" height="300" style="width:630px; height:300px; text-align:justify; color:#000000; font-size:13px; vertical-align: top; padding: 0px 20px;">
             <a href="{{ URL_ROOT }}{% url "activar_cuenta" persona.id persona.clave_temp%}" title="Activar cuenta">
-                <img src="{{ URL_MEDIA }}mailing/img-mail.jpg" alt="bg70" width="394" height="323" border="0" style="display:block"/>
+                <img src="{{ URL_MEDIA }}mailing/img-mail.jpg" alt="bg70" width="630" height="300" border="0" style="display:block"/>
             </a>
         </td>
       </tr>
