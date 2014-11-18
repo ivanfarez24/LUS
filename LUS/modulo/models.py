@@ -4,7 +4,8 @@
 from django.db import models
 import datetime
 from django.contrib.auth.admin import User
-
+from django.db.models import Sum
+from librerias.vistas.funciones_modelos import *
 # Create your models here.
 
 
@@ -172,6 +173,13 @@ class Leccion(models.Model):
         """
         return Preguntas.objects.filter(leccion=self).order_by('numero')
 
+    def get_puntos(self):
+        """
+        Obtiene el total de puntos de la lección
+        :return:
+        """
+        return conv_zero_none(Respuestas.objects.filter(preguntas__in=self.get_preguntas()).aggregate(Sum("puntuacion"))["puntuacion__sum"])
+
 
 class Preguntas(models.Model):
     id = models.AutoField(primary_key=True)
@@ -198,6 +206,13 @@ class Preguntas(models.Model):
         :return:
         """
         return Respuestas.objects.filter(preguntas=self).order_by('numero')
+
+    def is_one_answer(self):
+        """
+        Returna True si la pregunta solo tiene una sola respuesta
+        :return:
+        """
+        return len(Respuestas.objects.filter(preguntas=self, puntuacion__gt=0)) == 1
 
 
 class Respuestas(models.Model):

@@ -4,20 +4,24 @@
 
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}jquery.bxslider/jquery.bxslider.css" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}
     <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
+    <script src="{{ STATIC_URL }}jquery.bxslider/jquery.bxslider.js"></script>
     <script>
-         $(document).ready(function() {
-
+        $(document).ready(function() {
             $(".capitulo-intro").niceScroll({touchbehavior:false,cursorcolor:"#00F",cursoropacitymax:0.7,cursorwidth:11,cursorborder:"1px solid #2848BE",cursorborderradius:"8px",background:"#ccc",autohidemode:false}).cursor.css({"background":"gray"}); // MAC like scrollbar
+            $('.bxslider').bxSlider({
+                  pagerCustom: '#bx-pager',
+                  adaptiveHeight: true
+                });
+            //Animaciones
+            $('.cap-img-principal').delay(1000).animate({opacity:'1',top:0},1500);
+            $('.imagenes-change').delay(1000).animate({opacity:'1',top:0},1500);
 
-             //Animaciones
-             $('.cap-img-principal').delay(1000).animate({opacity:'1',top:0},1500);
-             $('.imagenes-change').delay(1000).animate({opacity:'1',top:0},1500);
-
-         });
+        });
     </script>
 
 {% endblock %}
@@ -26,12 +30,12 @@
     <div class="container container-capitulo padding-0" id="n_cap" data-next="{{ next }}" data-before="{{ before }}">
         <div class="row row-capitulo margin-0">
              <div class="col-xs-12 col-lg-5 col-md-5  col-sm-5 col-intro padding-0">
-                 <div class="capitulo-intro">
+                 <div class="capitulo-intro" style="height: 500px">
                      <h3>{{ sub_cap.titulo }}</h3>
                      {{ sub_cap.contenido|safe }}
                  </div>
              </div>
-            <div class="col-xs-12 col-lg-7 col-md-7  col-sm-7 col-intro padding-0">
+            <div class="col-xs-12 col-lg-7 col-md-7  col-sm-7 col-intro padding-0" style="height: 400px">
                 {{ sub_cap.animacion|safe }}
 
              </div>

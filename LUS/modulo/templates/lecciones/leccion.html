@@ -47,9 +47,15 @@
                                 <label>{{ obj.numero }}.-  {{ obj.descripcion }}</label>
                             </div>
                             <ul class="leccion-respuestas">
-                                {% for obj_resp in obj.get_respuestas %}
-                                    <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
-                                {% endfor %}
+                                {% if obj.is_one_answer %}
+                                    {% for obj_resp in obj.get_respuestas %}
+                                        <li><input type="radio" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for obj_resp in obj.get_respuestas %}
+                                        <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}</li>
+                                    {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

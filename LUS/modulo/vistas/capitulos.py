@@ -21,7 +21,7 @@ from django.forms.formsets import formset_factory
 
 def capitulos(request):
     """
-    Vista que presenta la lista de foros
+    Vista que presenta la lista de capitulos
     :param request:
     :return:
     """
@@ -39,6 +39,7 @@ def capitulos_prueba(request):
     return render_to_response("capitulos/prueba.html",
                               {},
                               context_instance=RequestContext(request))
+
 
 def leer_capitulo(request, id):
     """

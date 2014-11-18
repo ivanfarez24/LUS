@@ -173,9 +173,15 @@
                                         # Votos: <span class="num_votos">{{ obj.get_numero_votos }}</span>
                                     </div>
                                     {% if request.user.is_authenticated %}
-                                        <div class="icon-like">
-                                            <span class="like-hand glyphicon glyphicon-thumbs-up" data-id="{{ obj.id }}"></span>
-                                        </div>
+                                        {% if_puede_dar_like request obj.id %}
+                                            <div class="icon-like">
+                                                <span class="like-hand glyphicon glyphicon-thumbs-up" data-id="{{ obj.id }}"></span>
+                                            </div>
+                                        {% else %}
+                                            <div class="icon-like">
+                                                <span class="like-hand glyphicon glyphicon-thumbs-down" data-id="{{ obj.id }}"></span>
+                                            </div>
+                                        {% endif_puede_dar_like %}
                                     {% endif %}
                                 </div>
                             </div>

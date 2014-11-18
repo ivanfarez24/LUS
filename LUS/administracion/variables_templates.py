@@ -11,4 +11,5 @@ def global_vars(request):
      variables globales de templates
     :return:
     """
-    return {'URL_ROOT': settings.URL}
+    return {'URL_ROOT': settings.URL,
+            'URL_MEDIA': settings.MEDIA_URL}

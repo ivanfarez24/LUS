@@ -24,29 +24,38 @@
             <section class="contenido">
                 <h1 class="titulo">{{ leccion.nombre }} - Resultado</h1>
                 <div class="row margin-0">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-sm-4 padding-0 col-resultado">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 padding-0 col-resultado">
                         <div class="panel panel-info">
                             <div class="panel-heading"><h2 class="sub-titulo">Resultado</h2></div>
                             <div class="panel-body">
-                                <p>Puntos: <span>{{ puntuacion }}</span></p>
+                                <p>Puntos: <span>{{ puntuacion|floatformat:"2" }}%</span></p>
 
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 padding-0 col-aciertos">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 padding-0 col-aciertos">
                         <div class="panel panel-intro">
                             <div class="panel-heading">Aciertos</div>
                             <div class="panel-body">
-                                <p>Puntos: <span>{{ puntuacion }}</span></p>
+                                <p>Cantidad: <span>{{ aciertos }}</span></p>
 
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 padding-0 col-erradas">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 padding-0 col-erradas">
                         <div class="panel panel-danger">
                             <div class="panel-heading">Erradas</div>
                             <div class="panel-body">
-                                <p>Puntos: <span>{{ puntuacion }}</span></p>
+                                <p>Cantidad: <span>{{ erradas }}</span></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 padding-0 col-erradas">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">No contestadas</div>
+                            <div class="panel-body">
+                                <p>Cantidad: <span>{{ no_cont }}</span></p>
 
                             </div>
                         </div>
@@ -60,9 +69,15 @@
                                 <label>{{ obj.numero }}.-  {{ obj.descripcion }}</label>
                             </div>
                             <ul class="leccion-respuestas">
-                                {% for obj_resp in obj.get_respuestas %}
-                                    <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}{% validar_respuesta lista_correcta lista_incorrecta obj_resp.id %}</li>
-                                {% endfor %}
+                                {% if obj.is_one_answer %}
+                                    {% for obj_resp in obj.get_respuestas %}
+                                        <li><input type="radio" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}{% validar_respuesta lista_correcta lista_incorrecta obj_resp.id %}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for obj_resp in obj.get_respuestas %}
+                                        <li><input type="checkbox" name="{{ obj.id }}-{{ obj_resp.id }}">{{ obj_resp.nombre }}{% validar_respuesta lista_correcta lista_incorrecta obj_resp.id %}</li>
+                                    {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
