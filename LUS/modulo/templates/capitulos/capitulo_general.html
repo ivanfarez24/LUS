@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% load snnipet_generales %}
-{% block title %}LUS | Capítulo 1{% endblock %}
+{% block title %}LUS | Contenido{% endblock %}
 
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}jquery.bxslider/jquery.bxslider.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}
     <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
     <script src="{{ STATIC_URL }}jquery.bxslider/jquery.bxslider.js"></script>
+    <script src="{{ STATIC_URL }}Magnific-Popup-master/dist/jquery.magnific-popup.js"></script>
     <script>
         $(document).ready(function() {
             $(".capitulo-intro").niceScroll(
@@ -30,11 +32,36 @@
                   pagerCustom: '#bx-pager',
                   adaptiveHeight: true
                 });
+
             //Animaciones
             $('.cap-img-principal').delay(1000).animate({opacity:'1',top:0},1500);
             $('.imagenes-change').delay(1000).animate({opacity:'1',top:0},1500);
 
         });
+        $(window).load(function(){
+            $(document).ready(function() {
+                // Popup de imagenes
+                $('.bx-wrapper').magnificPopup({
+                    delegate: 'img',
+                    type: 'image',
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function(item)
+                        {
+                            return item.el.attr('title') + '<small>by ESPOL</small>';
+                        }
+                    }
+                });
+            });
+
+        })
     </script>
 
 {% endblock %}
@@ -48,7 +75,7 @@
                      {{ sub_cap.contenido|safe }}
                  </div>
              </div>
-            <div class="col-xs-12 col-lg-7 col-md-7  col-sm-7 col-intro padding-0" style="height: 400px">
+            <div class="list-img col-xs-12 col-lg-7 col-md-7  col-sm-7 col-intro padding-0" style="height: 400px; padding-left: 40px">
                 {{ sub_cap.animacion|safe }}
 
              </div>

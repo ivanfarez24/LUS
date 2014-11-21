@@ -59,7 +59,6 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 .logo img{
-    margin-top: 8px;
     height: 50%;
 }
 
@@ -306,10 +305,6 @@ h1, .h1, h2, .h2, h3, .h3 {
     text-decoration: none;
 }
 
-.panel-body {
-    background: #31353D;
-    color: #fff;
-}
 
 .capitulo-intro h3{
     padding-bottom: 20px;

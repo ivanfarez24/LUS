@@ -100,8 +100,8 @@
     border: 1px solid #DDD;
     border-top: 0px;
     border-radius: 0px 0px 5px 5px;
-    background: #31353D;
-    color: #FFF;
+    background: #FFF;
+    color: #000000;
 }
 
 .leccion-respuestas{
@@ -144,8 +144,12 @@
 
 .panel-group .panel-heading+.panel-collapse>.panel-body {
     border-top: 1px solid #ddd !important;
-    background: #31353D !important;
+    background: #FFF !important;
     color: #FFF !important;
+}
+
+.panel-body a{
+    color: #000000 !important;
 }
 
 .col-aciertos{
@@ -217,4 +221,10 @@
 
 .body-capitulo{
     background: url("../img/cap_bg_end.jpg") repeat;
+}
+.bx-wrapper .bx-controls-direction a{
+    z-index: 1000 !important;
+}
+.list-img img{
+    cursor: zoom-in;
 }
