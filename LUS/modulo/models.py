@@ -268,7 +268,7 @@ class Foro(models.Model):
             retorna la lista de todas las respuestas
             del foro que están activas
         """
-        return ForoComentarios.objects.filter(foro=self)
+        return ForoComentarios.objects.filter(foro=self).order_by("fecha_creacion")
 
     def get_num_resp(self):
         """

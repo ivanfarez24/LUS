@@ -10,15 +10,10 @@ from django.http import *
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.db.models import Q
 
-from django.db.models import Sum
-import operator
-from django.db.models import F
-from django.forms.formsets import formset_factory
 from django.template.loader import render_to_string
-
+from modulo.formularios.foros.foroForm import *
+from django.core.urlresolvers import reverse
 
 def foro(request):
     """
@@ -29,6 +24,31 @@ def foro(request):
     foros = Foro.objects.filter(estado=True)
     return render_to_response("foro/foros.html",
                               {"foros": foros},
+                              context_instance=RequestContext(request))
+
+@csrf_exempt
+@login_required()
+def agregar_foro(request):
+    """
+    Vista que presenta la lista de foros
+    :param request:
+    :return:
+    """
+    foro = Foroform()
+    if request.method == "POST":
+        foro = Foroform(request.POST)
+        if foro.is_valid():
+            foro_obj = Foro()
+            foro_obj.tema = foro.get_tema()
+            foro_obj.pregunta = foro.get_pregunta()
+            foro_obj.persona_id = request.user.id
+            foro_obj.save()
+            return HttpResponseRedirect(reverse("foro"))
+        else:
+            messages.error(request, u"Por favor ingrese los campos obligatorios")
+
+    return render_to_response("foro/agregar_foro.html",
+                              {"foro": foro},
                               context_instance=RequestContext(request))
 
 @csrf_exempt
@@ -56,7 +76,7 @@ def responder_foro(request, id):
                 if comentario_foro != "":
                     comentario.save()
 
-                html = render_to_string('tags/foro/comentario.html', {'obj': comentario})
+                html = render_to_string('tags/foro/comentario.html', {'obj': comentario, "request": request})
                 return HttpResponse(html)
 
         return render_to_response("foro/resp_foro.html",
@@ -64,6 +84,39 @@ def responder_foro(request, id):
                               context_instance=RequestContext(request))
     except Foro.DoesNotExist:
         pass
+
+
+@csrf_exempt
+def eliminar_comentario_foro(request):
+    """
+    Vista que presenta el foro y sus respuestas
+    :param request:
+    :return:
+    """
+    try:
+        now = datetime.datetime.now()
+
+        if request.is_ajax():
+            if request.user.is_authenticated():
+                foro_comentario_id = request.POST.get("id", "")
+                usuario = request.user.username
+                comentario = ForoComentarios.objects.get(id=foro_comentario_id, persona_id=request.user.id)
+                comentario.fecha_actualizacion = now
+                comentario.estado = False
+                comentario.usuario_actualizacion = usuario
+                comentario.save()
+                respuesta = ({"status": 1})
+            else:
+                respuesta = ({"status": 0})
+        else:
+            respuesta = ({"status": 0})
+
+        resultado = json.dumps(respuesta)
+        return HttpResponse(resultado, mimetype='application/json')
+    except Foro.DoesNotExist:
+        respuesta = ({"status": 0})
+        resultado = json.dumps(respuesta)
+        return HttpResponse(resultado, mimetype='application/json')
 
 
 @csrf_exempt
@@ -120,3 +173,21 @@ def get_num_votos(request):
 
     resultado = json.dumps(respuesta)
     return HttpResponse(resultado, mimetype='application/json')
+
+
+@csrf_exempt
+def eliminar_foro(request, id):
+    if request.user.is_authenticated():
+        foro_id = id
+        try:
+            foro = Foro.objects.get(id=foro_id, persona_id=request.user.id)
+            foro.estado = False
+            foro.save()
+            messages.error(request, u"Se ha eliminado exitosamente el tema de foro")
+            return HttpResponseRedirect(reverse("foro"))
+        except (Foro.DoesNotExist, IndexError) as e:
+            messages.error(request, u"Error recurso no encontrado")
+            return HttpResponseRedirect(reverse("foro"))
+    else:
+        messages.error(request, u"No tiene permisos para realizar esta operación")
+        return HttpResponseRedirect(reverse("foro"))

@@ -35,9 +35,12 @@ url('^activacion_cuenta/(?P<id>\d+)/(?P<clave>.+)/$', 'activar_cuenta', name="ac
 # Foro
 urlpatterns += patterns('modulo.vistas.foro',
 url('^foro/$', 'foro', name="foro"),
+url('^foro/agregar/$', 'agregar_foro', name="agregar_foro"),
+url('^foro/eliminar/(?P<id>\d+)$', 'eliminar_foro', name="eliminar_foro"),
 url('^foro/comentarios/(?P<id>\d+)$', 'responder_foro', name="responder_foro"),
 url('^foro/comentarios/like/$', 'like_comentario', name="like_comentario"),
 url('^foro/comentarios/numero_votos/$', 'get_num_votos', name="get_num_votos"),
+url('^foro/comentarios/eliminar/$', 'eliminar_comentario_foro', name="eliminar_comentario_foro"),
 )
 
 # Capitulo

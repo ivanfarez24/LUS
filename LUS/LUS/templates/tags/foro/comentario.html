@@ -1,13 +1,25 @@
-<section class="contenido">
+{% load snnipet_generales %}
+<section class="contenido div-comentario">
     <div class="panel panel-info">
-        <div class="panel-heading">Publicado por: {{ obj.persona.first_name }}</div>
+        <div class="panel-heading  row" style="margin-left: 0; margin-right: 0">
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11  ">
+                Publicado por: {{ obj.persona.first_name }}
+            </div>
+            {% if_puede_eliminar_comentario request obj.id %}
+                <h2 class="sub-titulo col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
+                    <a href="#" class="text-right eliminar_comentario" data-id="{{ obj.id }}" style="color: #FFF" title="Eliminar este Comentario">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </h2>
+            {% endif_puede_eliminar_comentario %}
+        </div>
         <div class="panel-body">
             {{ obj.comentario|safe }}
             <div>
-                # Votos: {{ obj.numero_votos }}
+                # Votos: <span class="num_votos">{{ obj.numero_votos }}</span>
             </div>
             <div class="icon-like">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <span class="like-hand glyphicon glyphicon-thumbs-up" data-id="{{ obj.id }}"></span>
             </div>
         </div>
     </div>

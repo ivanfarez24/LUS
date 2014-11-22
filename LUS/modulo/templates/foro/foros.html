@@ -19,11 +19,23 @@
     <div class="row row-leccion margin-0">
         <div class="div-leccion">
         <h1 class="titulo">Foro</h1>
+        {% if request.user.is_authenticated %}
+            <section class="botones-finalizar">
+                <a href="{% url "agregar_foro" %}" class="btn btn-finalizar">Agregar Tema</a>
+            </section>
+        {% endif %}
         {% for obj in foros %}
             <section class="contenido">
                 <div class="panel panel-intro">
-                    <div class="panel-heading">
-                        <h2 class="sub-titulo"><a href="{% url "responder_foro" obj.id%}" class="ir-articulo">{{ obj.tema }}</a></h2>
+                    <div class="panel-heading row" style="margin-right: 0;margin-left: 0;">
+                        <h2 class="sub-titulo col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                            <a href="{% url "responder_foro" obj.id%}" class="ir-articulo">{{ obj.tema }}</a>
+                        </h2>
+                        {% if_puede_eliminar_foro request obj.id %}
+                            <h2 class="sub-titulo col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
+                                <a href="{% url "eliminar_foro" obj.id%}" class="text-right" style="color: #FFF" title="Eliminar este Foro"><i class="fa fa-times"></i></a>
+                            </h2>
+                        {% endif_puede_eliminar_foro %}
                     </div>
                     <div class="panel-body">
                         <div class="row row-item-foro margin-0">

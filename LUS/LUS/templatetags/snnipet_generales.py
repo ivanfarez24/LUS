@@ -32,8 +32,34 @@ register.inclusion_tag('tags/llenar_menu.html')(ordenar_menu)
 @register.tag
 @condition_tag
 def if_puede_dar_like(request, foro_comentario_id):
-    if not PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id,
-                                                persona_id=request.user.id).exists():
-        return True
+    if request.user.is_authenticated():
+        if not PersonaVotoComentario.objects.filter(foro_comentario_id=foro_comentario_id,
+                                                    persona_id=request.user.id).exists():
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+@register.tag
+@condition_tag
+def if_puede_eliminar_foro(request, id):
+    if request.user.is_authenticated():
+        if Foro.objects.filter(id=id, persona_id=request.user.id).exists():
+            return True
+        else:
+            return False
+    else:
+        return False
+
+@register.tag
+@condition_tag
+def if_puede_eliminar_comentario(request, id):
+    if request.user.is_authenticated():
+        if ForoComentarios.objects.filter(id=id, persona_id=request.user.id).exists():
+            return True
+        else:
+            return False
     else:
         return False
