@@ -268,14 +268,14 @@ class Foro(models.Model):
             retorna la lista de todas las respuestas
             del foro que están activas
         """
-        return ForoComentarios.objects.filter(foro=self).order_by("fecha_creacion")
+        return ForoComentarios.objects.filter(foro=self, estado=True).order_by("fecha_creacion")
 
     def get_num_resp(self):
         """
             retorna el número de todas las respuestas
             del foro que están activas
         """
-        return len(ForoComentarios.objects.filter(foro=self))
+        return len(ForoComentarios.objects.filter(foro=self, estado=True))
 
 
 class ForoComentarios(models.Model):
@@ -310,7 +310,7 @@ class ForoComentarios(models.Model):
         foro
         :return:
         """
-        return len(PersonaVotoComentario.objects.filter(foro_comentario=self))
+        return len(PersonaVotoComentario.objects.filter(foro_comentario=self, estado=True))
 
 
 class PersonaVotoComentario(models.Model):

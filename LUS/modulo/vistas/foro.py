@@ -183,7 +183,7 @@ def eliminar_foro(request, id):
             foro = Foro.objects.get(id=foro_id, persona_id=request.user.id)
             foro.estado = False
             foro.save()
-            messages.error(request, u"Se ha eliminado exitosamente el tema de foro")
+            messages.success(request, u"Se ha eliminado exitosamente el tema de foro")
             return HttpResponseRedirect(reverse("foro"))
         except (Foro.DoesNotExist, IndexError) as e:
             messages.error(request, u"Error recurso no encontrado")
