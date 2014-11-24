@@ -138,8 +138,20 @@
                 eliminar_comentario($(this).attr("data-id"), div_comentario);
             });
             $( 'textarea#nuevo_comentario' ).ckeditor();
-            CKEDITOR.config.toolbar = [[ 'Source', '-', 'Bold', 'Italic' ]];
-
+            //CKEDITOR.config.toolbar = [['-', 'Bold', 'Italic', 'Underline']];
+            CKEDITOR.config.toolbar = [
+                [ '-', 'NewPage', 'Preview', '-', 'Templates' ],
+                [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+                ['JustifyLeft', 'JustifyCenter',
+                    'JustifyRight', 'JustifyBlock'],
+                [ 'Bold', 'Italic' ],
+                [ 'Styles','Format','Font','FontSize' ],
+                [ 'TextColor','BGColor' ]
+            ];
+            CKEDITOR.editorConfig = function( config ) {
+                config.language = 'es';
+                config.uiColor = '#AADC6E';
+            };
             var url = "{% url "responder_foro" id %}";
 
             $("#submit-comentario").click(function(e){
