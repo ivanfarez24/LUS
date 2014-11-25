@@ -384,8 +384,21 @@ class SubCapitulos(models.Model):
     fecha_actualizacion = models.DateTimeField(default=datetime.datetime.now().date(), null=True, blank=True)
     usuario_actualizacion = models.CharField(max_length=60, null=True, blank=True)
 
+    def get_next_subcapt(self):
+        try:
+            return SubCapitulos.objects.get(orden=self.orden+1, capitulo=self.capitulo)
+        except:
+            return None
+
+    def get_before_subcapt(self):
+        try:
+            return SubCapitulos.objects.get(orden=self.orden-1, capitulo=self.capitulo)
+        except:
+            return None
+
     class Meta:
         db_table = "subcapitulo"
         verbose_name = "Subcapitulo"
         verbose_name_plural = "Subcapitulos"
+
 

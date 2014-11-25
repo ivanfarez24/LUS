@@ -6,6 +6,22 @@
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}jquery.bxslider/jquery.bxslider.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+    <style>
+        .row-pag {
+            width: 78%;
+            padding-top: 35px;
+        }
+        .paginadores i{
+            font-size: 32px;
+            color: #8DBF41 !important;
+        }
+        .pag-right{
+            text-align: right;
+        }
+        .pag-left{
+            text-align: left;
+        }
+    </style>
 {% endblock %}
 
 {% block scripts %}
@@ -68,6 +84,20 @@
 {% block body-class %}body-capitulo{% endblock %}
 {% block contenido %}
     <div class="container container-capitulo padding-0" id="n_cap" data-next="{{ next }}" data-before="{{ before }}">
+        <div class="row row-pag margin-0">
+            <div class="col-xs-12 col-lg-4 col-md-4 col-sm-4 paginadores pag-left padding-0">
+                {% if sub_cap.get_before_subcapt %}
+                    <a href="{% url "leer_capitulo" sub_cap.get_before_subcapt.id %}" title="{{ sub_cap.get_before_subcapt.titulo }}"><i class="fa fa-chevron-left"></i></a>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="col-xs-12 col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 paginadores  pag-right padding-0">
+                {% if sub_cap.get_next_subcapt %}
+                    <a href="{% url "leer_capitulo" sub_cap.get_next_subcapt.id %}" title="{{ sub_cap.get_next_subcapt.titulo }}"><i class="fa fa-chevron-right"></i></a>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
         <div class="row row-capitulo margin-0">
              <div class="col-xs-12 col-lg-5 col-md-5  col-sm-5 col-intro padding-0">
                  <div class="capitulo-intro" style="height: 604px">
@@ -77,7 +107,6 @@
              </div>
             <div class="list-img col-xs-12 col-lg-7 col-md-7  col-sm-7 col-intro padding-0" style="height: 400px; padding-left: 40px">
                 {{ sub_cap.animacion|safe }}
-
              </div>
         </div>
     </div>

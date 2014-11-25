@@ -500,3 +500,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .alert{
     padding:5px 30px !important;
 }
+
+.nombre_user{
+    font-size: 12px !important;
+}

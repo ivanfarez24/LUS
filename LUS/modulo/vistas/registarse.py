@@ -30,6 +30,12 @@ def generar_clave(longitud=18):
     return p
 
 
+def generar_cont_temp(longitud=8):
+    valores = "0123456789"
+    p = r""
+    p = p.join([choice(valores) for i in range(longitud)])
+    return p
+
 @csrf_exempt
 @transaction.commit_on_success
 def registrarse(request):
@@ -91,6 +97,44 @@ def activar_cuenta(request, id, clave):
         return HttpResponseRedirect(reverse('inicio_view'))
 
 
-def salir(request):
-    logout(request)
-    return HttpResponseRedirect(reverse("login"))
+@csrf_exempt
+@transaction.commit_on_success
+def recuperar_contrasenia(request):
+    form = RecuperarContraseniaForm()
+    if not request.user.is_authenticated():
+        if request.method == "POST":
+            form = RecuperarContraseniaForm(request.POST)
+            if form.is_valid():
+                try:
+                    email = form.get_email()
+                    if Persona.objects.filter(email=email).exists():
+                        persona = Persona.objects.filter(email=email).order_by("id")[0]
+                        contrasenia_temp = generar_cont_temp(8)
+
+                        persona.set_password(contrasenia_temp)
+                        persona.usuario_creacion = 'sistema'
+                        persona.fecha_actualizacion = datetime.datetime.now()
+                        persona.save()
+
+                        # Mailing
+                        mensaje = render_to_string("mailings/recuperar_contrasenia.html",
+                                                   {"persona": persona,
+                                                    "contrasenia_temp": contrasenia_temp},
+                                                   context_instance=RequestContext(request))
+                        subject, \
+                        from_email, \
+                        to = u'Recuperar contraseña', u'LUS'+'<'+'info@lusonline.net'+'>', persona.email
+                        msg = EmailMessage(subject, mensaje, from_email, [to])
+                        msg.content_subtype = "html"  # Main content is now text/html
+                        msg.send()
+                        messages.success(request, u"Se ha enviado un mensaje a su correo electrónico, "
+                                                  u"con su contraseña temporal.")
+
+                except Persona.DoesNotExist:
+                    transaction.rollback()
+                return HttpResponseRedirect(reverse('inicio_view'))
+            else:
+                messages.error(request, u"El correo que ingresó no se encuentra registrado en el sistema")
+
+    return render_to_response("login/recuperar_contrasenia.html", {"form": form},
+                              context_instance=RequestContext(request))

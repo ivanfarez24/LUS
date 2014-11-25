@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load snnipet_generales %}
-{% block title %}LUS | Ingreso al Sistema{% endblock %}
+{% block title %}LUS | Recuperar Contrasenia{% endblock %}
 
 {% block stylesheet %}
 
@@ -20,20 +20,20 @@
                 <div class="formulario-login">
                     <div class="main-logo">
 
-                        <h2>Bienvenidos a LUS</h2>
+                        <h2>Recuperar contraseña</h2>
                     </div>
-                    <form class="formulario"  action="{% url "login" %}" method="POST" autocomplete="off">{% csrf_token %}
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            {{ form.usuario|add_class:"input-text form-control" }}
+                    <form class="formulario"  action="" method="POST" autocomplete="off">{% csrf_token %}
+
+                        <div class="form-group">
+                            <div class="input-group {% if form.email.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                {{ form.email|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.email.errors }}</label>
                         </div>
-                        <div class="input-group mtop-25">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            {{ form.contrasenia|add_class:"input-text form-control" }}
-                        </div>
-                            {{ form.next }}
+
                         <div class="clearfix"></div>
-                        <input type="submit" class="btn btn-ok" value="Login">
+                        <input type="submit" class="btn btn-ok" value="Enviar">
                     </form>
                     <div class="mensajes-login">
                         {% if messages %}
@@ -51,6 +51,7 @@
 
                                                 {% endif %}
                                             {% endif %}
+
                                         </figure>
                                         <div class="media-body">
 
@@ -62,11 +63,8 @@
                         {% endif %}
                     </div>
                     <div class="enalces-cuenta">
-                        <a class="link-cuenta" href="{% url "recuperar_contrasenia" %}">Olvidó su clave de acceso?</a>
-                        <br>
-                        <a class="link-cuenta" href="{% url "registrarse" %}">Crear una cuenta nueva?</a>
+                        <a class="link-cuenta" href="{% url "inicio_view" %}">Regresar al Inicio</a>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -76,5 +74,9 @@
 
 
 {% block bootstrap %}
-
+    <script>
+        jQuery(document).ready(function($) {
+            $('.cmb-select').selectpicker();
+        });
+    </script>
 {% endblock %}

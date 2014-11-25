@@ -43,6 +43,7 @@ def agregar_foro(request):
             foro_obj.pregunta = foro.get_pregunta()
             foro_obj.persona_id = request.user.id
             foro_obj.save()
+            messages.success(request, u"Se ha agregado exitosamente el tema de foro")
             return HttpResponseRedirect(reverse("foro"))
         else:
             messages.error(request, u"Por favor ingrese los campos obligatorios")

@@ -28,6 +28,7 @@ def validate_username(value):
 
 sexo = (('', ''),(1, 'Masculino'), (2, 'Femenino'))
 
+
 class Registroform(forms.Form):
     nombre = forms.CharField(max_length=30, label=u"Primer nombre")
     apellido = forms.CharField(max_length=30, label=u"Primer apellido")
@@ -63,7 +64,7 @@ class Registroform(forms.Form):
                                     u"ya se encuetra registrado"
 
         if contrasenia != r_contrasenia:
-            self._errors["contrasenia"] = u"Datos no concuerdan", "ooo"
+            self._errors["contrasenia"] = u"Datos no concuerdan"
             self._errors["r_contrasenia"] = u"Datos no concuerdan"
 
         if contrasenia != r_contrasenia:
@@ -109,3 +110,28 @@ class Registroform(forms.Form):
         self.fields['sexo'].widget.attrs['class'] = "cmb-select selectpicker show-tick"
         self.fields['sexo'].widget.attrs['title'] = "Seleccione su Sexo"
         self.fields['sexo'].widget.attrs['data-live-search'] = True
+
+
+class RecuperarContraseniaForm(forms.Form):
+    email = forms.EmailField(max_length=200, min_length=5, label=u"Email")
+
+    def clean(self):
+        """
+            Función para vbalidar el formulario
+        """
+        email = self.cleaned_data.get('email', None)
+
+        # validar email
+
+        if not Persona.objects.filter(email=email).exists():
+            self._errors["email"] = u"El email ingresado " \
+                                    u"ya se encuetra registrado"
+
+        return self.cleaned_data
+
+    def get_email(self):
+        return self.cleaned_data["email"]
+
+    def __init__(self, *args, **kwargs):
+        super(RecuperarContraseniaForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['placeholder'] = "Email"
