@@ -231,3 +231,24 @@
 .list-img img{
     cursor: zoom-in;
 }
+.modal-header{
+    color: #fff !important;
+    background-color: #8DBF41 !important;
+}
+.close{
+    color: #fff;
+}
+.btn-primary, .btn-primary:hover{
+    background-color: #8DBF41 !important;
+    border-color: #8DBF41;
+}
+
+.editar-foro, .editar_comentario{
+    padding-right: 10px;
+}
+.publicado{
+    font-weight: bold;
+}
+.foro-comentarios{
+    padding-bottom: 15px;
+}

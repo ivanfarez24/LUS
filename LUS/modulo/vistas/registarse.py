@@ -109,8 +109,7 @@ def recuperar_contrasenia(request):
                     email = form.get_email()
                     if Persona.objects.filter(email=email).exists():
                         persona = Persona.objects.filter(email=email).order_by("id")[0]
-                        contrasenia_temp = generar_cont_temp(8)
-
+                        contrasenia_temp = str(generar_cont_temp(8)).replace(" ", "")
                         persona.set_password(contrasenia_temp)
                         persona.usuario_creacion = 'sistema'
                         persona.fecha_actualizacion = datetime.datetime.now()
@@ -137,4 +136,28 @@ def recuperar_contrasenia(request):
                 messages.error(request, u"El correo que ingresó no se encuentra registrado en el sistema")
 
     return render_to_response("login/recuperar_contrasenia.html", {"form": form},
+                              context_instance=RequestContext(request))
+
+
+@csrf_exempt
+@transaction.commit_on_success
+@login_required()
+def cambiar_contrasenia(request):
+    form = CamnbiarContraseniaForm()
+    if request.method == "POST":
+        form = CamnbiarContraseniaForm(request.POST)
+        if form.is_valid():
+            nueva_cont = form.get_contrasenia_nueva()
+            persona = Persona.objects.get(id=request.user.id)
+            persona.set_password(nueva_cont)
+            persona.usuario_actualizacion = request.user.username
+            persona.fecha_actualizacion = datetime.datetime.now()
+            persona.save()
+            messages.success(request, u"Se ha cambiado con éxito su contraseña")
+
+            return HttpResponseRedirect(reverse('inicio_view'))
+        else:
+            messages.error(request, u"No coinciden las contraseñas")
+
+    return render_to_response("login/cambiar_contrasenia.html", {"form": form},
                               context_instance=RequestContext(request))

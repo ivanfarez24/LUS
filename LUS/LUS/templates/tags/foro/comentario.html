@@ -7,7 +7,7 @@
             </div>
             {% if_puede_eliminar_comentario request obj.id %}
                 <h2 class="sub-titulo col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
-                    <a href="#" class="text-right eliminar_comentario" data-id="{{ obj.id }}" style="color: #FFF" title="Eliminar este Comentario">
+                    <a href="{% url "eliminar_comentario_foro" foro.id obj.id %}" class="text-right eliminar_comentario" data-id="{{ obj.id }}" style="color: #FFF" title="Eliminar este Comentario">
                         <i class="fa fa-times"></i>
                     </a>
                 </h2>

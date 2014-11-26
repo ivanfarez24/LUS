@@ -135,3 +135,37 @@ class RecuperarContraseniaForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(RecuperarContraseniaForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder'] = "Email"
+
+
+class CamnbiarContraseniaForm(forms.Form):
+    nueva_contrasenia = forms.CharField(min_length=5, max_length=100,
+                                        widget=forms.PasswordInput(render_value=False),
+                                        label=u"Nueva Contraseñia")
+    confirmar_contrasenia = forms.CharField(min_length=5, max_length=100,
+                                            widget=forms.PasswordInput(render_value=False),
+                                            label=u"Confirmar Contraseñia")
+
+    def clean(self):
+        """
+            Función para vbalidar el formulario
+        """
+        contrasenia = self.cleaned_data.get('nueva_contrasenia', None)
+        confirmar_contrasenia = self.cleaned_data.get('confirmar_contrasenia', None)
+
+        # validar Contraseñas
+        if contrasenia != confirmar_contrasenia:
+            self._errors["nueva_contrasenia"] = u"Contraseñas no coinciden"
+            self._errors["confirmar_contrasenia"] = u"Contraseñas no coinciden"
+
+        return self.cleaned_data
+
+    def get_contrasenia_nueva(self):
+        return self.cleaned_data["nueva_contrasenia"]
+
+    def get_conf_contrasenia(self):
+        return self.cleaned_data["confirmar_contrasenia"]
+
+    def __init__(self, *args, **kwargs):
+        super(CamnbiarContraseniaForm, self).__init__(*args, **kwargs)
+        self.fields['nueva_contrasenia'].widget.attrs['placeholder'] = u"Nueva Contraseña"
+        self.fields['confirmar_contrasenia'].widget.attrs['placeholder'] = u"Confirmar Contraseña"

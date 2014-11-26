@@ -53,6 +53,36 @@ def agregar_foro(request):
                               context_instance=RequestContext(request))
 
 @csrf_exempt
+@login_required()
+def editar_foro(request, id):
+    """
+    Vista que presenta la lista de foros
+    :param request:
+    :return:
+    """
+    foro = Foro.objects.get(id=id)
+    foro_form = Foroform(initial={"tema": foro.tema, "pregunta": foro.pregunta})
+
+    if request.method == "POST":
+        foro_form = Foroform(request.POST)
+        if foro_form.is_valid():
+            foro.tema = foro_form.get_tema()
+            foro.pregunta = foro_form.get_pregunta()
+            foro.fecha_actualizacion = datetime.datetime.now()
+            foro.usuario_actualizacion = request.user.username
+            foro.save()
+            messages.success(request, u"Se ha editado exitosamente el tema de foro")
+            return HttpResponseRedirect(reverse("foro"))
+        else:
+            messages.error(request, u"Por favor ingrese los campos obligatorios")
+
+    return render_to_response("foro/editar_foro.html",
+                              {"foro": foro_form},
+                              context_instance=RequestContext(request))
+
+
+@csrf_exempt
+@login_required()
 def responder_foro(request, id):
     """
     Vista que presenta el foro y sus respuestas
@@ -62,7 +92,8 @@ def responder_foro(request, id):
     try:
         foro = Foro.objects.get(id=id)
         now = datetime.datetime.now()
-
+        foro.numero_visitas += 1
+        foro.save()
         if request.is_ajax():
             if request.user.is_authenticated():
                 comentario_foro = request.POST.get("respuesta", "")
@@ -77,18 +108,59 @@ def responder_foro(request, id):
                 if comentario_foro != "":
                     comentario.save()
 
-                html = render_to_string('tags/foro/comentario.html', {'obj': comentario, "request": request})
+                html = render_to_string('tags/foro/comentario.html', {'foro': foro, 'obj': comentario, "request": request})
                 return HttpResponse(html)
 
         return render_to_response("foro/resp_foro.html",
                               {"foro": foro, "id": id},
                               context_instance=RequestContext(request))
     except Foro.DoesNotExist:
-        pass
+        return HttpResponseRedirect(reverse("foro"))
 
 
 @csrf_exempt
-def eliminar_comentario_foro(request):
+@login_required()
+def editar_comentario(request):
+    """
+    Vista que presenta el foro y sus respuestas
+    :param request:
+    :return:
+    """
+    try:
+        if request.is_ajax():
+            comentario_foro = request.POST.get("respuesta", "")
+            id_comentario = request.POST.get("id_comentario", "")
+
+            usuario = request.user.username
+            persona = Persona.objects.get(id=request.user.id)
+
+            if ForoComentarios.objects.filter(persona=persona, id=id_comentario).exists():
+                comentario = ForoComentarios.objects.get(id=id_comentario, persona=persona)
+                comentario.comentario = comentario_foro
+                comentario.usuario_actualizacion = usuario
+                comentario.fecha_actualizacion = datetime.datetime.now()
+                if comentario_foro != "":
+                    comentario.save()
+                else:
+                    messages.error(request, "El comentario no se guardó por estar vacio")
+
+                respuesta = ({"status": 1})
+            else:
+                respuesta = ({"status": 0})
+
+        else:
+            respuesta = ({"status": 0})
+
+        resultado = json.dumps(respuesta)
+        return HttpResponse(resultado, mimetype='application/json')
+
+    except Foro.DoesNotExist:
+        return HttpResponseRedirect(reverse("foro"))
+
+
+@csrf_exempt
+@login_required()
+def eliminar_comentario_foro(request, id_foro, id_coment):
     """
     Vista que presenta el foro y sus respuestas
     :param request:
@@ -96,28 +168,20 @@ def eliminar_comentario_foro(request):
     """
     try:
         now = datetime.datetime.now()
-
-        if request.is_ajax():
-            if request.user.is_authenticated():
-                foro_comentario_id = request.POST.get("id", "")
-                usuario = request.user.username
-                comentario = ForoComentarios.objects.get(id=foro_comentario_id, persona_id=request.user.id)
-                comentario.fecha_actualizacion = now
-                comentario.estado = False
-                comentario.usuario_actualizacion = usuario
-                comentario.save()
-                respuesta = ({"status": 1})
-            else:
-                respuesta = ({"status": 0})
+        foro_comentario_id = id_coment
+        usuario = request.user.username
+        if ForoComentarios.objects.filter(id=foro_comentario_id, persona_id=request.user.id).exists():
+            comentario = ForoComentarios.objects.get(id=foro_comentario_id, persona_id=request.user.id)
+            comentario.fecha_actualizacion = now
+            comentario.estado = False
+            comentario.usuario_actualizacion = usuario
+            comentario.save()
+            return HttpResponseRedirect(reverse('responder_foro', args=[id_foro]))
         else:
-            respuesta = ({"status": 0})
-
-        resultado = json.dumps(respuesta)
-        return HttpResponse(resultado, mimetype='application/json')
+            messages.error(request, u"No tiene permisos para realizar esta operación")
+            return HttpResponseRedirect(reverse('responder_foro', args=[id_foro]))
     except Foro.DoesNotExist:
-        respuesta = ({"status": 0})
-        resultado = json.dumps(respuesta)
-        return HttpResponse(resultado, mimetype='application/json')
+        return HttpResponseRedirect(reverse('responder_foro', args=[id_foro]))
 
 
 @csrf_exempt

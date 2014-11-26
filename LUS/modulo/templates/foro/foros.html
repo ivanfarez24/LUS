@@ -5,96 +5,159 @@
 
 {% block stylesheet %}
     <link href="{{ STATIC_URL }}css/capitulo.css" rel="stylesheet">
+    <style>
 
+    </style>
 {% endblock %}
 
 {% block scripts %}
     <script src="{{ STATIC_URL }}js/jquery.nicescroll.min.js"></script>
     <script>
+        $(document).ready(function(){
+            // Editar Foro
+            $(".editar-foro").click(function(e){
+                var url = $(this).attr("href");
+                var modal = $('#modal-editar-foro');
+                e.preventDefault();
+                modal.attr("data-url", url);
+                modal.modal();
+            });
+            $("#aceptar-editar-foro").click(function(){
+                var modal = $('#modal-editar-foro');
+                window.location.href = modal.attr("data-url");
+            });
 
+            // Eliminar Foro
+            $(".eliminar-foro").click(function(e){
+                var url = $(this).attr("href");
+                var modal = $('#modal-eliminar-foro');
+                e.preventDefault();
+                modal.attr("data-url", url);
+                modal.modal();
+            });
+            $("#aceptar-elim-foro").click(function(){
+                var modal = $('#modal-eliminar-foro');
+                window.location.href = modal.attr("data-url");
+            });
+        });
     </script>
 {% endblock %}
 
 {% block contenido %}
-    {% if messages %}
-        {% for message in messages %}
 
-            <div class="alert alert-{% if message.tags %}{% if message.tags == "error" %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}  alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <div class="media">
-                    <figure class="pull-left alert--icon">
-                        {% if message.tags %}
-                            {% if message.tags == "error" %}
-                            <i class="pe-7s-close-circle"></i>
-                            {% else %}
-                            <i class="pe-7s-info"></i>
-                            {% endif %}
-                        {% endif %}
-                    </figure>
-                    <div class="media-body">
-                        <p class="alert--text">{{ message }}.</p>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
     <div class="row row-leccion margin-0">
         <div class="div-leccion">
-        <h1 class="titulo">Foro</h1>
-        {% if request.user.is_authenticated %}
-            <section class="botones-finalizar">
-                <a href="{% url "agregar_foro" %}" class="btn btn-finalizar">Agregar Tema</a>
-            </section>
-        {% endif %}
-        {% for obj in foros %}
-            <section class="contenido">
-                <div class="panel panel-intro">
-                    <div class="panel-heading row" style="margin-right: 0;margin-left: 0;">
-                        <h2 class="sub-titulo col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                            <a href="{% url "responder_foro" obj.id%}" class="ir-articulo">{{ obj.tema }}</a>
-                        </h2>
-                        {% if_puede_eliminar_foro request obj.id %}
-                            <h2 class="sub-titulo col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
-                                <a href="{% url "eliminar_foro" obj.id%}" class="text-right" style="color: #FFF" title="Eliminar este Foro"><i class="fa fa-times"></i></a>
-                            </h2>
-                        {% endif_puede_eliminar_foro %}
-                    </div>
-                    <div class="panel-body">
-                        <div class="row row-item-foro margin-0">
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 padding-0 col-pregunta">
-                                {% if obj.pregunta|length > 50 %}
-                                    <p><strong>{{ obj.pregunta|slice:"0:50" }}</strong>...</p>
-                                    <a href="{% url "responder_foro" obj.id%}" class="leer-mas">Leer más</a>
-                                {% else %}
-                                    <p><strong>{{ obj.pregunta }}</strong></p>
-                                    <a href="{% url "responder_foro" obj.id%}" class="leer-mas">Leer más</a>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags %}{% if message.tags == "error" %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}  alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <div class="media">
+                            <figure class="pull-left alert--icon">
+                                {% if message.tags %}
+                                    {% if message.tags == "error" %}
+                                    <i class="pe-7s-close-circle"></i>
+                                    {% else %}
+                                    <i class="pe-7s-info"></i>
+                                    {% endif %}
                                 {% endif %}
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-pregunta">
-                                <p>
-                                    Publicado por: {{ obj.persona.first_name }}
-                                </p>
-                                <p>
-                                    Nº Visitas: {{ obj.numero_visitas }}
-                                </p>
-
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-pregunta">
-                                <p>
-                                    Creado: {{ obj.fecha_creacion|date:"d/m/Y" }}
-                                </p>
-                                <p>
-                                    Nº Respuestas: {{ obj.get_num_resp }}
-                                </p>
+                            </figure>
+                            <div class="media-body">
+                                <p class="alert--text">{{ message }}.</p>
                             </div>
                         </div>
-
                     </div>
+                {% endfor %}
+            {% endif %}
+            <h1 class="titulo">Foro</h1>
+            {% if request.user.is_authenticated %}
+                <section class="botones-finalizar">
+                    <a href="{% url "agregar_foro" %}" class="btn btn-finalizar">Agregar Tema</a>
+                </section>
+            {% endif %}
+            {% for obj in foros %}
+                <section class="contenido">
+                    <div class="panel panel-intro">
+                        <div class="panel-heading row" style="margin-right: 0;margin-left: 0;">
+                            <h2 class="sub-titulo col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                                <a href="{% url "responder_foro" obj.id%}" class="ir-articulo">{{ obj.tema }}</a>
+                            </h2>
+                            {% if_puede_eliminar_foro request obj.id %}
+                                <h2 class="sub-titulo col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
+                                    <a href="{% url "editar_foro" obj.id%}" class="text-right editar-foro" style="color: #FFF" title="Editar este Foro"><i class="fa fa-pencil"></i></a>
+                                    <a href="{% url "eliminar_foro" obj.id%}" class="text-right eliminar-foro" style="color: #FFF" title="Eliminar este Foro"><i class="fa fa-times"></i></a>
+                                </h2>
+                            {% endif_puede_eliminar_foro %}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row row-item-foro margin-0">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 padding-0 col-pregunta">
+                                    {% if obj.pregunta|length > 50 %}
+                                        <p><strong>{{ obj.pregunta|slice:"0:50" }}</strong>...</p>
+                                        <a href="{% url "responder_foro" obj.id%}" class="leer-mas">Leer más</a>
+                                    {% else %}
+                                        <p><strong>{{ obj.pregunta }}</strong></p>
+                                        <a href="{% url "responder_foro" obj.id%}" class="leer-mas">Leer más</a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-pregunta">
+                                    <p>
+                                        Publicado por: {{ obj.persona.first_name }}
+                                    </p>
+                                    <p>
+                                        Nº Visitas: {{ obj.numero_visitas }}
+                                    </p>
+
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-pregunta">
+                                    <p>
+                                        Creado: {{ obj.fecha_creacion|date:"d/m/Y" }}
+                                    </p>
+                                    <p>
+                                        Nº Respuestas: {{ obj.get_num_resp }}
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="modal fade" id="modal-eliminar-foro">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Alerta</h4>
                 </div>
-            </section>
-        {% endfor %}
-    </div>
-    </div>
+                <div class="modal-body">
+                    <p>¿Desea eliminar este tema del foro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="aceptar-elim-foro" type="button" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="modal-editar-foro">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Alerta</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea editar este tema del foro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="aceptar-editar-foro" type="button" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}
 
 

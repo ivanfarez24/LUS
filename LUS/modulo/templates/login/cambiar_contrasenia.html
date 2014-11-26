@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load snnipet_generales %}
+{% block title %}LUS | Cambiar Contrasenia{% endblock %}
+
+{% block stylesheet %}
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+{% block body-class %}body-login{% endblock %}
+ {% block contenido %}
+     <div class="container container-login padding-0">
+        <div class="row row-login margin-0">
+            <!--
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3"></div>
+            -->
+            <div class="col-md-6 col-md-offset-3">
+                <div class="formulario-login">
+                    <div class="main-logo">
+
+                        <h2>Recuperar contraseña</h2>
+                    </div>
+                    <form class="formulario"  action="" method="POST" autocomplete="off">{% csrf_token %}
+
+                        <div class="form-group">
+                            <div class="input-group {% if form.nueva_contrasenia.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                {{ form.nueva_contrasenia|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.nueva_contrasenia.errors }}</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group {% if form.confirmar_contrasenia.errors %}has-error{% endif %}">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                {{ form.confirmar_contrasenia|add_class:"input-text form-control" }}
+                            </div>
+                            <label class="help-block text-danger" for="">{{ form.confirmar_contrasenia.errors }}</label>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <input type="submit" class="btn btn-ok" value="Enviar">
+                    </form>
+                    <div class="mensajes-login">
+                        {% if messages %}
+                             {% for message in messages %}
+
+                                <div class="alert alert-{% if message.tags %}{% if message.tags == "error" %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}  alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <div class="media">
+                                        <figure class="pull-left alert--icon">
+                                            {% if message.tags %}
+                                                {% if message.tags == "error" %}
+                                                <i class="pe-7s-close-circle"></i>
+                                                {% else %}
+                                                <i class="pe-7s-info"></i>
+
+                                                {% endif %}
+                                            {% endif %}
+
+                                        </figure>
+                                        <div class="media-body">
+
+                                            <p class="alert--text">{{ message }}.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                             {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="enalces-cuenta">
+                        <a class="link-cuenta" href="{% url "inicio_view" %}">Regresar al Inicio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+ {% endblock %}
+
+
+{% block bootstrap %}
+    <script>
+        jQuery(document).ready(function($) {
+            $('.cmb-select').selectpicker();
+        });
+    </script>
+{% endblock %}
