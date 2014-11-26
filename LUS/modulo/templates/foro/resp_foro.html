@@ -282,11 +282,11 @@
                         <section class="contenido div-comentario" data-id="{{ obj.id }}">
                             <div class="panel panel-info">
                                 <div class="panel-heading  row" style="margin-left: 0; margin-right: 0">
-                                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 publicado">
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 publicado">
                                         Publicado por: {{ obj.persona.first_name }}
                                     </div>
                                     {% if_puede_eliminar_comentario request obj.id %}
-                                        <h2 class="sub-titulo col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
+                                        <h2 class="sub-titulo col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
                                             <a href="#" class="text-right editar_comentario" data-id="{{ obj.id }}" style="color: #FFF" title="Editar este Comentario">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
