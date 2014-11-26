@@ -166,10 +166,15 @@
 
             // Editar Comentario
              $(".editar_comentario").click(function(e){
-                e.preventDefault();
-                var modal = $("#modal-editar-comentario");
-                modal.attr("data-id", $(this).attr("data-id"));
-                modal.modal();
+                 e.preventDefault();
+                 var div_coment = $(this).closest(".div-comentario");
+                 var texto = div_coment.find(".div-texto").html();
+                 var modal = $("#modal-editar-comentario");
+                 var textarea = $( 'textarea#id_comentario');
+                 textarea.val(texto);
+                 textarea.val(CKEDITOR.instances[textarea.attr('name')].getData());
+                 modal.attr("data-id", $(this).attr("data-id"));
+                 modal.modal();
             });
             $("#aceptar-editar-comentario").click(function(){
                 var modal = $("#modal-editar-comentario");
@@ -293,7 +298,10 @@
                                 </div>
 
                                 <div class="panel-body">
-                                    {{ obj.comentario|safe }}
+                                    <div class="div-texto">
+                                        {{ obj.comentario|safe }}
+                                    </div>
+
                                     <div>
                                         # Votos: <span class="num_votos">{{ obj.get_numero_votos }}</span>
                                     </div>
