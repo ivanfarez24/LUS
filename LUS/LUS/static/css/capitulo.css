@@ -252,3 +252,8 @@
 .foro-comentarios{
     padding-bottom: 15px;
 }
+
+.bx-wrapper{
+    width: 800px !important;
+    float: right !important;
+}

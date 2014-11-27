@@ -108,7 +108,7 @@ def recuperar_contrasenia(request):
                 try:
                     email = form.get_email()
                     if Persona.objects.filter(email=email).exists():
-                        persona = Persona.objects.filter(email=email).order_by("id")[0]
+                        persona = Persona.objects.get(email=email)
                         contrasenia_temp = str(generar_cont_temp(8)).replace(" ", "")
                         persona.set_password(contrasenia_temp)
                         persona.usuario_creacion = 'sistema'

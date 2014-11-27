@@ -82,7 +82,6 @@ def editar_foro(request, id):
 
 
 @csrf_exempt
-@login_required()
 def responder_foro(request, id):
     """
     Vista que presenta el foro y sus respuestas

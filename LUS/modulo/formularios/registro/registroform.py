@@ -52,6 +52,7 @@ class Registroform(forms.Form):
         usuario = self.cleaned_data.get('usuario', None)
         contrasenia = self.cleaned_data.get('contrasenia', None)
         r_contrasenia = self.cleaned_data.get('r_contrasenia', None)
+        email = self.cleaned_data.get('email', None)
 
         # validar usuername
         if User.objects.filter(username=usuario).exists():
@@ -59,7 +60,7 @@ class Registroform(forms.Form):
                                     u"ya se encuetra registrado"
 
         # validar email
-        if Persona.objects.filter(username=usuario).exists():
+        if User.objects.filter(email=email).exists():
             self._errors["email"] = u"El email ingresado " \
                                     u"ya se encuetra registrado"
 

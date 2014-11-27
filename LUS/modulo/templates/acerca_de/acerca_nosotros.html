@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load snnipet_generales %}
+{% block title %}LUS | Nosotros{% endblock %}
+
+{% block stylesheet %}
+    <link href="{{ STATIC_URL }}css/acerca.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+{% block body-class %}body-login{% endblock %}
+ {% block contenido %}
+     <div class="container container-perfil padding-0">
+        <div class="row margin-0">
+            <div class="row margin-0">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 perfil-titulo">
+                    <h2>Perfiles</h2>
+                </div>
+            </div>
+            <div class="row margin-0 datos-personales perfil-div" style="padding-top: 30px;">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <figure class="pre-img-perfil" >
+                        <img class="img-perfil" src="{{ STATIC_URL }}img/fotos/ivan.png">
+                    </figure>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 datos-basicos">
+                    <h1>Iván Farez Tapia</h1>
+                    <p class="slogan">Ingeniería en Telemática</p>
+                    <section class="row margin-0">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 padding-0">
+                            <span class="perfil-label">Fecha de Nacimiento:</span><i class="fa fa-birthday-cake icono-right"></i>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8  padding-0">
+                            <span class="text-center">11 Septiembre, 1988</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  padding-0">
+                            <span class="perfil-label">Teléfono:</span><i class="fa fa-phone icono-right"></i>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8  padding-0">
+                            <span class="text-center">0993743224</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  padding-0">
+                            <span class="perfil-label">Email:</span><i class="glyphicon glyphicon-envelope icono-right"></i>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8  padding-0">
+                            <span class="text-center">ifarez@espol.edu.ec</span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row margin-0 perfil-description">
+                <p>
+                    Estudiante de la Escuela Superior Politécnica del Litoral (ESPOL) de la Facultad de Ingeniería Eléctrica y Computación (FIEC).
+                    Nacido en Guayaquil. Realizó sus estudios secundarios en la Unidad Educativa José Joaquín de Olmedo en el año 2008 y culminó sus estudios universitarios en el mes de septiembre del año 2013.
+                    Sustentó su Tesina de Graduación en el mes de Noviembre bajo la tutela del Magíster Washington Medina.
+                </p>
+
+            </div>
+        </div>
+     </div>
+          <div class="container container-perfil padding-0">
+        <div class="row margin-0">
+
+            <div class="row margin-0 datos-personales perfil-div">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <figure class="pre-img-perfil" >
+                        <img class="img-perfil" src="{{ STATIC_URL }}img/fotos/nicole.png">
+                    </figure>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 datos-basicos">
+                    <h1>Nicole Valverde Palma</h1>
+                    <p class="slogan">Ingeniería en Electrónica y Telecomunicaciones</p>
+                    <section class="row margin-0">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 padding-0">
+                            <span class="perfil-label">Fecha de Nacimiento:</span><i class="fa fa-birthday-cake icono-right"></i>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8  padding-0">
+                            <span class="text-center">11 Septiembre, 1988</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  padding-0">
+                            <span class="perfil-label">Teléfono:</span><i class="fa fa-phone icono-right"></i>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8  padding-0">
+                            <span class="text-center">0993743224</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  padding-0">
+                            <span class="perfil-label">Email:</span><i class="glyphicon glyphicon-envelope icono-right"></i>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8  padding-0">
+                            <span class="text-center">ifarez@espol.edu.ec</span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row margin-0 perfil-description" style="padding-bottom: 200px;">
+                <p>
+                    Estudiante de la Escuela Superior Politécnica del Litoral (ESPOL) de la Facultad de Ingeniería Eléctrica y Computación (FIEC).
+                    Nacida en Guayaquil. Realizó sus estudios secundarios en la Unidad Educativa Sagrados Corazones (SSCC) en el año 2008 y culminó sus estudios universitarios en el mes de febrero del año 2014.
+                    Sustentó su Tesina de Graduación en el mes de Noviembre bajo la tutela del Magíster Washington Medina.
+                </p>
+
+            </div>
+        </div>
+     </div>
+
+
+ {% endblock %}
+
+
+{% block bootstrap %}
+
+{% endblock %}

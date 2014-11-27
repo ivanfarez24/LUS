@@ -37,7 +37,6 @@ class Menu(models.Model):
     orden = models.IntegerField(default=0)
     grupo_menu = models.ForeignKey('self', blank=True, null=True, db_column="grupo_menu_id")  # Relación a si misma
 
-
     estado = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(default=datetime.datetime.now().date())
     usuario_creacion = models.CharField(max_length=60)

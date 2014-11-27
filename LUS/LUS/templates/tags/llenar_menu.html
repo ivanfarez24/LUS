@@ -25,8 +25,8 @@
                             {% if obj.get_submenus %}
                                 <ul class="dropdown-menu" role="menu">
                                     {% for obj_smenu in obj.get_submenus %}
-                                        <li><a href="{% if obj_smenu.name_url %}
-                                                     {% url obj_smenu.name_url %}
+                                        <li><a href="{% if obj_smenu.url %}
+                                                     {% url obj_smenu.url %}
                                                      {% else %}
                                                         #
                                                      {% endif %}

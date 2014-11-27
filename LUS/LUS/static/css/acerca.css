@@ -1,0 +1,84 @@
+.perfil-titulo{
+    height: 150px;
+}
+.icono-right{
+    float: right;
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+.pre-img-perfil{
+    text-align: center;
+}
+
+.img-perfil{
+    margin: auto;
+    width: auto;
+    height: 200px;
+}
+
+.datos-personales{
+    padding: 50px 0px;
+}
+.datos-basicos{
+    border-left: 1px solid #008080;
+}
+
+.perfil-label{
+    font-weight: bold;
+    color: #808080;
+}
+
+.perfil-div .fa, .perfil-div .glyphicon {
+    color: #8DBF41;
+}
+
+.perfil-description{
+    padding: 0px;
+    width: 62%;
+    float: right;
+    margin-right: 40px !important;
+    padding-left: 30px;
+}
+
+.perfil-div .datos-basicos{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+}
+
+.perfil-div h1{
+    font-size: 40px;
+}
+.slogan{
+    font-size: 20px;
+    color: #8DBF41;
+    font-weight: 500;
+    padding: 5px 0 10px 0px;
+}
+
+
+html,body{
+    background: #31353D;
+    height: 100%;
+    width: 100%;
+}
+.container-perfil{
+    background: #FFF;
+    height: 100%;
+}
+
+.perfil-titulo{
+    text-align: center;
+}
+
+.perfil-titulo h2{
+    color: #8DBF41;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 60px;
+    border-bottom: 1px solid #808080;
+    display: inline-block;
+    padding-left: 30px;
+    padding-right: 30px;
+}

@@ -52,3 +52,8 @@ url('^capitulos/$', 'capitulos', name="capitulos"),
 url('^capitulos/(?P<id>\d+)$', 'leer_capitulo', name="leer_capitulo"),
 url('^capitulos/prueba/$', 'capitulos_prueba', name="capitulos_prueba"),
 )
+
+#Acerca de
+urlpatterns += patterns('modulo.vistas.informacion',
+url('^nosotros/$', 'nosotros', name="nosotros"),
+)
