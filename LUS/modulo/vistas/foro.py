@@ -21,7 +21,7 @@ def foro(request):
     :param request:
     :return:
     """
-    foros = Foro.objects.filter(estado=True)
+    foros = Foro.objects.filter(estado=True).order_by("-fecha_creacion")
     return render_to_response("foro/foros.html",
                               {"foros": foros},
                               context_instance=RequestContext(request))
@@ -42,6 +42,8 @@ def agregar_foro(request):
             foro_obj.tema = foro.get_tema()
             foro_obj.pregunta = foro.get_pregunta()
             foro_obj.persona_id = request.user.id
+            foro_obj.fecha_creacion = datetime.datetime.now()
+            foro_obj.usuario_creacion = request.user.username
             foro_obj.save()
             messages.success(request, u"Se ha agregado exitosamente el tema de foro")
             return HttpResponseRedirect(reverse("foro"))
