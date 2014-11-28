@@ -120,14 +120,6 @@ class RecuperarContraseniaForm(forms.Form):
         """
             Función para vbalidar el formulario
         """
-        email = self.cleaned_data.get('email', None)
-
-        # validar email
-
-        if not Persona.objects.filter(email=email).exists():
-            self._errors["email"] = u"El email ingresado " \
-                                    u"ya se encuetra registrado"
-
         return self.cleaned_data
 
     def get_email(self):
