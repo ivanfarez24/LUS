@@ -25,7 +25,7 @@ def capitulos(request):
     :param request:
     :return:
     """
-    capitulos = Capitulos.objects.filter(estado=True)
+    capitulos = Capitulos.objects.filter(estado=True).order_by("-orden")
     return render_to_response("capitulos/lista_capitulos.html",
                               {"capitulos": capitulos},
                               context_instance=RequestContext(request))
